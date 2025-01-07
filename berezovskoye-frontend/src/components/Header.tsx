@@ -8,12 +8,15 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 flex h-[70px] items-center justify-between border-b bg-back-bars px-8">
-            <Image
-                alt={"logo"}
-                src={"/logo.svg"}
-                width={200}
-                height={55}
-            />
+            <Link href="/">
+                <Image
+                    alt={"logo"}
+                    src={"/logo.svg"}
+                    width={200}
+                    height={55}
+                />
+            </Link>
+
 
             <div className="flex items-center gap-4">
                 {
