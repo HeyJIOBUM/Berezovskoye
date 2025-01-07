@@ -1,6 +1,6 @@
 export default function Home() {
     return (
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-4">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus iaculis id arcu a luctus. Mauris
                 hendrerit vel ex eget imperdiet. Donec luctus condimentum pellentesque. Aliquam erat volutpat. Curabitur
