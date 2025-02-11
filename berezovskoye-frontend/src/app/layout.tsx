@@ -2,6 +2,7 @@ import {Montserrat} from "next/font/google";
 import "./globals.css";
 import React from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({
     subsets: ["latin"],
@@ -17,9 +18,12 @@ export default function RootLayout({
         <html lang="en">
         <body className={`${montserrat.className}`}>
         <Header/>
-        <div className={"p-4"}>
-            {children}
+        <div className={"flex w-full items-center justify-center"}>
+            <div className="max-w-screen-lg">
+                {children}
+            </div>
         </div>
+        <Footer/>
         </body>
         </html>
     );
