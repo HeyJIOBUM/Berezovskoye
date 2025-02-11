@@ -14,3 +14,9 @@ services:
     #ports:
     #  - 3000:3000
  
+  nginx-reverse-proxy:
+    build:
+      context: ./nginx-reverse-proxy/
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
