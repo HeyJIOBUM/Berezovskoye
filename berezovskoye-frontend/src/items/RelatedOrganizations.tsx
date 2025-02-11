@@ -3,20 +3,20 @@ export const RelatedOrganizations = () => {
         {
             alt: 'БрГТУ',
             imageSrc: '/brstu.svg',
-            width: 52.72,
-            height: 67.2,
+            width: 45,
+            height: 45,
         },
         {
             alt: 'Брестоблгаз',
             imageSrc: '/oblgaz.svg',
-            width: 67,
-            height: 67,
+            width: 50,
+            height: 45,
         },
         {
             alt: 'Министерство энергетики Республики Беларусь',
             imageSrc: '/energy_ministry.svg',
-            width: 60.31,
-            height: 67.29,
+            width: 58,
+            height: 45,
         },
     ];
 };
