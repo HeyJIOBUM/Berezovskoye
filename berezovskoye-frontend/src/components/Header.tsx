@@ -1,14 +1,14 @@
-import Image from 'next/image'
-import {HeaderItems} from "@/items/HeaderItems";
-import Link from "next/link";
-import React from "react";
+import Image from 'next/image';
+import { HeaderItems } from '@/items/HeaderItems';
+import Link from 'next/link';
+import React from 'react';
 
 export default function Header() {
     const headerItems = HeaderItems();
 
     return (
-        <header className="sticky top-0 flex h-[70px] items-center justify-between bg-back-bars px-8">
-            <Link href="/">
+        <header className="sticky top-0 flex h-[70px] items-center justify-between bg-back-bars px-4 sm:px-8">
+            <Link href="/" className="min-w-[150px] sm:min-w-[200px]">
                 <Image
                     alt={"logo"}
                     src={"/logo.svg"}
@@ -17,18 +17,15 @@ export default function Header() {
                 />
             </Link>
 
-
-            <div className="flex items-center gap-4">
-                {
-                    headerItems.map((item, index) => (
-                        <HeaderNavItem
-                            key={index}
-                            label={item.name}
-                            iconPath={item.imageSrc}
-                            href={item.href}
-                        />
-                    ))
-                }
+            <div className="flex items-center gap-2 sm:gap-4">
+                {headerItems.map((item, index) => (
+                    <HeaderNavItem
+                        key={index}
+                        label={item.name}
+                        iconPath={item.imageSrc}
+                        href={item.href}
+                    />
+                ))}
             </div>
 
             <HeaderNavItem
@@ -59,7 +56,7 @@ export const HeaderNavItem: React.FC<HeaderNavItemProps> = ({label, iconPath, hr
                     height={30}
                     alt=""
                 />
-                <span>{label}</span>
+                <span className="hidden md:inline">{label}</span>
             </Link>
         </div>
     );
