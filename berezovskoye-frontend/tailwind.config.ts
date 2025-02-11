@@ -12,6 +12,7 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         "back-bars": "var(--back-bars)",
+        "logo-color": "var(--logo-color)",
       },
     },
   },
