@@ -7,7 +7,7 @@ export default function Header() {
     const headerItems = HeaderItems();
 
     return (
-        <header className="sticky top-0 flex h-[70px] items-center justify-between border-b bg-back-bars px-8">
+        <header className="sticky top-0 flex h-[70px] items-center justify-between bg-back-bars px-8">
             <Link href="/">
                 <Image
                     alt={"logo"}
