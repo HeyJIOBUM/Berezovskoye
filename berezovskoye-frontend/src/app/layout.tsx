@@ -16,9 +16,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        <body className={`${montserrat.className}`}>
+        <body className={`${montserrat.className} flex min-h-screen flex-col`}>
         <Header/>
-        <div className={"flex w-full items-center justify-center"}>
+        <div className="flex w-full grow justify-center">
             <div className="max-w-screen-lg p-4">
                 {children}
             </div>
