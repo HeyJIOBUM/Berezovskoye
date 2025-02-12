@@ -1,14 +1,23 @@
+"use client"
+
 import React from 'react';
 import {Product} from "@/items/TestProducts";
 import Image from "next/image";
+import {redirect} from "next/navigation";
 
 interface ProductCardProps {
     product: Product;
-    onDetailsOpen: () => void;
-    onBuy: () => void;
 }
 
-export default function ProductCard({ product, onDetailsOpen, onBuy }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
+    const onDetailsOpen = () => {
+        redirect(`/products/${product.id}`);
+    }
+
+    const onBuy = () => {
+        console.log("покупаем");
+    }
+
     return (
         <div className="flex flex-col items-start justify-between gap-4 bg-white p-4">
             <div className="relative aspect-[1] w-full select-none">
