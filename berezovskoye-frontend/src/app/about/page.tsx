@@ -6,14 +6,14 @@ import React from "react";
 
 export default function About() {
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-4 py-4">
-            <TextWithLines text={"О нас"}/>
-            <div className="flex flex-col gap-4 bg-white p-4">
+        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+            <TextWithLines text={"О нас"} />
+            <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5">
                 <Image
                     src="/about-1.jpg"
                     width={1240}
                     height={190}
-                    style={{objectFit: "contain"}}
+                    style={{ objectFit: "contain" }}
                     alt="Торфопредприятие"
                 />
                 <p>
@@ -29,22 +29,16 @@ export default function About() {
                     оказало влияние письмо Брестского
                     облисполкома от 21.04.78г. №140-7/24 о том, что действующий завод удовлетворял потребности области в
                     бытовом топливе лишь на 62,7%.<br></br>
-                    Место строительства завода было выбрано в <strong>районе д.Нехачево и ж.д.станции
-                    Коссово-Полесская</strong>. Завод расположили в 1,5 км от пос. Зелёный Бор и
+                    Место строительства завода было выбрано в <strong>районе д.Нехачево и ж.д.станции Коссово-Полесская</strong>.
+                    Завод расположили в 1,5 км от пос. Зелёный Бор и
                     промзоны действующего на то время предприятия «Березовское», что позволило использовать его
                     ремонтное и складское хозяйство, а <strong>с 1986 года</strong>,
                     в связи с выбытием мощностей по торфу, и жилой посёлок с его персоналом, жилым фондом,
                     административно-хозяйственными и культурно-бытовыми помещениями.
                 </p>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-4 bg-white p-4 md:flex-nowrap">
-                <Image
-                    src="/about-2.jpg"
-                    width={394}
-                    height={331}
-                    style={{objectFit: "contain"}}
-                    alt="Торф в упаковке"
-                />
+            <div className="flex items-center justify-center gap-1 bg-white p-1 flex-col md:flex-row sm:gap-2.5 sm:p-2.5">
+                <div className="bg-[url(/about-2.jpg)] bg-cover min-h-[200px] h-full w-full bg-center md:min-h-0 md:min-w-[40%]"></div>
                 <p>
                     В <strong>1987 году</strong> был введен в действие новый брикетный завод.
                     Сырьевой базой завода стало торфяное месторождение «Стубла». Запас торфяной залежи предусматривал
@@ -60,18 +54,11 @@ export default function About() {
                     республиканское унитарное торфопредприятие «Березовское» (ПРУТП «Березовское»).
                 </p>
             </div>
-            <div className="flex flex-row-reverse flex-wrap items-center justify-center gap-4 bg-white p-4 md:flex-nowrap">
-                <div className="relative aspect-[1] w-full select-none">
-                    <Image
-                        src="/about-3.jpg"
-                        fill={true}
-                        style={{objectFit: "contain"}}
-                        alt="Торфопредприятие"
-                    />
-                </div>
+            <div className="flex items-center justify-center gap-1 bg-white p-1 flex-col md:flex-row-reverse sm:gap-2.5 sm:p-2.5">
+                <div className="bg-[url(/about-3.jpg)] bg-cover min-h-[200px] h-full w-full bg-center min-w-[40%]"></div>
                 <p>
-                    В 2007 году на основании приказа Министерства энергетики РБ №199 от 29 июня 2007 года, приказа ПРУП
-                    «Брестоблгаз» №571 от 24.07.2007 г.
+                    В <strong>2007 году</strong> на основании приказа Министерства энергетики РБ №199 от 29 июня 2007 года, приказа ПРУП
+                    «Брестоблгаз» №571 от <strong>24.07.2007 г.</strong>
                     создано торфобрикетное производственное управление «Березовское» (ТПУ «Березовское») в результате
                     реорганизации ПРУТП «Березовское» в форме
                     присоединения к производственному республиканскому унитарному предприятию «Брестоблгаз»(УП
@@ -79,8 +66,8 @@ export default function About() {
                     в целях повышения эффективности производства путём совершенствования организационной структуры
                     Государственного производственного объединения
                     по топливу и газификации «Белтопгаз» (ГПО «Белтопгаз»).<br></br>
-                    Учредителем и республиканским органом государственного управления УП «Брестоблгаз» является
-                    Министерство энергетики РБ. УП «Брестоблгаз» входит
+                    Учредителем и республиканским органом государственного управления УП «Брестоблгаз» является <strong>Министерство 
+                    энергетики РБ.</strong> УП «Брестоблгаз» входит
                     в состав ГПО «Белтопгаз».<br></br>
                     В настоящее время ТПУ «Березовское» является обособленным структурным подразделением (филиалом) УП
                     «Брестоблгаз».
