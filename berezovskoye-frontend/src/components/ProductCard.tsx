@@ -11,9 +11,9 @@ interface ProductCardProps {
 export default function ProductCard({ product, onDelete, onAddToCart }: ProductCardProps) {
     return (
         <div className="flex flex-col items-start justify-between gap-4 bg-white p-4">
-            <div className="relative aspect-[1] w-full">
+            <div className="relative aspect-[1] w-full select-none">
                 <Image
-                    src="/product.png"
+                    src={product.imgUrl}
                     fill={true}
                     style={{objectFit: "contain"}}
                     alt="Product Image"
