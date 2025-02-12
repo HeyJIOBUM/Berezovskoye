@@ -19,9 +19,7 @@ export default function RootLayout({
         <body className={`${montserrat.className} flex min-h-screen flex-col`}>
         <Header/>
         <div className="flex w-full grow justify-center">
-            <div className="w-full max-w-screen-lg p-4">
-                {children}
-            </div>
+            {children}
         </div>
         <Footer/>
         </body>
