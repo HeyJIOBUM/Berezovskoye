@@ -9,8 +9,8 @@ export default function Footer() {
     const relatedOrganizations = RelatedOrganizations();
 
     return (
-        <footer className="flex w-full items-center justify-center bg-back-bars p-4">
-            <div className="flex w-full max-w-screen-lg flex-col justify-between gap-6 text-white sm:flex-row">
+        <footer className="flex w-full items-center justify-center bg-back-bars">
+            <div className="flex w-full max-w-screen-lg flex-col justify-between gap-6 p-4 text-white sm:flex-row">
                 <div className="flex flex-col items-center text-xs sm:items-start">
                     <div>Номер телефона:</div>
                     <div className="ml-0 lg:ml-5">
