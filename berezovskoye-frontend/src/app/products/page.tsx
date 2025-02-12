@@ -26,10 +26,6 @@ export default function Page() {
                             <ProductCard
                                 key={product.id}
                                 product={product}
-                                onAddToCart={() => {
-                                }}
-                                onDelete={() => {
-                                }}
                             />
                         ))}
                     </div>
