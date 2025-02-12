@@ -9,7 +9,7 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-50 flex h-[50px] items-center justify-between bg-back-bars px-4 sm:px-8">
-            <Link href="/">
+            <Link href="/products">
                 <Image
                     alt={"logo"}
                     src={"/logo.svg"}
