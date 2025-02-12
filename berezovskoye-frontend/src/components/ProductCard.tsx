@@ -4,11 +4,11 @@ import Image from "next/image";
 
 interface ProductCardProps {
     product: Product;
-    onDelete: () => void;
-    onAddToCart: () => void;
+    onDetailsOpen: () => void;
+    onBuy: () => void;
 }
 
-export default function ProductCard({ product, onDelete, onAddToCart }: ProductCardProps) {
+export default function ProductCard({ product, onDetailsOpen, onBuy }: ProductCardProps) {
     return (
         <div className="flex flex-col items-start justify-between gap-4 bg-white p-4">
             <div className="relative aspect-[1] w-full select-none">
@@ -28,13 +28,13 @@ export default function ProductCard({ product, onDelete, onAddToCart }: ProductC
             <div className="flex w-full justify-between gap-2 text-sm">
                 <button
                     className="flex-1 bg-detail p-2 font-bold text-white"
-                    onClick={onDelete}
+                    onClick={onDetailsOpen}
                 >
                     Подробнее
                 </button>
                 <button
                     className="flex-1 bg-buy p-2 font-bold text-white"
-                    onClick={onAddToCart}
+                    onClick={onBuy}
                 >
                     Купить
                 </button>
