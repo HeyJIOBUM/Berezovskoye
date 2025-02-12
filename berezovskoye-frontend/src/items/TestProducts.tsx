@@ -10,7 +10,7 @@ export interface Product {
 
 export interface ProductDetailsTable {
     header: string[];
-    productDetailsCategories: ProductDetailsCategory[];
+    categories: ProductDetailsCategory[];
 }
 
 export interface ProductDetailsCategory {
@@ -34,7 +34,7 @@ export const TestProducts = (): Product[] => {
             ],
             productDetailsTable: {
                 header: ["Показатели качества", "Ед.изм", "Отпускная цена без НДС", "НДС 20%", "Отпускная цена с НДС"],
-                productDetailsCategories: [
+                categories: [
                     {
                         categoryName: "Дрова (береза, ольха, сосна, ель, дуб), длиной до 4-х метров, " +
                             "реализуемые на условиях поставки франко-верхний лесопромышленный склад",
@@ -92,7 +92,7 @@ export const TestProducts = (): Product[] => {
             ],
             productDetailsTable: {
                 header: ["Показатели качества", "Ед.изм", "Отпускная цена без НДС", "НДС 20%", "Отпускная цена с НДС"],
-                productDetailsCategories: [
+                categories: [
                     {
                         categoryName: "Дрова (береза, ольха, сосна, ель, дуб), длиной до 4-х метров, " +
                             "реализуемые на условиях поставки франко-верхний лесопромышленный склад",
@@ -150,7 +150,7 @@ export const TestProducts = (): Product[] => {
             ],
             productDetailsTable: {
                 header: ["Показатели качества", "Ед.изм", "Отпускная цена без НДС", "НДС 20%", "Отпускная цена с НДС"],
-                productDetailsCategories: [
+                categories: [
                     {
                         categoryName: "Дрова (береза, ольха, сосна, ель, дуб), длиной до 4-х метров, " +
                             "реализуемые на условиях поставки франко-верхний лесопромышленный склад",
@@ -208,7 +208,7 @@ export const TestProducts = (): Product[] => {
             ],
             productDetailsTable: {
                 header: ["Показатели качества", "Ед.изм", "Отпускная цена без НДС", "НДС 20%", "Отпускная цена с НДС"],
-                productDetailsCategories: [
+                categories: [
                     {
                         categoryName: "Дрова (береза, ольха, сосна, ель, дуб), длиной до 4-х метров, " +
                             "реализуемые на условиях поставки франко-верхний лесопромышленный склад",
@@ -266,7 +266,7 @@ export const TestProducts = (): Product[] => {
             ],
             productDetailsTable: {
                 header: ["Показатели качества", "Ед.изм", "Отпускная цена без НДС", "НДС 20%", "Отпускная цена с НДС"],
-                productDetailsCategories: [
+                categories: [
                     {
                         categoryName: "Дрова (береза, ольха, сосна, ель, дуб), длиной до 4-х метров, " +
                             "реализуемые на условиях поставки франко-верхний лесопромышленный склад",
