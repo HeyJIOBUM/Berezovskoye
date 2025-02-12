@@ -7,7 +7,7 @@ export default function Page() {
     const emailAddresses = GetEmails();
 
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-2 sm:gap-4 py-2 sm:py-4">
+        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
             <TextWithLines text="Контакты"/>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <p className="text-[16px] font-medium sm:text-[18px]">Реквизиты:</p>
@@ -85,7 +85,28 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <p className="text-[16px] font-medium sm:text-[18px]">Схемы проезда:</p>
-                <div>
+                <div className="flex flex-col gap-4">
+                    <div>
+                        <p className="mb-1 text-[14px] font-medium sm:text-[16px]">Завод ТПУ &#34;Березовское&#34;</p>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d2870.6114106468126!2d25.213989369411745!3d52.65978796392076!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTLCsDM5JzM0LjIiTiAyNcKwMTInNTYuOSJF!5e1!3m2!1sru!2sby!4v1739396490058!5m2!1sru!2sby"
+                            width="100%"
+                            height="450"
+                            style={{border: 0}}
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div>
+                        <p className="mb-1 text-[14px] font-medium sm:text-[16px]">Административное здание ТПУ
+                            &#34;Березовское&#34;</p>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2030.0815177167947!2d25.239607727838653!3d52.654345510947294!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2sby!4v1739397143292!5m2!1sru!2sby"
+                            width="100%"
+                            height="450"
+                            style={{border: 0}}
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
