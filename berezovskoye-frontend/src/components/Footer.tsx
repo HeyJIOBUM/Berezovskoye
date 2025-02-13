@@ -1,8 +1,8 @@
 import React from "react";
-import {SocialNetworks} from "@/items/SocialNetworks";
+import {SocialNetworks} from "@/items/footer/SocialNetworks";
 import Link from "next/link";
 import Image from "next/image";
-import {RelatedOrganizations} from "@/items/RelatedOrganizations";
+import {RelatedOrganizations} from "@/items/footer/RelatedOrganizations";
 
 export default function Footer() {
     const socialNetworks = SocialNetworks();
