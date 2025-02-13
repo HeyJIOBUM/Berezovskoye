@@ -16,6 +16,7 @@ export default {
         "lines": "var(--lines)",
         "buy": "var(--buy)",
         "detail": "var(--detail)",
+        "table-header": "var(--table-header)",
       },
     },
   },
