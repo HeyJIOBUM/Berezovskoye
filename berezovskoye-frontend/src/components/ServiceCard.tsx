@@ -30,7 +30,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
             </div>
 
             <div className="w-full">
-                <h2 className="text-2xl">
+                <h2 className="text-xl">
                     {service.title}
                 </h2>
 
