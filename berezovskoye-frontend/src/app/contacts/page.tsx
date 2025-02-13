@@ -1,6 +1,6 @@
 import TextWithLines from "@/components/TextWithLines";
-import {GetContacts} from "@/items/ContactsPage/ContactPhoneNumbers";
-import {GetEmails} from "@/items/ContactsPage/EmailAddresses";
+import {GetContacts} from "@/items/contactPage/ContactPhoneNumbers";
+import {GetEmails} from "@/items/contactPage/EmailAddresses";
 
 export default function Page() {
     const contactPhoneNumbers = GetContacts();
