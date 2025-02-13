@@ -83,7 +83,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     </div>
                 </div>
             </div>
-            <table className="w-full table-fixed border-collapse bg-white">
+            <table className="scrollbar-hidden block table-fixed border-collapse overflow-x-auto bg-white">
                 <thead className="bg-table-header text-left text-base font-bold">
                     <tr>
                         {product.productDetailsTable.header.map((item, index) => (
