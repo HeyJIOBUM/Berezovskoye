@@ -12,7 +12,7 @@ export default function Header() {
             <Link href="/products">
                 <Image
                     alt={"logo"}
-                    src={"/logo.svg"}
+                    src={"/header/logo.svg"}
                     width={width}
                     height={45}
                 />
@@ -37,7 +37,7 @@ export default function Header() {
             >
                 <HeaderNavItem
                     label={"О нас"}
-                    iconPath={"/about-us.svg"}
+                    iconPath={"/header/about-us.svg"}
                     href={"/about"}
                 />
             </div>

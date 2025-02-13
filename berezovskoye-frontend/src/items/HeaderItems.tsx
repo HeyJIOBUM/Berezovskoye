@@ -3,22 +3,22 @@ export const HeaderItems = () => {
         {
             name: 'Товары',
             href: '/products',
-            imageSrc: '/products.svg',
+            imageSrc: '/header/products.svg',
         },
         {
             name: 'Новости',
             href: '/news',
-            imageSrc: '/news.svg',
+            imageSrc: '/header/news.svg',
         },
         {
             name: 'Услуги',
             href: '/services',
-            imageSrc: '/services.svg',
+            imageSrc: '/header/services.svg',
         },
         {
             name: 'Контакты',
             href: '/contacts',
-            imageSrc: '/contacts.svg',
+            imageSrc: '/header/contacts.svg',
         },
     ];
 };
