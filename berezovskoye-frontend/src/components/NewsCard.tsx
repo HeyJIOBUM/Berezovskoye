@@ -15,7 +15,7 @@ export default function NewsCard({ news }: NewsCardProps) {
     }
 
     return (
-        <div className="flex flex-col items-start justify-between gap-2 bg-white p-4">
+        <div className="flex flex-col items-start justify-between gap-2 bg-white p-2.5">
             <div className="relative aspect-[7/3] w-full select-none">
                 <Image
                     src={news.imgUrl}
@@ -31,7 +31,7 @@ export default function NewsCard({ news }: NewsCardProps) {
             </div>
 
             <div className="w-full">
-                <h2 className="text-2xl">
+                <h2 className="text-xl">
                     {news.title}
                 </h2>
 

@@ -19,7 +19,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
     }
 
     return (
-        <div className="flex flex-col items-start justify-between gap-2 bg-white p-4">
+        <div className="flex flex-col items-start justify-between gap-2 bg-white p-2.5">
             <div className="relative aspect-[7/3] w-full select-none">
                 <Image
                     src={service.imgUrl}

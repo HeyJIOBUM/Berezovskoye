@@ -19,7 +19,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     }
 
     return (
-        <div className="flex flex-col items-start justify-between gap-4 bg-white p-4">
+        <div className="flex flex-col items-start justify-between gap-4 bg-white p-2.5">
             <div className="relative aspect-[1] w-full select-none">
                 <Image
                     src={product.imgUrl}
@@ -30,8 +30,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
 
             <div>
-                <div className="mb-2 text-xl font-bold">{product.name}</div>
-                <p className="text-base text-gray-700">{product.description}</p>
+                <div className="mb-2 text-lg font-medium">{product.name}</div>
+                <p className="text-base">{product.description}</p>
             </div>
 
             <div className="flex w-full justify-between gap-2 text-sm">
