@@ -91,7 +91,7 @@ export default function Page() {
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d2870.6114106468126!2d25.213989369411745!3d52.65978796392076!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTLCsDM5JzM0LjIiTiAyNcKwMTInNTYuOSJF!5e1!3m2!1sru!2sby!4v1739396490058!5m2!1sru!2sby"
                             width="100%"
-                            height="450"
+                            height="400"
                             style={{border: 0}}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"/>
@@ -102,7 +102,7 @@ export default function Page() {
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2030.0815177167947!2d25.239607727838653!3d52.654345510947294!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2sby!4v1739397143292!5m2!1sru!2sby"
                             width="100%"
-                            height="450"
+                            height="400"
                             style={{border: 0}}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"/>

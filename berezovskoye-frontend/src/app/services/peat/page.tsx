@@ -12,21 +12,19 @@ export default function Page() {
     return (
         <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
             <TextWithLines text="Торфяные топливные брикеты"/>
-            <div className="flex flex-col gap-2 bg-white p-2.5">
+            <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2 sm:p-2.5">
                 <div className="flex flex-col gap-2 md:flex-row">
-                    <div className="relative flex aspect-[1] w-full min-w-[30%] select-none">
-                        <Image
-                            src="/services/peat.png"
-                            fill={true}
-                            style={{objectFit: "cover"}}
-                            alt="Торф в термоусадочной плёнке"
-                        />
-                    </div>
-                    <p className="text-2xl">
+                    <div className="size-full min-h-[200px] bg-[url(/services/peat.png)] bg-cover bg-center md:min-w-[40%]"/>
+                    <p className="text-lg font-light sm:text-xl">
                         Торфяные топливные брикеты марки БТ-1, произведенные ТПУ «Березовское», давно оценили не только
                         в Республике Беларусь, но и далеко за ее пределами. Вот уже
-                        <span className="font-bold"> более 10 лет</span> торфяные брикеты
+                        <span className="font-medium"> более 10 лет</span> торфяные брикеты
                         поставляются в Польшу, Словакию, Чехию, Латвию, Эстонию, Германию и другие страны.
+                        Вся торфяная топливная продукция проходит лабораторные испытания на
+                        <span className="font-medium"> экологическую безопасность. </span>
+                        Благодаря размещению торфяных залежей в черте лесных массивов, торф обогащен содержанием
+                        древесных включений, что по характеристикам приближает торфяные брикеты к
+                        <span className="font-medium"> разряду биотоплива. </span>
                     </p>
                 </div>
                 <button
@@ -36,41 +34,29 @@ export default function Page() {
                     Подать заявку
                 </button>
             </div>
-            <div className="flex flex-col gap-2 bg-white p-2.5">
-                <div className="flex flex-col gap-2 md:flex-row">
-                    <p>
-                        Вся торфяная топливная продукция проходит лабораторные испытания на
-                        <span className="font-bold"> экологическую безопасность. </span>
-                        Благодаря размещению торфяных залежей в черте лесных массивов, торф обогащен содержанием
-                        древесных включений, что по характеристикам приближает торфяные брикеты к
-                        <span className="font-bold"> разряду биотоплива. </span>
-                        Показатели качества соответствуют <span className="font-bold"> СТБ 1919-2008 </span>
-                        «Брикеты топливные на основе торфа». Брикеты торфяные топливные реализуются на экспорт
-                        автомобильным транспортом на <span className="font-bold"> условиях FCA </span>
-                        д. Нехачево, Ивацевичский район, Брестская область в упаковке
-                        <span className="font-bold"> биг-бэг 0,5-1,0 тн</span>, а также в
-                        <span className="font-bold"> термоусадочной пленке по 10 кг</span>, уложенный на поддон 1,0 тн.
-                    </p>
-                    <div className="relative flex aspect-[1] w-full min-w-[35%] select-none">
-                        <Image
-                            src="/services/peat_in_bag.png"
-                            fill={true}
-                            style={{objectFit: "cover"}}
-                            alt="Торф в мешках"
-                        />
-                    </div>
-                </div>
+            <div
+                className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
+                <div
+                    className="size-full min-h-[200px] min-w-[40%] bg-[url(/services/peat_in_bag.png)] bg-cover bg-center"/>
+                <p className="text-lg font-light sm:text-xl">
+                    Показатели качества соответствуют <span className="font-medium"> СТБ 1919-2008 </span>
+                    «Брикеты топливные на основе торфа». Брикеты торфяные топливные реализуются на экспорт
+                    автомобильным транспортом на <span className="font-medium"> условиях FCA </span>
+                    д. Нехачево, Ивацевичский район, Брестская область в упаковке
+                    <span className="font-medium"> биг-бэг 0,5-1,0 тн</span>, а также в
+                    <span className="font-medium"> термоусадочной пленке по 10 кг</span>, уложенный на поддон 1,0 тн.
+                </p>
             </div>
-            <div className="flex flex-col gap-2 bg-white p-2.5">
+            <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <Image
                     src="/services/train.png"
-                    width={1240}
+                    width={1920}
                     height={190}
                     style={{objectFit: "contain"}}
                     alt="Поезд"
                 />
-                <p>
-                    Возможна поставка торфобрикета <span className="font-bold"> железнодорожным транспортом </span>
+                <p className="text-lg sm:text-xl font-light">
+                    Возможна поставка торфобрикета <span className="font-medium"> железнодорожным транспортом </span>
                     в упаковке биг-бэг, в пленке термоусадочной на поддонах и навалом.
                     Цены, условия оплаты и доставки оговариваются индивидуально с каждым клиентом.
                 </p>
