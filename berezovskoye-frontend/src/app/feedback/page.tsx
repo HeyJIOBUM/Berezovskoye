@@ -32,7 +32,7 @@ export default function Page() {
                             id="fullName"
                             name="fullName"
                             required
-                            className="border-b border-black focus:outline-none py-1"
+                            className="border-b border-black py-1 focus:outline-none"
                             placeholder="Введите ваше ФИО"
                         />
                     </div>
@@ -45,7 +45,7 @@ export default function Page() {
                             type="email"
                             id="email"
                             name="email"
-                            className="border-b border-black focus:outline-none py-1"
+                            className="border-b border-black py-1 focus:outline-none"
                             placeholder="Введите ваш Email"
                         />
                     </div>
@@ -59,7 +59,7 @@ export default function Page() {
                             id="phone"
                             name="phone"
                             required
-                            className="border-b border-black focus:outline-none py-1"
+                            className="border-b border-black py-1 focus:outline-none"
                             placeholder="Введите ваш номер телефона"
                         />
                     </div>
@@ -73,7 +73,7 @@ export default function Page() {
                             id="address"
                             name="address"
                             required
-                            className="border-b border-black focus:outline-none py-1"
+                            className="border-b border-black py-1 focus:outline-none"
                             placeholder="Введите ваш адрес"
                         />
                     </div>
@@ -86,7 +86,7 @@ export default function Page() {
                             id="message"
                             name="message"
                             required
-                            className="border-b border-black focus:outline-none py-1 resize-none"
+                            className="resize-none border-b border-black py-1 focus:outline-none"
                             placeholder="Введите текст вашего запроса"
                             rows={1}
                             maxRows={8}
