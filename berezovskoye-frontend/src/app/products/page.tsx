@@ -1,5 +1,3 @@
-"use client"
-
 import {Product, TestProducts} from "@/items/TestProducts";
 import Image from "next/image";
 import TextWithLines from "@/components/TextWithLines";
