@@ -87,7 +87,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <thead className="bg-table-header text-left text-base font-bold">
                     <tr>
                         {product.productDetailsTable.header.map((item, index) => (
-                            <th key={index} className={index === 0 ? "w-2/5" : ""}>
+                            <th key={index} className={(index === 0 ? "w-2/5" : "") + " p-2.5"}>
                                 {item}
                             </th>
                         ))}
@@ -97,7 +97,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     {product.productDetailsTable.categories.map((category, categoryIndex) => (
                         <React.Fragment key={categoryIndex}>
                             <tr className="font-semibold">
-                                <td>
+                                <td className="p-2.5">
                                     {category.categoryName}
                                 </td>
                             </tr>
@@ -106,7 +106,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                                     {row.map((cell, cellIndex) => (
                                         <td
                                             key={cellIndex}
-                                            className={cellIndex === 0 ? "pl-4" : ""}
+                                            className={cellIndex === 0 ? "ml-8 list-item list-disc pr-2.5" : "px-2.5"}
+                                            style={{
+                                                paddingBottom: rowIndex === category.categoryDetails.length - 1 ? "0.625rem" : "",
+                                            }}
                                         >
                                             {cell}
                                         </td>
