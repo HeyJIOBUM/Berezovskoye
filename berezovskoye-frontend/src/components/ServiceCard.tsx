@@ -11,7 +11,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ service }: ServiceCardProps) {
     const onDetailsOpen = () => {
-        redirect(`/services/${service.id}`);
+        redirect(service.pageUrl);
     }
 
     const onRequestSubmit = () => {

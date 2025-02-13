@@ -3,6 +3,7 @@ export interface Service {
     title: string;
     text: string;
     imgUrl: string;
+    pageUrl: string;
 }
 
 export const TestServices = (): Service[] => {
@@ -13,6 +14,7 @@ export const TestServices = (): Service[] => {
             text: "Здесь вам могут предложить кофе, чай, полакомиться конфетами, печеньем и другими кондитерскими " +
                 "изделиями.  Для любителей бильярдной игры на цокольном этаже оборудован бильярдный зал.",
             imgUrl: "/services/cafe.png",
+            pageUrl: "/services/cafe",
         },
         {
             id: 2,
@@ -21,6 +23,7 @@ export const TestServices = (): Service[] => {
                 "в Республике Беларусь, но и далеко за ее пределами. Вот уже более 10 лет торфяные брикеты " +
                 "поставляются в Польшу, Словакию, Чехию, Латвию, Эстонию, Германию и другие страны.",
             imgUrl: "/services/peat.png",
+            pageUrl: "/services/peat",
         },
     ]
 };
