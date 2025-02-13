@@ -19,7 +19,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
     }
 
     return (
-        <div className="flex flex-col items-start justify-between gap-2 bg-white p-2.5">
+        <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             <div className="relative aspect-[7/4] w-full select-none">
                 <Image
                     src={service.imgUrl}
@@ -39,7 +39,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
                 </p>
             </div>
 
-            <div className="flex w-full justify-between gap-2 text-sm">
+            <div className="flex w-full justify-between gap-1 sm:gap-2 text-sm">
                 <button
                     className="flex-1 bg-detail p-2 font-bold text-white"
                     onClick={onDetailsOpen}
