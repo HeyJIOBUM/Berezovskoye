@@ -16,17 +16,15 @@ export default function Page() {
                     alt="Banner Image"
                 />
             </div>
-            <div className="w-full max-w-screen-lg py-4">
-                <div className="flex flex-col gap-4">
-                    <TextWithLines text={"Все товары"}/>
-                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        {products.map((product: Product) => (
-                            <ProductCard
-                                key={product.id}
-                                product={product}
-                            />
-                        ))}
-                    </div>
+            <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+                <TextWithLines text={"Все товары"}/>
+                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    {products.map((product: Product) => (
+                        <ProductCard
+                            key={product.id}
+                            product={product}
+                        />
+                    ))}
                 </div>
             </div>
         </div>
