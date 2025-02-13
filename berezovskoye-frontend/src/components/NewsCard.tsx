@@ -41,7 +41,7 @@ export default function NewsCard({ news }: NewsCardProps) {
             </div>
 
             <button
-                className="w-full bg-detail p-2 font-black text-white"
+                className="w-full bg-detail p-2 text-sm font-black text-white"
                 onClick={onDetailsOpen}
             >
                 Читать подробнее
