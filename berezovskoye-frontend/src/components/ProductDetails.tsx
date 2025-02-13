@@ -18,9 +18,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     }
 
     return (
-        <div className="flex flex-col gap-6 py-4">
-            <div className="flex flex-col gap-6 md:flex-row">
-                <div className="flex h-fit min-w-[35%] flex-col items-center justify-start gap-4 bg-white p-2.5">
+        <div className="flex flex-col gap-2 sm:gap-4">
+            <div className="flex flex-col gap-2 sm:gap-4 md:flex-row">
+                <div className="flex h-fit min-w-[35%] flex-col items-center justify-start gap-2 bg-white p-2.5 sm:gap-4">
                     <div className="relative flex aspect-[1] w-full select-none">
                         <Image
                             src={product.imgUrl}

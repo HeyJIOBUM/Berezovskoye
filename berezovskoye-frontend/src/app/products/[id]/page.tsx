@@ -11,7 +11,7 @@ export default async function Page({ params } : ProductPageProps) {
     const product = TestProducts()[+productId-1];
 
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-4 py-4">
+        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
             <TextWithLines text={"Подробнее о товаре"}/>
             <ProductDetails product={product}/>
         </div>
