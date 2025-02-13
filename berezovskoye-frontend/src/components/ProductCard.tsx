@@ -9,7 +9,7 @@ interface ProductCardProps {
     product: Product;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({product}: ProductCardProps) {
     const onDetailsOpen = () => {
         redirect(`/products/${product.id}`);
     }
@@ -28,23 +28,15 @@ export default function ProductCard({ product }: ProductCardProps) {
                     alt="Product Image"
                 />
             </div>
-
             <div>
                 <div className="mb-2 text-lg font-medium">{product.name}</div>
                 <p className="text-base">{product.description}</p>
             </div>
-
             <div className="flex w-full justify-between gap-2 text-sm">
-                <button
-                    className="flex-1 bg-detail p-2 font-bold text-white"
-                    onClick={onDetailsOpen}
-                >
+                <button className="flex-1 bg-detail p-2 font-bold text-white" onClick={onDetailsOpen}>
                     Подробнее
                 </button>
-                <button
-                    className="flex-1 bg-buy p-2 font-bold text-white"
-                    onClick={onBuy}
-                >
+                <button className="flex-1 bg-buy p-2 font-bold text-white" onClick={onBuy}>
                     Купить
                 </button>
             </div>
