@@ -12,7 +12,7 @@ export default async function Page({ params } : ProductPageProps) {
 
     return (
         <div className="flex w-full max-w-screen-lg flex-col gap-4 py-4">
-            <TextWithLines text={"Подробнее о товаре:"}/>
+            <TextWithLines text={"Подробнее о товаре"}/>
             <ProductDetails product={product}/>
         </div>
     );
