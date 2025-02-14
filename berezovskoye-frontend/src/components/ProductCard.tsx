@@ -32,7 +32,7 @@ export default function ProductCard({product}: ProductCardProps) {
                 <div className="text-base font-medium">{product.name}</div>
                 <p className="text-sm font-light">{product.description}</p>
             </div>
-            <div className="flex w-full justify-between gap-1 text-sm sm:gap-2">
+            <div className="flex w-full flex-wrap justify-between gap-1 text-sm sm:gap-2">
                 <button className="flex-1 bg-detail py-2 font-bold text-white" onClick={onDetailsOpen}>
                     Подробнее
                 </button>
