@@ -54,6 +54,15 @@ services:
     volumes:
       - ./db-data:/var/lib/postgresql/data
 
+  adminer:
+    build:
+      context: ./adminerneo
+      dockerfile: Dockerfile
+      args:
+        PASSWORD: ${ADMINER_PASSWORD}
+    #ports:
+    #  - 8081:8081
+
   spring:
     build:
       context: ./berezovskoye-backend/
@@ -81,6 +90,7 @@ services:
     depends_on:
       - nextjs
       - spring
+      - adminer
 
 networks:
   elastic:
