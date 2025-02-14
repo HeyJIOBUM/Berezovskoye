@@ -54,11 +54,6 @@ services:
     volumes:
       - ./db-data:/var/lib/postgresql/data
 
-  adminer:
-    image: adminer:latest
-    ports:
-      - 8081:8080
-
   spring:
     build:
       context: ./berezovskoye-backend/
