@@ -12,10 +12,9 @@ public class ProductDetailsCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String categoryName;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "category_details", joinColumns = @JoinColumn(name = "product_details_category_id"))
-    @Column(name = "category_detail")
-    private List<String> categoryDetails;
+    @OneToMany(mappedBy = "productDetailsCategory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CategoryDetails> categoryDetails;
 }
