@@ -3,6 +3,7 @@
 import React from 'react';
 import {Product} from "@/items/TestProducts";
 import Image from "next/image";
+import {redirect} from "next/navigation";
 
 interface ProductDetailsProps {
     product: Product;
@@ -14,7 +15,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     }
 
     const onDownloadPrice = () => {
-        console.log("качаем");
+        redirect('/feedback');
     }
 
     return (
