@@ -5,14 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.UUID;
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-    @Value("${upload.path}")
-    private String uploadPath;
+    @Value("${images.path}")
+    private String imagesPath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**")
-                .addResourceLocations("file:" + uploadPath + "/");
+                .addResourceLocations("file:" + imagesPath + "/");
     }
 }
