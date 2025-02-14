@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { HeaderItems } from '@/items/HeaderItems';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {redirect} from "next/navigation";
 
 export default function Header() {
@@ -12,7 +12,9 @@ export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
-    const toggleMenu = () => {
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    const toggleMenu = useCallback(() => {
         if (isMenuOpen) {
             setIsClosing(true);
             setTimeout(() => {
@@ -22,7 +24,7 @@ export default function Header() {
         } else {
             setIsMenuOpen(true);
         }
-    };
+    }, [isMenuOpen]);
 
     const closeMenu = () => {
         setIsMenuOpen(false);
@@ -35,6 +37,22 @@ export default function Header() {
             redirect('/admin');
         }
     }
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                toggleMenu();
+            }
+        };
+
+        if (isMenuOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isMenuOpen, toggleMenu]);
 
     return (
         <React.Fragment>
@@ -89,7 +107,10 @@ export default function Header() {
             </header>
 
             {(isMenuOpen || isClosing) && (
-                <div className={`${isClosing ? 'animate-slideUp' : 'animate-slideDown'} absolute inset-x-0 top-[50px] z-40 bg-back-bars md:hidden`}>
+                <div
+                    ref={menuRef}
+                    className={`${isClosing ? 'animate-slideUp' : 'animate-slideDown'} fixed inset-x-0 top-[50px] z-40 bg-back-bars md:hidden`}
+                >
                     <div className="flex flex-col">
                         {headerItems.map((item, index) => (
                             <HeaderNavItem
