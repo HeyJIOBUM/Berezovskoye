@@ -7,9 +7,8 @@ import java.util.List;
 
 @Data
 public class ProductDetailsCategoryDto {
-    private int id;
     private String categoryName;
-    private List<String> categoryDetails;
+    private List<CategoryDetailsDto> categoryDetails;
 
     public static ProductDetailsCategoryDto fromProductDetailsCategory(
             ProductDetailsCategory productDetailsCategory){
@@ -17,7 +16,11 @@ public class ProductDetailsCategoryDto {
         ProductDetailsCategoryDto productDetailsCategoryDto = new ProductDetailsCategoryDto();
 
         productDetailsCategoryDto.setCategoryName(productDetailsCategory.getCategoryName());
-        productDetailsCategoryDto.setCategoryDetails(productDetailsCategory.getCategoryDetails());
+        productDetailsCategoryDto.setCategoryDetails(
+                CategoryDetailsDto.fromCategoryDetails(
+                        productDetailsCategory.getCategoryDetails()
+                )
+        );
 
         return productDetailsCategoryDto;
     }

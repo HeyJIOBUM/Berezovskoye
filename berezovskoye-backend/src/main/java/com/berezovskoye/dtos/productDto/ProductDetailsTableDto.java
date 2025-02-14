@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class ProductDetailsTableDto {
-    private int id;
     private List<String> header;
     private List<ProductDetailsCategoryDto> productDetailsCategories;
 
