@@ -14,6 +14,36 @@
   }
 }
 
+@layer utilities {
+  .animate-slideUp {
+    animation: slideUp 0.25s ease forwards;
+  }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      display: none;
+      transform: translateY(-100%);
+    }
+  }
+
+  .animate-slideDown {
+    animation: slideDown 0.25s ease forwards;
+  }
+
+  @keyframes slideDown {
+    0% {
+      display: none;
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
 :root {
   --background: #E1E1E1;
   --foreground: #171717;

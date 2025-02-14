@@ -3,6 +3,7 @@
 import React from 'react';
 import {Product} from "@/items/TestProducts";
 import Image from "next/image";
+import {redirect} from "next/navigation";
 
 interface ProductDetailsProps {
     product: Product;
@@ -10,11 +11,11 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
     const onBuy = () => {
-        console.log("покупаем");
+        redirect('/feedback');
     }
 
     const onDownloadPrice = () => {
-        console.log("качаем");
+        console.log("download prices")
     }
 
     return (

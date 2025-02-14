@@ -15,7 +15,7 @@ export default function ServiceCard({service}: ServiceCardProps) {
     }
 
     const onRequestSubmit = () => {
-        console.log("отправляем заявку")
+        redirect('/feedback');
     }
 
     return (

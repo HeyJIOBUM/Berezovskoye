@@ -15,7 +15,7 @@ export default function ProductCard({product}: ProductCardProps) {
     }
 
     const onBuy = () => {
-        console.log("покупаем");
+        redirect('/feedback');
     }
 
     return (

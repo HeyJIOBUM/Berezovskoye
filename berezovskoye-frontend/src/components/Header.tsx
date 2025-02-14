@@ -4,72 +4,92 @@ import Image from 'next/image';
 import { HeaderItems } from '@/items/HeaderItems';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import {redirect} from "next/navigation";
 
 export default function Header() {
     const headerItems = HeaderItems();
     const width = 150;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+        if (isMenuOpen) {
+            setIsClosing(true);
+            setTimeout(() => {
+                setIsMenuOpen(false);
+                setIsClosing(false);
+            }, 250);
+        } else {
+            setIsMenuOpen(true);
+        }
     };
 
     const closeMenu = () => {
         setIsMenuOpen(false);
     };
 
-    return (
-        <header className="sticky top-0 z-50 flex h-[50px] items-center justify-between bg-back-bars px-4 sm:px-8">
-            <Link href="/products">
-                <Image
-                    alt={"logo"}
-                    src={"/header/logo.svg"}
-                    width={width}
-                    height={45}
-                />
-            </Link>
+    const handleClickOnLogo = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        if (e.ctrlKey){
+            closeMenu();
+            redirect('/admin');
+        }
+    }
 
-            <div className="hidden items-center gap-2 sm:gap-4 md:flex">
-                {headerItems.map((item, index) => (
+    return (
+        <React.Fragment>
+            <header className="sticky top-0 z-50 flex h-[50px] items-center justify-between bg-back-bars px-4 sm:px-8">
+                <div onClick={handleClickOnLogo}>
+                    <Image
+                        alt={"logo"}
+                        src={"/header/logo.svg"}
+                        width={width}
+                        height={45}
+                    />
+                </div>
+
+                <div className="hidden items-center gap-2 sm:gap-4 md:flex">
+                    {headerItems.map((item, index) => (
+                        <HeaderNavItem
+                            key={index}
+                            label={item.name}
+                            iconPath={item.imageSrc}
+                            href={item.href}
+                            onClick={closeMenu}
+                        />
+                    ))}
+                </div>
+
+                <div
+                    className="hidden md:flex"
+                    style={{
+                        width: width,
+                    }}
+                >
                     <HeaderNavItem
-                        key={index}
-                        label={item.name}
-                        iconPath={item.imageSrc}
-                        href={item.href}
+                        label={"О нас"}
+                        iconPath={"/header/about-us.svg"}
+                        href={"/about"}
+                        className={"ml-auto"}
                         onClick={closeMenu}
                     />
-                ))}
-            </div>
+                </div>
 
-            <div
-                className="hidden md:flex"
-                style={{
-                    width: width,
-                }}
-            >
-                <HeaderNavItem
-                    label={"О нас"}
-                    iconPath={"/header/about-us.svg"}
-                    href={"/about"}
-                    className={"ml-auto"}
-                    onClick={closeMenu}
-                />
-            </div>
+                <div className="md:hidden">
+                    <button onClick={toggleMenu} className="flex items-center justify-between">
+                        <Image
+                            src={"/header/burger-menu.svg"}
+                            width={42}
+                            height={20}
+                            alt=""
+                            className={isMenuOpen ? "-scale-y-100" : ""}
+                        />
+                    </button>
+                </div>
+            </header>
 
-            <div className="md:hidden">
-                <button onClick={toggleMenu} className="flex items-center justify-between">
-                    <Image
-                        src={"/header/burger-menu.svg"}
-                        width={42}
-                        height={20}
-                        alt=""
-                        className={isMenuOpen ? "-scale-y-100" : ""}
-                    />
-                </button>
-            </div>
-
-            {isMenuOpen && (
-                <div className="absolute inset-x-0 top-[50px] bg-back-bars md:hidden">
+            {(isMenuOpen || isClosing) && (
+                <div className={`${isClosing ? 'animate-slideUp' : 'animate-slideDown'} absolute inset-x-0 top-[50px] z-40 bg-back-bars md:hidden`}>
                     <div className="flex flex-col">
                         {headerItems.map((item, index) => (
                             <HeaderNavItem
@@ -78,7 +98,7 @@ export default function Header() {
                                 iconPath={item.imageSrc}
                                 href={item.href}
                                 className="border-t py-4"
-                                onClick={closeMenu}
+                                onClick={toggleMenu}
                             />
                         ))}
                         <HeaderNavItem
@@ -86,12 +106,12 @@ export default function Header() {
                             iconPath={"/header/about-us.svg"}
                             href={"/about"}
                             className="border-t py-4"
-                            onClick={closeMenu}
+                            onClick={toggleMenu}
                         />
                     </div>
                 </div>
             )}
-        </header>
+        </React.Fragment>
     );
 }
 

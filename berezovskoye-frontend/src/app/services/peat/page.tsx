@@ -2,10 +2,11 @@
 
 import TextWithLines from "@/components/TextWithLines";
 import React from "react";
+import {redirect} from "next/navigation";
 
 export default function Page() {
     const onRequestSubmit = () => {
-        console.log("отправляем заявку")
+        redirect('/feedback');
     }
 
     return (
