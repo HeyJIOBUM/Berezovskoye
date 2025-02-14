@@ -10,8 +10,8 @@ export default function Page() {
         <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
             <TextWithLines text="Контакты"/>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
-                <p className="text-base font-medium sm:text-lg">Реквизиты:</p>
-                <p className="text-sm font-light sm:text-base">
+                <p className="text-base font-medium sm:text-sm">Реквизиты:</p>
+                <p className="text-base font-normal sm:text-base">
                     225260 Брестская область Ивацевичский район пос. Зелёный Бор ул. Центральная 5 р/с
                     BY49AKBB30121111900111300000 БИК AKBBBY2X в ОАО «АСБ Беларусбанк», УНП 200274574, Голуб Виктор
                     Викторович на основании доверенности УП &#34;Брестоблгаз&#34; №315 от 29.12.2022
@@ -19,7 +19,7 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <p className="text-base font-medium sm:text-lg">Номера контактных телефонов:</p>
-                <table className="w-full border-collapse text-sm sm:text-base">
+                <table className="w-full border-collapse text-sm font-normal sm:text-base">
                     <thead>
                     <tr className="bg-gray-100">
                         <th className="py-2 text-left">Должность</th>
