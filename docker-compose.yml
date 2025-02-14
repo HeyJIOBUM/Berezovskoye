@@ -1,8 +1,7 @@
 version: '3.8'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
-    container_name: elastic_spring
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.2
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -16,8 +15,7 @@ services:
       - elastic
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.3.3
-    container_name: kibana_spring
+    image: docker.elastic.co/kibana/kibana:8.17.2
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
@@ -29,8 +27,7 @@ services:
       - elasticsearch
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:8.3.3
-    container_name: logstash_spring
+    image: docker.elastic.co/logstash/logstash:8.17.2
     environment:
       LS_JAVA_OPTS: "-Xms256m -Xmx256m"
     ports:
@@ -54,13 +51,15 @@ services:
       POSTGRES_PASSWORD: "password"
     ports:
       - "5432:5432"
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
 
   spring:
     build:
       context: ./berezovskoye-backend/
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
     depends_on:
       - logstash
       - postgres
@@ -69,8 +68,8 @@ services:
     build:
       context: ./berezovskoye-frontend/
       dockerfile: Dockerfile
-    ports:
-      - 3000:3000
+    # ports:
+    #   - 3000:3000
 
   nginx-reverse-proxy:
     build:
@@ -78,12 +77,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - 80:80
-
+      - 443:443
+    depends_on:
+      - nextjs
+      - spring
 
 networks:
   elastic:
     driver: bridge
   monitoring:
+
 
 volumes:
   elastic_data:
