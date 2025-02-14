@@ -8,7 +8,7 @@ interface NewsDetailsProps {
 
 export default function NewsDetails({ news }: NewsDetailsProps) {
     return (
-        <div className="flex flex-col items-start justify-between gap-2 bg-white p-2.5">
+        <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             <h2 className="text-2xl">
                 {news.title}
             </h2>

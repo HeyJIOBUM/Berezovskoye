@@ -12,7 +12,7 @@ export default function Page() {
     return (
         <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
             <TextWithLines text="Кафе Лесная усадьба"/>
-            <div className="flex flex-col gap-2 bg-white p-2.5">
+            <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <div className="relative aspect-[2] w-full select-none">
                     <Image
                         src="/services/cafe.png"
@@ -48,7 +48,7 @@ export default function Page() {
                     Подать заявку
                 </button>
             </div>
-            <div className="flex flex-col gap-2 bg-white p-2.5">
+            <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <p className="font-bold">
                     Подбробнее о кафе “Лесная усадьба”
                 </p>
@@ -60,23 +60,24 @@ export default function Page() {
                         alt="Работники кафе"
                     />
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 text-base font-normal">
                     <p>
-                        В <span className="font-semibold">августе 2012 года</span> в торфобрикетном производственном
+                        В <span className="font-medium">августе 2012 года</span> в торфобрикетном производственном
                         управлении «Березовское» открылось кафе «Лесная усадьба». Кафе образовалось в результате
                         реконструкции здания бывшей столовой, находится по адресу
-                        <span className="font-semibold"> п. Зеленый Бор ул.Центральная, 7. </span>
+                        <span className="font-medium"> п. Зеленый Бор ул.Центральная, 7. </span>
                         Оказавшись на улице Центральной, вы увидите его сразу: здание кафе находится рядом с
                         отремонтированным зданием администрации. Узнать его можно по приятному желтому цвету.
                     </p>
                     <p>
                         В будние дни кафе работает
-                        <span className="font-semibold"> с 11.00 до 22.00, в выходные с 12.00 до 01.00.</span>
+                        <span className="font-medium"> с 11.00 до 22.00, в выходные с 12.00 до 01.00.</span>
                     </p>
                     <p>
                         Здесь вам могут предложить кофе, чай, полакомиться конфетами, печеньем и другими
                         кондитерскими изделиями. Сюда посетители приходят просто для того, чтобы расслабиться,
                         отдохнуть и вкусно покушать.
+
                     </p>
                     <p>
                         Интерьер создан по последним канонам моды: кованые люстры и светильники, шторы в греческом
@@ -90,11 +91,11 @@ export default function Page() {
                     </p>
                 </div>
             </div>
-            <div className="flex flex-col gap-2 bg-white p-2.5">
+            <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5">
                 <p className="font-bold">
                     Фотогалерея
                 </p>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-2.5">
                     <div className="relative h-auto w-full">
                         <Image
                             src="/services/outside_cafe.png"
