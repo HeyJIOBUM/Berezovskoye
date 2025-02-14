@@ -11,11 +11,11 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
     const onBuy = () => {
-        console.log("покупаем");
+        redirect('/feedback');
     }
 
     const onDownloadPrice = () => {
-        redirect('/feedback');
+        console.log("download prices")
     }
 
     return (
