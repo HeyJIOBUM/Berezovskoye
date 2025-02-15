@@ -95,7 +95,7 @@ public class ProductService {
             existingCategories.addAll(newCategories);
         }
     }
-    
+
 
     public ResponseEntity<String> deleteProduct(int id) {
         Optional<Product> productToDelete = productRepository.findById(id);
