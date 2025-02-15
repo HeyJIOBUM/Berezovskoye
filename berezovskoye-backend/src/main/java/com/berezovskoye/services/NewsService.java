@@ -6,6 +6,8 @@ import com.berezovskoye.models.product.Product;
 import com.berezovskoye.models.users.SystemUser;
 import com.berezovskoye.repositories.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class NewsService {
     @Autowired
     private NewsRepository newsRepository;
 
+    @Cacheable(value = "news", key = "#id")
     public ResponseEntity<NewsDto> getNews(int id) {
         Optional<News> news = newsRepository.findById(id);
         if(news.isEmpty()){
@@ -27,12 +30,14 @@ public class NewsService {
         return new ResponseEntity<>(NewsDto.fromNews(news.get()), HttpStatus.OK);
     }
 
+    @Cacheable(value = "news")
     public ResponseEntity<List<NewsDto>> getAllNews() {
         //TODO handle news search + log
         List<News> allNews = newsRepository.findAll();
         return new ResponseEntity<>(NewsDto.fromNews(allNews), HttpStatus.OK);
     }
 
+    @CacheEvict(value = "news", allEntries = true)
     public ResponseEntity<NewsDto> updateNews(int id, News newNewsData) {
         Optional<News> existingNew = newsRepository.findById(id);
         if(existingNew.isEmpty()){
@@ -50,6 +55,7 @@ public class NewsService {
         Optional.ofNullable(newNew.getPostingDate()).ifPresent(existingNew::setPostingDate);
     }
 
+    @CacheEvict(value = "news", allEntries = true)
     public ResponseEntity<String> deleteNews(int id) {
         //TODO handle news delete + log
         newsRepository.deleteById(id);
