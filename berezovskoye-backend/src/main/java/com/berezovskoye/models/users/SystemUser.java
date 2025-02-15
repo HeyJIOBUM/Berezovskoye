@@ -8,7 +8,7 @@ import lombok.Data;
 public class SystemUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     @Convert(converter = UserRoleConverter.class)

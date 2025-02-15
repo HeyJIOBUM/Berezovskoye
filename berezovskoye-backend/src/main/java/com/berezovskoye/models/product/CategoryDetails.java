@@ -10,7 +10,7 @@ import java.util.List;
 public class CategoryDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "product_details_category_id")

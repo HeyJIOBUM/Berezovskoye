@@ -10,7 +10,7 @@ import java.util.List;
 public class ProductDetailsTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "headers", joinColumns = @JoinColumn(name = "product_details_table_id"))

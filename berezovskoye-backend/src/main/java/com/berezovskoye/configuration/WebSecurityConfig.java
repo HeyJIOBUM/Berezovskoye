@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login", "/register").permitAll()
-                        //.requestMatchers(HttpMethod.POST, "/**").authenticated()
+                        //.requestMatchers(HttpMethod.POST, "/**").authenticated()//TODO set roles for endpoints
                         .anyRequest().authenticated()
                 ).httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
