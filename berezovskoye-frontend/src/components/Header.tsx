@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { HeaderItems } from '@/items/HeaderItems';
 import Link from 'next/link';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {redirect} from "next/navigation";
+import {redirect, RedirectType} from "next/navigation";
 
 export default function Header() {
     const headerItems = HeaderItems();
@@ -34,7 +34,7 @@ export default function Header() {
         e.preventDefault();
         if (e.ctrlKey){
             closeMenu();
-            redirect('/admin');
+            redirect('/admin', RedirectType.push);
         }
     }
 

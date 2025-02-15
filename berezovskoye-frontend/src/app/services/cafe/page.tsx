@@ -3,13 +3,9 @@
 import TextWithLines from "@/components/TextWithLines";
 import React from "react";
 import Image from "next/image";
-import {redirect} from "next/navigation";
+import Link from "next/link";
 
 export default function Page() {
-    const onRequestSubmit = () => {
-        redirect('/feedback');
-    }
-
     return (
         <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
             <TextWithLines text="Кафе Лесная усадьба"/>
@@ -42,12 +38,12 @@ export default function Page() {
                     </p>
                 </div>
 
-                <button
-                    className="w-full bg-buy p-2 text-sm font-black text-white"
-                    onClick={onRequestSubmit}
+                <Link
+                    className="w-full bg-buy p-2 text-center text-sm font-black text-white"
+                    href="/feedback"
                 >
                     Подать заявку
-                </button>
+                </Link>
             </div>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <p className="font-bold">

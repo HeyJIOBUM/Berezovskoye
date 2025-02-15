@@ -3,17 +3,13 @@
 import Image from "next/image";
 import React from "react";
 import {News} from "@/items/TestNews";
-import {redirect} from "next/navigation";
+import Link from "next/link";
 
 interface NewsCardProps {
     news: News;
 }
 
 export default function NewsCard({ news }: NewsCardProps) {
-    const onDetailsOpen = () => {
-        redirect(`/news/${news.id}`);
-    }
-
     return (
         <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             <div className="relative aspect-[7/3] w-full select-none">
@@ -40,12 +36,12 @@ export default function NewsCard({ news }: NewsCardProps) {
                 </p>
             </div>
 
-            <button
-                className="w-full bg-detail p-2 text-sm font-black text-white"
-                onClick={onDetailsOpen}
+            <Link
+                className="w-full bg-detail p-2 text-center text-sm font-black text-white"
+                href={`/news/${news.id}`}
             >
                 Читать подробнее
-            </button>
+            </Link>
 
         </div>
     );

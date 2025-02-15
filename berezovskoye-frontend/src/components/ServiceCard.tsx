@@ -1,23 +1,15 @@
 "use client"
 
-import {redirect} from "next/navigation";
 import Image from "next/image";
 import React from "react";
 import {Service} from "@/items/TestServices";
+import Link from "next/link";
 
 interface ServiceCardProps {
     service: Service;
 }
 
 export default function ServiceCard({service}: ServiceCardProps) {
-    const onDetailsOpen = () => {
-        redirect(service.pageUrl);
-    }
-
-    const onRequestSubmit = () => {
-        redirect('/feedback');
-    }
-
     return (
         <div className="grid grid-cols-1 gap-1 bg-white p-1 sm:grid-cols-2 sm:gap-2 sm:p-2.5">
             <div className="relative h-full min-h-52 select-none">
@@ -38,18 +30,18 @@ export default function ServiceCard({service}: ServiceCardProps) {
                     </p>
                 </div>
                 <div className="flex w-full justify-between gap-1 text-sm sm:gap-2">
-                    <button
-                        className="flex-1 bg-detail p-2 font-bold text-white"
-                        onClick={onDetailsOpen}
+                    <Link
+                        className="flex-1 bg-detail p-2 text-center font-bold text-white"
+                        href={`${service.pageUrl}`}
                     >
                         Подробнее
-                    </button>
-                    <button
-                        className="flex-1 bg-buy p-2 font-bold text-white"
-                        onClick={onRequestSubmit}
+                    </Link>
+                    <Link
+                        className="flex-1 bg-buy p-2 text-center font-bold text-white"
+                        href="/feedback"
                     >
                         Подать заявку
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

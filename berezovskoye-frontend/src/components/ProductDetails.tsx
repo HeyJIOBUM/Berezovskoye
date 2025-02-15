@@ -3,17 +3,13 @@
 import React from 'react';
 import {Product} from "@/items/TestProducts";
 import Image from "next/image";
-import {redirect} from "next/navigation";
+import Link from "next/link";
 
 interface ProductDetailsProps {
     product: Product;
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
-    const onBuy = () => {
-        redirect('/feedback');
-    }
-
     const onDownloadPrice = () => {
         console.log("download prices")
     }
@@ -31,12 +27,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                         />
                     </div>
                     <div className="flex w-full flex-col gap-1 text-sm sm:gap-2">
-                        <button
-                            className="w-full flex-1 bg-buy p-2 font-bold text-white"
-                            onClick={onBuy}
+                        <Link
+                            className="flex-1 bg-buy p-2 text-center font-bold text-white"
+                            href="/feedback"
                         >
                             Купить
-                        </button>
+                        </Link>
                         <button
                             className="w-full flex-1 bg-detail p-2 font-bold text-white"
                             onClick={onDownloadPrice}
