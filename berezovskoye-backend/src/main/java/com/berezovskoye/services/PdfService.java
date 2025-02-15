@@ -12,7 +12,7 @@ import java.io.File;
 
 @Slf4j
 @Service
-public class PdfDownloadService {
+public class PdfService {
     @Value("${pdfs.path}")
     private String pdfPath;
 

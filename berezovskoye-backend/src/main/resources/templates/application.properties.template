@@ -1,0 +1,26 @@
+#application properties
+spring.application.name=berezovskoye
+images.path=src/main/resources/static/images
+pdfs.path=src/main/resources/static/pdfs
+token.type=Bearer
+encoding.strength=10
+token.lifetime.hours=1
+key.generator.algorithm=HmacSHA256
+
+#server properties
+server.port=
+
+#database connection properties
+spring.datasource.url=jdbc:postgresql://
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+#prometheus
+management.metrics.export.prometheus.enabled=true
+management.endpoints.web.exposure.include=prometheus
+management.metrics.distribution.percentiles-histogram.http.server.requests=true
+management.metrics.distribution.sla.http.server.requests = 100 ms, 150 ms, 250 ms, 500 ms, 1 s
+management.metrics.enable.jvm=true

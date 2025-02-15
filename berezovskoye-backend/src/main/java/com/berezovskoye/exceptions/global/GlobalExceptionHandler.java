@@ -1,5 +1,6 @@
 package com.berezovskoye.exceptions.global;
 
+import com.berezovskoye.exceptions.product.BadCredentialsException;
 import com.berezovskoye.exceptions.product.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<TpuErrorResponse> handleBadCredentials(BadCredentialsException ex) {
+        TpuErrorResponse errorResponse = new TpuErrorResponse(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
 }
