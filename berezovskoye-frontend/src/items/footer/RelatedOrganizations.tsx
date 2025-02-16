@@ -1,4 +1,11 @@
-export const RelatedOrganizations = () => {
+export interface RelatedOrganization {
+    alt: string;
+    imageSrc: string;
+    width: number;
+    height: number;
+}
+
+export const RelatedOrganizations = (): RelatedOrganization[] => {
     return [
         {
             alt: 'БрГТУ',

@@ -92,7 +92,7 @@ export default function Page() {
                 <p className="font-bold">
                     Фотогалерея
                 </p>
-                <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-2.5">
+                <div className="grid select-none grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-2.5">
                     <div className="relative h-auto w-full">
                         <Image
                             src="/services/outside_cafe.png"

@@ -1,4 +1,10 @@
-export const SocialNetworks = () => {
+export interface SocialMedia {
+    alt: string;
+    href: string;
+    imageSrc: string;
+}
+
+export const SocialMedia = (): SocialMedia[] => {
     return [
         {
             alt: 'instagram',

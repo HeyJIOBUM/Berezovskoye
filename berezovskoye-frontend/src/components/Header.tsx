@@ -1,7 +1,7 @@
 "use client"
 
 import Image from 'next/image';
-import { HeaderItems } from '@/items/HeaderItems';
+import {HeaderItem, HeaderItems} from '@/items/HeaderItems';
 import Link from 'next/link';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {redirect, RedirectType} from "next/navigation";
@@ -32,7 +32,7 @@ export default function Header() {
 
     const handleClickOnLogo = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        if (e.ctrlKey){
+        if (e.ctrlKey) {
             closeMenu();
             redirect('/admin', RedirectType.push);
         }
@@ -57,7 +57,10 @@ export default function Header() {
     return (
         <React.Fragment>
             <header className="sticky top-0 z-50 flex h-[50px] items-center justify-between bg-back-bars px-4 sm:px-8">
-                <div onClick={handleClickOnLogo}>
+                <div
+                    onClick={handleClickOnLogo}
+                    className="select-none"
+                >
                     <Image
                         alt={"logo"}
                         src={"/header/logo.svg"}
@@ -70,9 +73,7 @@ export default function Header() {
                     {headerItems.map((item, index) => (
                         <HeaderNavItem
                             key={index}
-                            label={item.name}
-                            iconPath={item.imageSrc}
-                            href={item.href}
+                            headerItem={item}
                             onClick={closeMenu}
                         />
                     ))}
@@ -85,15 +86,17 @@ export default function Header() {
                     }}
                 >
                     <HeaderNavItem
-                        label={"О нас"}
-                        iconPath={"/header/about-us.svg"}
-                        href={"/about"}
+                        headerItem={{
+                            name: "О нас",
+                            imageSrc: "/header/about-us.svg",
+                            href: "/about",
+                        }}
                         className={"ml-auto"}
                         onClick={closeMenu}
                     />
                 </div>
 
-                <div className="md:hidden">
+                <div className="select-none md:hidden">
                     <button onClick={toggleMenu} className="flex items-center justify-between">
                         <Image
                             src={"/header/burger-menu.svg"}
@@ -115,17 +118,17 @@ export default function Header() {
                         {headerItems.map((item, index) => (
                             <HeaderNavItem
                                 key={index}
-                                label={item.name}
-                                iconPath={item.imageSrc}
-                                href={item.href}
+                                headerItem={item}
                                 className="border-t py-4"
                                 onClick={toggleMenu}
                             />
                         ))}
                         <HeaderNavItem
-                            label={"О нас"}
-                            iconPath={"/header/about-us.svg"}
-                            href={"/about"}
+                            headerItem={{
+                                name: "О нас",
+                                imageSrc: "/header/about-us.svg",
+                                href: "/about",
+                            }}
                             className="border-t py-4"
                             onClick={toggleMenu}
                         />
@@ -137,28 +140,27 @@ export default function Header() {
 }
 
 interface HeaderNavItemProps {
-    label: string;
-    iconPath: string;
-    href: string;
+    headerItem: HeaderItem;
     className?: string;
     onClick?: () => void;
 }
 
-export const HeaderNavItem: React.FC<HeaderNavItemProps> = ({label, iconPath, href, className, onClick}) => {
+export const HeaderNavItem: React.FC<HeaderNavItemProps> = ({headerItem, className, onClick}) => {
     return (
         <Link
-            href={href}
+            href={headerItem.href}
             className={`flex flex-row items-center space-x-2 px-2 py-1.5 text-sm ${className}`}
             onClick={onClick}
         >
             <Image
-                src={iconPath}
+                src={headerItem.imageSrc}
                 width={20}
                 height={20}
                 alt=""
+                className="select-none"
             />
             <span className="font-black text-white">
-                {label}
+                {headerItem.name}
             </span>
         </Link>
     );

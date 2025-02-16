@@ -1,11 +1,11 @@
 import React from "react";
-import {SocialNetworks} from "@/items/footer/SocialNetworks";
+import {SocialMedia} from "@/items/footer/SocialMedia";
 import Link from "next/link";
 import Image from "next/image";
-import {RelatedOrganizations} from "@/items/footer/RelatedOrganizations";
+import {RelatedOrganization, RelatedOrganizations} from "@/items/footer/RelatedOrganizations";
 
 export default function Footer() {
-    const socialNetworks = SocialNetworks();
+    const socialNetworks = SocialMedia();
     const relatedOrganizations = RelatedOrganizations();
 
     return (
@@ -35,9 +35,7 @@ export default function Footer() {
                         {socialNetworks.map((item, index) => (
                             <SocialMediaItem
                                 key={index}
-                                alt={item.alt}
-                                iconPath={item.imageSrc}
-                                href={item.href}
+                                socialMedia={item}
                             />
                         ))}
                     </div>
@@ -48,10 +46,7 @@ export default function Footer() {
                         {relatedOrganizations.map((item, index) => (
                             <RelatedOrganizationItem
                                 key={index}
-                                alt={item.alt}
-                                iconPath={item.imageSrc}
-                                width={item.width}
-                                height={item.height}
+                                relatedOrganization={item}
                             />
                         ))}
                     </div>
@@ -65,41 +60,38 @@ export default function Footer() {
 }
 
 interface SocialMediaItemProps {
-    alt: string;
-    iconPath: string;
-    href: string;
+    socialMedia: SocialMedia;
 }
 
-export const SocialMediaItem: React.FC<SocialMediaItemProps> = ({alt, iconPath, href}) => {
+export const SocialMediaItem: React.FC<SocialMediaItemProps> = ({socialMedia}) => {
     return (
         <Link
-            href={href}
+            href={socialMedia.href}
             className=""
         >
             <Image
-                src={iconPath}
+                src={socialMedia.imageSrc}
                 width={45}
                 height={45}
-                alt={alt}
+                alt={socialMedia.alt}
+                className="select-none"
             />
         </Link>
     );
 };
 
 interface RelatedOrganizationItemProps {
-    alt: string;
-    iconPath: string;
-    width: number;
-    height: number;
+    relatedOrganization: RelatedOrganization;
 }
 
-export const RelatedOrganizationItem: React.FC<RelatedOrganizationItemProps> = ({alt, iconPath, width, height}) => {
+export const RelatedOrganizationItem: React.FC<RelatedOrganizationItemProps> = ({relatedOrganization}) => {
     return (
         <Image
-            src={iconPath}
-            width={width}
-            height={height}
-            alt={alt}
+            src={relatedOrganization.imageSrc}
+            width={relatedOrganization.width}
+            height={relatedOrganization.height}
+            alt={relatedOrganization.alt}
+            className="select-none"
         />
     );
 };
