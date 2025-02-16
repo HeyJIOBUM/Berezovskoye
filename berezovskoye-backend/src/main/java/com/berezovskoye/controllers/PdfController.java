@@ -15,8 +15,14 @@ public class PdfController {
     @Autowired
     private PdfService pdfService;
 
-    @GetMapping("/{filename:.+}")
-    public ResponseEntity<FileSystemResource> downloadPdf(@PathVariable String filename) {
-        return pdfService.downloadPdf(filename);
+//    @Deprecated
+//    @GetMapping("/{filename:.+}")
+//    public ResponseEntity<FileSystemResource> downloadPdf(@PathVariable String filename) {
+//        return pdfService.downloadPdf(filename);
+//    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable int productId){
+        return pdfService.downloadPdf(productId);
     }
 }
