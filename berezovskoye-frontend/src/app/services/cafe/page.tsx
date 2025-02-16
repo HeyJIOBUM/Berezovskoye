@@ -12,7 +12,7 @@ export default function Page() {
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <div className="relative aspect-[2] w-full select-none">
                     <Image
-                        src="/services/cafe.png"
+                        src="/services_images/cafe.png"
                         fill={true}
                         style={{objectFit: "cover"}}
                         alt="Изображение кафе"
@@ -51,7 +51,7 @@ export default function Page() {
                 </p>
                 <div className="relative aspect-[3] w-full select-none">
                     <Image
-                        src="/services/chel.png"
+                        src="/services_images/chel.png"
                         fill={true}
                         style={{objectFit: "cover"}}
                         alt="Работники кафе"
@@ -95,7 +95,7 @@ export default function Page() {
                 <div className="grid select-none grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-2.5">
                     <div className="relative h-auto w-full">
                         <Image
-                            src="/services/outside_cafe.png"
+                            src="/services_images/outside_cafe.png"
                             width={500}
                             height={300}
                             style={{objectFit: "contain"}}
@@ -105,7 +105,7 @@ export default function Page() {
 
                     <div className="relative h-auto w-full">
                         <Image
-                            src="/services/inside_cafe.png"
+                            src="/services_images/inside_cafe.png"
                             width={500}
                             height={300}
                             style={{objectFit: "contain"}}
@@ -115,7 +115,7 @@ export default function Page() {
 
                     <div className="relative h-auto w-full">
                         <Image
-                            src="/services/billiard.png"
+                            src="/services_images/billiard.png"
                             width={500}
                             height={300}
                             style={{objectFit: "contain"}}
@@ -125,7 +125,7 @@ export default function Page() {
 
                     <div className="relative h-auto w-full">
                         <Image
-                            src="/services/chel.png"
+                            src="/services_images/chel.png"
                             width={500}
                             height={300}
                             style={{objectFit: "contain"}}

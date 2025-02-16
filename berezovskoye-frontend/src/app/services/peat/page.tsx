@@ -11,7 +11,7 @@ export default function Page() {
             <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2 sm:p-2.5">
                 <div className="flex flex-col gap-2 md:flex-row">
                     <div
-                        className="size-full min-h-[200px] bg-[url(/services/peat.png)] bg-cover bg-center md:min-w-[40%]"/>
+                        className="size-full min-h-[200px] bg-[url(/services_images/peat.png)] bg-cover bg-center md:min-w-[40%]"/>
                     <p className="text-base font-normal">
                         Торфяные топливные брикеты марки БТ-1, произведенные ТПУ «Березовское», давно оценили не только
                         в Республике Беларусь, но и далеко за ее пределами. Вот уже
@@ -35,7 +35,7 @@ export default function Page() {
                 <div
                     className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
                     <div
-                        className="size-full min-h-[200px] min-w-[40%] bg-[url(/services/peat_in_bag.png)] bg-cover bg-center"/>
+                        className="size-full min-h-[200px] min-w-[40%] bg-[url(/services_images/peat_in_bag.png)] bg-cover bg-center"/>
                     <p className="text-base font-normal">
                         Показатели качества соответствуют <span className="font-medium"> СТБ 1919-2008 </span>
                         «Брикеты топливные на основе торфа». Брикеты торфяные топливные реализуются на экспорт
@@ -47,7 +47,7 @@ export default function Page() {
                     </p>
                 </div>
                 <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
-                    <div className="size-full min-h-[120px] bg-[url(/services/train.png)] bg-cover bg-center"/>
+                    <div className="size-full min-h-[120px] bg-[url(/services_images/train.png)] bg-cover bg-center"/>
                     <p className="font-normal">
                         Возможна поставка торфобрикета <span
                         className="font-medium"> железнодорожным транспортом </span>

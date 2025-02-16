@@ -8,7 +8,7 @@ export default function About() {
             <TextWithLines text={"О нас"}/>
             <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5">
                 <Image
-                    src="/about-1.jpg"
+                    src="/about_page_images/about-1.jpg"
                     width={1240}
                     height={190}
                     style={{objectFit: "contain"}}
@@ -41,10 +41,9 @@ export default function About() {
                     </p>
                 </div>
             </div>
-            <div
-                className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row">
+            <div className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row">
                 <div
-                    className="size-full min-h-[200px] bg-[url(/about-2.jpg)] bg-cover bg-center md:min-h-0 md:min-w-[40%]"/>
+                    className="size-full min-h-[200px] bg-[url(/about_page_images/about-2.jpg)] bg-cover bg-center md:min-h-0 md:min-w-[40%]"/>
                 <div className="flex flex-col gap-2 font-normal">
                     <p>
                         В <span className="font-medium">1987 году</span> был введен в действие новый брикетный завод.
@@ -68,9 +67,8 @@ export default function About() {
                     </p>
                 </div>
             </div>
-            <div
-                className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
-                <div className="size-full min-h-[200px] min-w-[40%] bg-[url(/about-3.jpg)] bg-cover bg-center"/>
+            <div className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
+                <div className="size-full min-h-[200px] min-w-[40%] bg-[url(/about_page_images/about-3.jpg)] bg-cover bg-center"/>
                 <div className="flex flex-col gap-2 font-normal">
                     <p>
                         В <span className="font-medium">2007 году</span> на основании приказа Министерства энергетики
