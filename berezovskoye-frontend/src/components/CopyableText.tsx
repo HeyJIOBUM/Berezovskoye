@@ -16,8 +16,10 @@ export default function CopyableText({description, textToCopy, timeToResetToolti
         navigator.clipboard.writeText(text)
             .then(() => {
                 setTooltipText('Скопировано');
+                setIsHovered(true);
                 setTimeout(() => {
                     setTooltipText('Скопировать');
+                    setIsHovered(false);
                 }, timeToResetTooltip);
             })
             .catch((err) => {
@@ -29,7 +31,7 @@ export default function CopyableText({description, textToCopy, timeToResetToolti
         <div>
             {description}
             <span
-                className="text-logo-color cursor-pointer hover:underline relative"
+                className="relative cursor-pointer text-logo-color hover:underline"
                 onClick={() => handleCopyText(textToCopy)}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -37,7 +39,7 @@ export default function CopyableText({description, textToCopy, timeToResetToolti
                 {textToCopy}
                 {isHovered && (
                     <div
-                        className="absolute bottom-full left-1/2 -translate-x-1/2 bg-black text-white text-xs p-2"
+                        className="absolute bottom-full left-1/2 -translate-x-1/2 bg-black p-2 text-xs text-white"
                     >
                         {tooltipText}
                     </div>
