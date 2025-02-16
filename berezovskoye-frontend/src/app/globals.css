@@ -62,7 +62,7 @@
     }
 
     .base-button {
-        @apply flex-1 w-full p-2 text-center text-sm font-black text-white hover:opacity-70;
+        @apply flex-1 w-full p-2 text-center text-sm font-black text-white active:opacity-70;
         transition: opacity 0.2s ease;
     }
 
