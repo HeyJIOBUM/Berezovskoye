@@ -19,7 +19,7 @@ export default function ProductDetails({product}: ProductDetailsProps) {
             <div className="flex flex-col gap-2 sm:gap-4 md:flex-row">
                 <div
                     className="flex h-fit min-w-[35%] flex-col items-center justify-start gap-1 bg-white p-1 sm:gap-4 sm:p-2.5">
-                    <div className="relative flex aspect-[1] w-full select-none">
+                    <div className="relative flex aspect-[1] w-full select-none bg-gray-300">
                         <Image
                             src={product.imgUrl}
                             fill={true}
@@ -85,7 +85,13 @@ export default function ProductDetails({product}: ProductDetailsProps) {
                 <thead className="bg-table-header text-left text-base font-bold">
                 <tr>
                     {product.productDetailsTable.header.map((item, index) => (
-                        <th key={index} className={(index === 0 ? "w-2/5" : "") + "p-1 sm:p-2.5"}>
+                        <th
+                            key={index}
+                            className="p-1 sm:p-2.5"
+                            style={{
+                                width: index === 0 ? "40%" : `${60 / (product.productDetailsTable.header.length - 1)}%`,
+                            }}
+                        >
                             {item}
                         </th>
                     ))}
@@ -104,7 +110,7 @@ export default function ProductDetails({product}: ProductDetailsProps) {
                                 {row.map((cell, cellIndex) => (
                                     <td
                                         key={cellIndex}
-                                        className={cellIndex === 0 ? "ml-8 list-item list-disc pr-2.5" : "p-1 sm:px-2.5"}
+                                        className={`${cellIndex === 0 ? "ml-8 list-item list-disc pr-1 sm:pr-2.5" : "p-1 sm:px-2.5"}`}
                                         style={{
                                             paddingBottom: rowIndex === category.categoryDetails.length - 1 ? "0.625rem" : "",
                                         }}
