@@ -3,22 +3,23 @@ import {News} from "@/items/TestNews";
 import Image from "next/image";
 
 interface NewsDetailsProps {
-    news : News;
+    news: News;
 }
 
-export default function NewsDetails({ news }: NewsDetailsProps) {
+export default function NewsDetails({news}: NewsDetailsProps) {
     return (
         <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             <h2 className="text-2xl">
                 {news.title}
             </h2>
 
-            <div className="relative aspect-[7/2] w-full select-none">
+            <div className="relative aspect-[7/2] w-full">
                 <Image
                     src={news.imgUrl}
                     fill={true}
                     style={{objectFit: "cover"}}
                     alt="News Image"
+                    className="select-none"
                 />
                 <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1">
                     <div className="text-base font-bold text-white">

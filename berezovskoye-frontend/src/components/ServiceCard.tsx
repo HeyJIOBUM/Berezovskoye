@@ -29,15 +29,15 @@ export default function ServiceCard({service}: ServiceCardProps) {
                         {service.text}
                     </p>
                 </div>
-                <div className="flex w-full justify-between gap-1 text-sm sm:gap-2">
+                <div className="flex w-full flex-wrap justify-between gap-1 sm:gap-2">
                     <Link
-                        className="flex-1 bg-detail p-2 text-center font-bold text-white"
+                        className="base-button bg-detail"
                         href={`${service.pageUrl}`}
                     >
                         Подробнее
                     </Link>
                     <Link
-                        className="flex-1 bg-buy p-2 text-center font-bold text-white"
+                        className="base-button bg-buy"
                         href="/feedback"
                     >
                         Подать заявку

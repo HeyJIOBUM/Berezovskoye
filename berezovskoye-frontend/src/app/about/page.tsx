@@ -4,7 +4,7 @@ import React from "react";
 
 export default function About() {
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+        <div className="base-container">
             <TextWithLines text={"О нас"}/>
             <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5">
                 <Image
@@ -17,7 +17,8 @@ export default function About() {
                 <div className="flex flex-col gap-2 font-normal">
                     <p>
                         Торфопредприятие «Березовское» создано <span className="font-medium">29 декабря 1960</span> года
-                        Приказом Управления торфяной промышленности СНХ БССР №215 с целью производства коммунально-бытового
+                        Приказом Управления торфяной промышленности СНХ БССР №215 с целью производства
+                        коммунально-бытового
                         топлива (торфобрикет) для населения и других потребителей Брестской области, а также для добычи
                         торфа сельскому хозяйству Ивацевичского района, расположено в посёлке Зелёный бор Ивацевичского
                         района Брестской области.
@@ -40,8 +41,10 @@ export default function About() {
                     </p>
                 </div>
             </div>
-            <div className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row">
-                <div className="size-full min-h-[200px] bg-[url(/about-2.jpg)] bg-cover bg-center md:min-h-0 md:min-w-[40%]"/>
+            <div
+                className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row">
+                <div
+                    className="size-full min-h-[200px] bg-[url(/about-2.jpg)] bg-cover bg-center md:min-h-0 md:min-w-[40%]"/>
                 <div className="flex flex-col gap-2 font-normal">
                     <p>
                         В <span className="font-medium">1987 году</span> был введен в действие новый брикетный завод.
@@ -58,13 +61,15 @@ export default function About() {
                         за железнодорожной и автомобильной магистралями Брест-Москва.
                     </p>
                     <p>
-                        В <span className="font-medium">2001 году</span> торфопредприятие «Березовское» решением концерна
+                        В <span className="font-medium">2001 году</span> торфопредприятие «Березовское» решением
+                        концерна
                         по топливу и газификации «Белтопгаз» было переименовано в производственное республиканское
                         унитарное торфопредприятие «Березовское» (ПРУТП «Березовское»).
                     </p>
                 </div>
             </div>
-            <div className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
+            <div
+                className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
                 <div className="size-full min-h-[200px] min-w-[40%] bg-[url(/about-3.jpg)] bg-cover bg-center"/>
                 <div className="flex flex-col gap-2 font-normal">
                     <p>

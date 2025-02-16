@@ -7,7 +7,7 @@ export default function Page() {
     const emailAddresses = GetEmails();
 
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+        <div className="base-container">
             <TextWithLines text="Контакты"/>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <p className="text-base font-medium sm:text-sm">Реквизиты:</p>

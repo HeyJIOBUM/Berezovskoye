@@ -9,7 +9,7 @@ interface NewsCardProps {
     news: News;
 }
 
-export default function NewsCard({ news }: NewsCardProps) {
+export default function NewsCard({news}: NewsCardProps) {
     return (
         <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             <div className="relative aspect-[7/3] w-full select-none">
@@ -37,7 +37,7 @@ export default function NewsCard({ news }: NewsCardProps) {
             </div>
 
             <Link
-                className="w-full bg-detail p-2 text-center text-sm font-black text-white"
+                className="base-button bg-detail"
                 href={`/news/${news.id}`}
             >
                 Читать подробнее
