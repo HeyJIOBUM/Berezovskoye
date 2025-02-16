@@ -3,6 +3,7 @@ import {SocialMedia} from "@/items/footer/SocialMedia";
 import Link from "next/link";
 import Image from "next/image";
 import {RelatedOrganization, RelatedOrganizations} from "@/items/footer/RelatedOrganizations";
+import CopyableText from "@/components/CopyableText";
 
 export default function Footer() {
     const socialNetworks = SocialMedia();
@@ -18,12 +19,16 @@ export default function Footer() {
                     </div>
                     <div>Emails:</div>
                     <div className="ml-0 lg:ml-5">
-                        <div>
-                            Приёмная: <span className="text-logo-color">tbz@brest.gas.by</span>
-                        </div>
-                        <div>
-                            Юрисконсульт: <span className="text-logo-color">torf-jurist@brest.gas.by</span>
-                        </div>
+                        <CopyableText
+                            description={"Приёмная: "}
+                            textToCopy={"tbz@brest.gas.by"}
+                            timeToResetTooltip={3000}
+                        />
+                        <CopyableText
+                            description={"Юрисконсульт: "}
+                            textToCopy={"torf-jurist@brest.gas.by"}
+                            timeToResetTooltip={3000}
+                        />
                     </div>
                 </div>
 
@@ -86,12 +91,14 @@ interface RelatedOrganizationItemProps {
 
 export const RelatedOrganizationItem: React.FC<RelatedOrganizationItemProps> = ({relatedOrganization}) => {
     return (
-        <Image
-            src={relatedOrganization.imageSrc}
-            width={relatedOrganization.width}
-            height={relatedOrganization.height}
-            alt={relatedOrganization.alt}
-            className="select-none"
-        />
+        <Link href={`${relatedOrganization.href}`}>
+            <Image
+                src={relatedOrganization.imageSrc}
+                width={relatedOrganization.width}
+                height={relatedOrganization.height}
+                alt={relatedOrganization.alt}
+                className="select-none"
+            />
+        </Link>
     );
 };
