@@ -11,10 +11,10 @@ export default function Page() {
     }
 
     return (
-        <div className="flex w-full max-w-screen-sm flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+        <div className="small-container">
             <TextWithLines text="Обратная связь"/>
             <form
-                className="flex flex-col gap-4 bg-white p-2.5"
+                className="base-form"
                 onSubmit={onRequestSubmit}
             >
                 <p className="font-light">
@@ -32,7 +32,7 @@ export default function Page() {
                             id="fullName"
                             name="fullName"
                             required
-                            className="border-b border-black py-1 focus:outline-none"
+                            className="base-input"
                             placeholder="Введите ваше ФИО"
                         />
                     </div>
@@ -45,7 +45,7 @@ export default function Page() {
                             type="email"
                             id="email"
                             name="email"
-                            className="border-b border-black py-1 focus:outline-none"
+                            className="base-input"
                             placeholder="Введите ваш Email"
                         />
                     </div>
@@ -59,7 +59,7 @@ export default function Page() {
                             id="phone"
                             name="phone"
                             required
-                            className="border-b border-black py-1 focus:outline-none"
+                            className="base-input"
                             placeholder="Введите ваш номер телефона"
                         />
                     </div>
@@ -73,7 +73,7 @@ export default function Page() {
                             id="address"
                             name="address"
                             required
-                            className="border-b border-black py-1 focus:outline-none"
+                            className="base-input"
                             placeholder="Введите ваш адрес"
                         />
                     </div>
@@ -86,14 +86,14 @@ export default function Page() {
                             id="message"
                             name="message"
                             required
-                            className="resize-none border-b border-black py-1 focus:outline-none"
+                            className="base-input resize-none"
                             placeholder="Введите текст вашего запроса"
                             rows={1}
                             maxRows={8}
                         />
                     </div>
                 </div>
-                <button type={"submit"} className="w-full bg-buy p-2 text-sm font-black text-white">
+                <button type="submit" className="base-button bg-buy">
                     Подать заявку
                 </button>
             </form>

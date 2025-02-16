@@ -10,10 +10,10 @@ export default function Page() {
     }
 
     return (
-        <div className="flex w-full max-w-screen-sm flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+        <div className="small-container">
             <TextWithLines text="Панель администратора"/>
             <form
-                className="flex flex-col gap-4 bg-white p-2.5"
+                className="base-form"
                 onSubmit={onRequestSubmit}
             >
                 <div className="flex flex-col gap-2">
@@ -25,7 +25,7 @@ export default function Page() {
                             type="login"
                             id="login"
                             name="login"
-                            className="border-b border-black py-1 focus:outline-none"
+                            className="base-input"
                             placeholder="Введите ваш логин"
                         />
                     </div>
@@ -39,13 +39,12 @@ export default function Page() {
                             id="password"
                             name="password"
                             required
-                            className="border-b border-black py-1 focus:outline-none"
+                            className="base-input"
                             placeholder="Введите ваш пароль"
                         />
                     </div>
-
                 </div>
-                <button type={"submit"} className="w-full bg-buy p-2 text-sm font-black text-white">
+                <button type="submit" className="base-button bg-buy">
                     Войти в аккаунт
                 </button>
             </form>

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Page() {
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+        <div className="base-container">
             <TextWithLines text="Кафе Лесная усадьба"/>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <div className="relative aspect-[2] w-full select-none">
@@ -39,7 +39,7 @@ export default function Page() {
                 </div>
 
                 <Link
-                    className="w-full bg-buy p-2 text-center text-sm font-black text-white"
+                    className="base-button bg-buy"
                     href="/feedback"
                 >
                     Подать заявку

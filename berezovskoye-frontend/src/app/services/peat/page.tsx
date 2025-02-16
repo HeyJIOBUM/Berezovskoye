@@ -6,11 +6,12 @@ import Link from "next/link";
 
 export default function Page() {
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+        <div className="base-container">
             <TextWithLines text="Торфяные топливные брикеты"/>
             <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2 sm:p-2.5">
                 <div className="flex flex-col gap-2 md:flex-row">
-                    <div className="size-full min-h-[200px] bg-[url(/services/peat.png)] bg-cover bg-center md:min-w-[40%]"/>
+                    <div
+                        className="size-full min-h-[200px] bg-[url(/services/peat.png)] bg-cover bg-center md:min-w-[40%]"/>
                     <p className="text-base font-normal">
                         Торфяные топливные брикеты марки БТ-1, произведенные ТПУ «Березовское», давно оценили не только
                         в Республике Беларусь, но и далеко за ее пределами. Вот уже
@@ -24,15 +25,17 @@ export default function Page() {
                     </p>
                 </div>
                 <Link
-                    className="w-full bg-buy p-2 text-center text-sm font-black text-white"
+                    className="base-button bg-buy"
                     href="/feedback"
                 >
                     Подать заявку
                 </Link>
             </div>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
-                <div className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
-                    <div className="size-full min-h-[200px] min-w-[40%] bg-[url(/services/peat_in_bag.png)] bg-cover bg-center"/>
+                <div
+                    className="flex flex-col items-center justify-center gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 md:flex-row-reverse">
+                    <div
+                        className="size-full min-h-[200px] min-w-[40%] bg-[url(/services/peat_in_bag.png)] bg-cover bg-center"/>
                     <p className="text-base font-normal">
                         Показатели качества соответствуют <span className="font-medium"> СТБ 1919-2008 </span>
                         «Брикеты топливные на основе торфа». Брикеты торфяные топливные реализуются на экспорт
