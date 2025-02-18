@@ -15,6 +15,10 @@ public class ProductDetailsCategory {
     @Column(nullable = false)
     private String categoryName;
 
-    @OneToMany(mappedBy = "productDetailsCategory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_details_table_id")
+    private ProductDetailsTable productDetailsTable;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "productDetailsCategory")
     private List<CategoryDetails> categoryDetails;
 }
