@@ -14,6 +14,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ProductService {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
-    @Cacheable(value = "products", key = "#id")
+    //@Cacheable(value = "products", key = "#id")
     public ResponseEntity<ProductDto> getProduct(int id) {
         Optional<Product> product = productRepository.findById(id);
 
@@ -45,7 +46,7 @@ public class ProductService {
                 HttpStatus.OK);
     }
 
-    @Cacheable(value = "products")
+    //@Cacheable(value = "products")
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         List<Product> products = productRepository.findAll();
         if(products.isEmpty()){
@@ -57,19 +58,20 @@ public class ProductService {
                 HttpStatus.OK);
     }
 
-    @CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    @Transactional
     public ResponseEntity<ProductDto> addProduct(Product product) {
         //TODO handle adding to repo + log
         return new ResponseEntity<>(ProductDto.fromProduct(productRepository.save(product)), HttpStatus.OK);
     }
 
-    @CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
     public ResponseEntity<List<ProductDto>> addAllProducts(List<Product> products){
         //TODO handle adding to repo + log
         return new ResponseEntity<>(ProductDto.fromProduct(productRepository.saveAll(products)), HttpStatus.OK);
     }
 
-    @CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
     public ResponseEntity<ProductDto> updateProduct(int id, Product newProductData) {
         Optional<Product> productToUpdate = productRepository.findById(id);
         if(productToUpdate.isEmpty()){
@@ -101,7 +103,7 @@ public class ProductService {
         }
     }
 
-    @CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
     public ResponseEntity<String> deleteProduct(int id) {
         Optional<Product> productToDelete = productRepository.findById(id);
         if(productToDelete.isEmpty()){

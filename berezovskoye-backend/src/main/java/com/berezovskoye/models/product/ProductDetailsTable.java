@@ -12,12 +12,11 @@ public class ProductDetailsTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "headers", joinColumns = @JoinColumn(name = "product_details_table_id"))
+    @ElementCollection
+    @CollectionTable(name = "product_details_headers", joinColumns = @JoinColumn(name = "product_details_table_id"))
     @Column(name = "header")
     private List<String> header;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_details_table_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "productDetailsTable")
     private List<ProductDetailsCategory> productDetailsCategories;
 }

@@ -26,18 +26,25 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProductDto> addProduct(@RequestBody Product product){
-        return productService.addProduct(product);
+    public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto product){
+        return productService.addProduct(
+                ProductDto.fromProductDto(product)
+        );
     }
 
     @PostMapping
-    public ResponseEntity<List<ProductDto>> addAllProducts(@RequestBody List<Product> products){
-        return productService.addAllProducts(products);
+    public ResponseEntity<List<ProductDto>> addAllProducts(@RequestBody List<ProductDto> products){
+        return productService.addAllProducts(
+                ProductDto.fromProductDto(products)
+        );
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable int id, @RequestBody Product newProductData){
-        return productService.updateProduct(id, newProductData);
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable int id,
+                                                    @RequestBody ProductDto newProductData){
+        return productService.updateProduct(id,
+                ProductDto.fromProductDto(newProductData)
+        );
     }
 
     @DeleteMapping("/{id}")

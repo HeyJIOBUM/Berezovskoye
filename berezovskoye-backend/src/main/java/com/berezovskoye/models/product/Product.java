@@ -12,6 +12,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Version
+    private Integer version = 0;
+
     @Column(nullable = false)
     private String name;
 
@@ -20,17 +23,17 @@ public class Product {
 
     private String imgUrl;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "packaging_types", joinColumns = @JoinColumn(name = "product_id"))
+    @ElementCollection
+    @CollectionTable(name = "product_packaging_types", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "packaging_type")
     private List<String> packagingTypes;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "quality_indicators", joinColumns = @JoinColumn(name = "product_id"))
+    @ElementCollection
+    @CollectionTable(name = "product_quality_indicators", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "quality_indicator")
     private List<String> qualityIndicators;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_details_table_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_details_table_id", referencedColumnName = "id")
     private ProductDetailsTable productDetailsTable;
 }

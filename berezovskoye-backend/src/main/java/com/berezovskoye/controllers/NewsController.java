@@ -28,8 +28,9 @@ public class NewsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NewsDto> updateNews(@PathVariable int id, @RequestBody News newNewsData){
-        return newsService.updateNews(id, newNewsData);
+    public ResponseEntity<NewsDto> updateNews(@PathVariable int id, @RequestBody NewsDto newNewsData){
+        return newsService.updateNews(id,
+                NewsDto.fromNewsDto(newNewsData));
     }
 
     @DeleteMapping("/{id}")

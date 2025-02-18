@@ -12,10 +12,12 @@ public class CategoryDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_details_category_id")
     private ProductDetailsCategory productDetailsCategory;
 
     @ElementCollection
-    private List<String> categoryDetails;
+    @CollectionTable(name = "category_details_items", joinColumns = @JoinColumn(name = "category_details_id"))
+    @Column(name = "detail")
+    private List<String> details;
 }

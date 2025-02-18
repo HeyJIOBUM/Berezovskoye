@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class ProductDto {
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     private String imgUrl;
@@ -34,7 +34,30 @@ public class ProductDto {
         return dto;
     }
 
+    public static Product fromProductDto(ProductDto productDto) {
+
+        Product product = new Product();
+
+        product.setId(productDto.getId());
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setImgUrl(productDto.getImgUrl());
+        product.setPackagingTypes(productDto.getPackagingTypes());
+        product.setQualityIndicators(productDto.getQualityIndicators());
+
+        product.setProductDetailsTable(
+                ProductDetailsTableDto.fromProductDetailsTableDto(
+                        productDto.getProductDetailsTable()
+                ));
+
+        return product;
+    }
+
     public static List<ProductDto> fromProduct(List<Product> products) {
         return products.stream().map(ProductDto::fromProduct).toList();
+    }
+
+    public static List<Product> fromProductDto(List<ProductDto> products) {
+        return products.stream().map(ProductDto::fromProductDto).toList();
     }
 }
