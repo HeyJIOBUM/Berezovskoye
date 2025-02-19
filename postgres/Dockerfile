@@ -3,6 +3,7 @@ FROM postgres:17.3
 ENV POSTGRES_DB=berezovskoye_database
 ENV POSTGRES_USER=user
 ENV POSTGRES_PASSWORD=password
+ENV PGDATA=/var/lib/postgresql/data
 
 # Doesn't work, but good ref for changes in postgresql.conf
 # RUN echo "wal_level=replica" >> /var/lib/postgresql/data/postgresql.conf \
@@ -32,5 +33,8 @@ COPY ./wal-g-pg-ubuntu-22.04-amd64.tar.gz /wal-g-pg-ubuntu-22.04-amd64.tar.gz
 #RUN wget https://github.com/wal-g/wal-g/releases/download/v3.0.5/wal-g-pg-ubuntu-22.04-amd64.tar.gz
 RUN tar -zxvf wal-g-pg-ubuntu-22.04-amd64.tar.gz \
     && mv wal-g-pg-ubuntu-22.04-amd64 /usr/local/bin/wal-g
+
+RUN mkdir /wal-g-backups \
+    && chown -R postgres:postgres /wal-g-backups
 
 CMD [ "-c", "config_file=/etc/postgresql/postgresql.conf" ]
