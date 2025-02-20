@@ -1,6 +1,7 @@
 package com.berezovskoye.services;
 
 import com.berezovskoye.dtos.productDto.ProductDto;
+import com.berezovskoye.exceptions.global.BadRequestException;
 import com.berezovskoye.exceptions.product.ProductNotFoundException;
 import com.berezovskoye.models.product.Product;
 import com.berezovskoye.models.product.ProductDetailsCategory;
@@ -32,7 +33,7 @@ public class ProductService {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
-    //@Cacheable(value = "products", key = "#id")
+    @Cacheable(value = "products", key = "#id")
     public ResponseEntity<ProductDto> getProduct(int id) {
         Optional<Product> product = productRepository.findById(id);
 
@@ -46,11 +47,13 @@ public class ProductService {
                 HttpStatus.OK);
     }
 
-    //@Cacheable(value = "products")
+    @Cacheable(value = "products")
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         List<Product> products = productRepository.findAll();
+
         if(products.isEmpty()){
-            log.warn("{}{}", messages.getString("products.empty"), LocalDateTime.now());
+            String productsEmpty = messages.getString("products.empty");
+            log.warn("{}{}", productsEmpty, LocalDateTime.now());
         }
 
         return new ResponseEntity<>(
@@ -58,24 +61,22 @@ public class ProductService {
                 HttpStatus.OK);
     }
 
-    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    @CacheEvict(value = { "products", "pdf" }, allEntries = true)
     @Transactional
     public ResponseEntity<ProductDto> addProduct(Product product) {
+        BadRequestException.checkObject("default.bad.request", product);
+
         //TODO handle adding to repo + log
         return new ResponseEntity<>(ProductDto.fromProduct(productRepository.save(product)), HttpStatus.OK);
     }
 
-    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
-    public ResponseEntity<List<ProductDto>> addAllProducts(List<Product> products){
-        //TODO handle adding to repo + log
-        return new ResponseEntity<>(ProductDto.fromProduct(productRepository.saveAll(products)), HttpStatus.OK);
-    }
-
-    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    @CacheEvict(value = { "products", "pdf" }, allEntries = true)
     public ResponseEntity<ProductDto> updateProduct(int id, Product newProductData) {
+        BadRequestException.checkObject("default.bad.request", newProductData);
+
         Optional<Product> productToUpdate = productRepository.findById(id);
         if(productToUpdate.isEmpty()){
-            //TODO throw error missing product + log
+            throw new RuntimeException();//TODO throw error missing product + log
         }
 
         Product existingProduct = productToUpdate.get();
@@ -90,7 +91,7 @@ public class ProductService {
     }
 
     private void updateProductDetails(ProductDetailsTable existingDetails, ProductDetailsTable newDetails) {
-        if (newDetails != null) {
+        if (newDetails == null) {
             modelMapper.map(newDetails, existingDetails);
             updateProductDetailsCategories(existingDetails.getProductDetailsCategories(), newDetails.getProductDetailsCategories());
         }
@@ -103,7 +104,7 @@ public class ProductService {
         }
     }
 
-    //@CacheEvict(value = { "products", "pdf" }, allEntries = true)
+    @CacheEvict(value = { "products", "pdf" }, allEntries = true)
     public ResponseEntity<String> deleteProduct(int id) {
         Optional<Product> productToDelete = productRepository.findById(id);
         if(productToDelete.isEmpty()){

@@ -1,66 +1,56 @@
 package com.berezovskoye.services;
 
+import com.berezovskoye.exceptions.global.BadRequestException;
+import com.berezovskoye.utils.ImageConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class ImageService {
 
     @Value("${images.path}")
     private String uploadPath;
 
-    public ResponseEntity<String> uploadImage(MultipartFile image){
-        if(image == null){
-            throw new RuntimeException();//TODO replace with handler + log
-        }
+    private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
+
+    public ResponseEntity<String> uploadImage(MultipartFile image) throws IOException, IllegalStateException {
+        BadRequestException.checkObject("images.bad.request", image);
+
         try{
             Path path = Paths.get(uploadPath);
             if(Files.notExists(path)){
                 Files.createDirectories(path);
             }
 
-            String filename = UUID.randomUUID() + ".jpg";
+            String filename = UUID.randomUUID() + ImageConverter.OUTPUT_TYPE;
             Path savePath = Paths.get(uploadPath, filename);
 
-            InputStream jpgImage = convertToJpg(image);
+            InputStream jpgImage = ImageConverter.convertToJpg(image);
             Files.copy(jpgImage, savePath);
 
-            //TODO log
+            String imgUploaded = messages.getString("images.uploaded");
+            log.info(String.format(imgUploaded, savePath), imgUploaded, LocalDateTime.now());
             return new ResponseEntity<>(filename, HttpStatus.OK);
         } catch (IOException e) {
-            throw new RuntimeException(e);//TODO replace with handler + log
+            String imgSaveException = messages.getString("images.save.exception");
+            log.error("{}{}", imgSaveException, LocalDateTime.now());
+            throw new IOException(imgSaveException);
+        } catch (IllegalArgumentException e) {
+            log.error("{}{}", e, LocalDateTime.now());
+            throw new IllegalStateException(e);
         }
-    }
-
-    public static InputStream convertToJpg(MultipartFile file) throws IOException {
-        BufferedImage image = ImageIO.read(file.getInputStream());
-
-        BufferedImage convertedImage = new BufferedImage(
-                image.getWidth(),
-                image.getHeight(),
-                BufferedImage.TYPE_INT_RGB
-        );
-        convertedImage.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        boolean canWrite = ImageIO.write(convertedImage, "jpg", outputStream);
-
-        if (!canWrite) {
-            throw new IllegalStateException("Failed to write image.");
-        }
-
-        return new ByteArrayInputStream(outputStream.toByteArray());
     }
 }

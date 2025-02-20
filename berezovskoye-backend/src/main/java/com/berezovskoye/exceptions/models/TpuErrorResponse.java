@@ -1,4 +1,4 @@
-package com.berezovskoye.exceptions.global;
+package com.berezovskoye.exceptions.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

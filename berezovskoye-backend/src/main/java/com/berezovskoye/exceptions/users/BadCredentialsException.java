@@ -1,4 +1,4 @@
-package com.berezovskoye.exceptions.product;
+package com.berezovskoye.exceptions.users;
 
 public class BadCredentialsException extends RuntimeException {
     public BadCredentialsException(String message) {
