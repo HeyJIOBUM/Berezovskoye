@@ -27,7 +27,12 @@ public class NewsController {
         return newsService.getAllNews();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
+    public ResponseEntity<NewsDto> addNews(@RequestBody NewsDto news){
+        return newsService.addNews(NewsDto.fromNewsDto(news));
+    }
+
+    @PatchMapping("/{id}")
     public ResponseEntity<NewsDto> updateNews(@PathVariable int id, @RequestBody NewsDto newNewsData){
         return newsService.updateNews(id,
                 NewsDto.fromNewsDto(newNewsData));

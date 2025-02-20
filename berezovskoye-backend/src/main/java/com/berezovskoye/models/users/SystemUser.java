@@ -23,9 +23,9 @@ public class SystemUser {
     @Column(nullable = false)
     private boolean isEnabled = true;
 
-    public static boolean isCorrect(SystemUser user){
-        return user.getRole() != null
-                && user.getLogin() != null
-                && user.getPassword() != null;
+    public boolean isCorrect(){
+        return role != null
+                && login != null
+                && password != null;
     }
 }

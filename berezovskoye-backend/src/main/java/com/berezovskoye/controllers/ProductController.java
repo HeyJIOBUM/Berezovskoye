@@ -32,13 +32,6 @@ public class ProductController {
         );
     }
 
-    @PostMapping
-    public ResponseEntity<List<ProductDto>> addAllProducts(@RequestBody List<ProductDto> products){
-        return productService.addAllProducts(
-                ProductDto.fromProductDto(products)
-        );
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable int id,
                                                     @RequestBody ProductDto newProductData){

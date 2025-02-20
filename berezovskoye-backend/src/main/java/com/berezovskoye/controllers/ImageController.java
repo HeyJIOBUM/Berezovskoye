@@ -23,7 +23,7 @@ public class ImageController {
     ImageService imageService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) throws IOException, IllegalStateException {
         return imageService.uploadImage(file);
     }
 }

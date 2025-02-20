@@ -1,10 +1,12 @@
 package com.berezovskoye.services;
 
-import com.berezovskoye.exceptions.product.BadCredentialsException;
+import com.berezovskoye.exceptions.global.BadRequestException;
+import com.berezovskoye.exceptions.users.BadCredentialsException;
 import com.berezovskoye.models.users.SystemUser;
 import com.berezovskoye.principals.SystemUserPrincipal;
 import com.berezovskoye.repositories.SystemUserRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,9 +17,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+@Slf4j
 @Service
 public class SystemUserService {
 
@@ -43,30 +47,45 @@ public class SystemUserService {
     }
 
     public ResponseEntity<SystemUser> register(SystemUser user){
-        //SystemUser.isCorrect(user); //TODO boolean check + logs and error
+        if(user == null || user.isCorrect()){
+            String userIncorrect = messages.getString("user.incorrect");
+            log.error("{}{}", userIncorrect, LocalDateTime.now());
+            throw new BadRequestException(userIncorrect);
+        }
         user.setPassword(encoder.encode(user.getPassword()));
 
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
     }
 
     public ResponseEntity<String> verify(SystemUser user) {
+        if(user == null || user.isCorrect()){
+            String userIncorrect = messages.getString("user.incorrect");
+            log.error("{}{}", userIncorrect, LocalDateTime.now());
+            throw new BadRequestException(userIncorrect);
+        }
+
         Authentication authentication = manager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getLogin(), user.getPassword())
         );
 
         if(!authentication.isAuthenticated()){
-            String errorMessage = messages.getString("user.bad.credentials");
-            throw new BadCredentialsException(errorMessage);
+            String userBadCredentials = messages.getString("user.bad.credentials");
+            log.error("{}{}", userBadCredentials, LocalDateTime.now());
+            throw new BadCredentialsException(userBadCredentials);
         }
 
         return new ResponseEntity<>(jwtService.generateToken(user.getLogin()), HttpStatus.OK);
     }
 
     public ResponseEntity<String> changeCredentials(SystemUserPrincipal userDetails, SystemUser newData){
+        BadRequestException.checkObject("default.bad.request", userDetails, newData);
+
         SystemUser existingUser = userRepository.findByLogin(userDetails.getUsername());
         if(!existingUser.isEnabled()){
-            //TODO handle error + log
+            String userIncorrect = messages.getString("user.not.enabled");
+            log.error("{}{}", userIncorrect, LocalDateTime.now());
+            throw new BadCredentialsException(userIncorrect);
         }
 
         updateUserFields(existingUser, newData);
@@ -76,6 +95,8 @@ public class SystemUserService {
     }
 
     private void updateUserFields(SystemUser existingUser, SystemUser newData) {
+        BadRequestException.checkObject("default.bad.request", existingUser, newData);
+
         Optional.ofNullable(newData.getRole()).ifPresent(existingUser::setRole);
         Optional.ofNullable(newData.getLogin()).ifPresent(existingUser::setLogin);
 
@@ -86,6 +107,8 @@ public class SystemUserService {
     }
 
     public ResponseEntity<String> deleteUser(SystemUserPrincipal userDetails){
+        BadRequestException.checkObject("default.bad.request", userDetails);
+
         SystemUser userToDelete = userRepository.findByLogin(userDetails.getUsername());
         //TODO handle missing user + logs
         userRepository.delete(userToDelete);
