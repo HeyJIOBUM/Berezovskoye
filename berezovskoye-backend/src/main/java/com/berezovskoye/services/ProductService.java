@@ -97,8 +97,19 @@ public class ProductService {
             return new ResponseEntity<>(ProductDto.fromProduct(existingProduct), HttpStatus.OK);
         }
 
-        modelMapper.map(newProductData, existingProduct);
-        updateProductDetails(existingProduct.getProductDetailsTable(), newProductData.getProductDetailsTable());
+        Optional.ofNullable(newProductData.getName()).ifPresent(existingProduct::setName);
+        Optional.ofNullable(newProductData.getDescription()).ifPresent(existingProduct::setDescription);
+        Optional.ofNullable(newProductData.getImgUrl()).ifPresent(existingProduct::setImgUrl);
+
+        Optional.ofNullable(newProductData.getPackagingTypes()).ifPresent(packaging -> {
+            existingProduct.getPackagingTypes().clear();
+            existingProduct.getPackagingTypes().addAll(packaging);
+        });
+
+        Optional.ofNullable(newProductData.getQualityIndicators()).ifPresent(quality -> {
+            existingProduct.getQualityIndicators().clear();
+            existingProduct.getQualityIndicators().addAll(quality);
+        });
 
         Product updatedProduct = productRepository.save(existingProduct);
 
@@ -110,20 +121,6 @@ public class ProductService {
         }
 
         return logAndReturnObject("entity.updated", updatedProduct);
-    }
-
-    private void updateProductDetails(ProductDetailsTable existingDetails, ProductDetailsTable newDetails) {
-        if (newDetails != null) {
-            modelMapper.map(newDetails, existingDetails);
-            updateProductDetailsCategories(existingDetails.getProductDetailsCategories(), newDetails.getProductDetailsCategories());
-        }
-    }
-
-    private void updateProductDetailsCategories(List<ProductDetailsCategory> existingCategories, List<ProductDetailsCategory> newCategories) {
-        existingCategories.clear();
-        if (newCategories != null) {
-            existingCategories.addAll(newCategories);
-        }
     }
 
     @CacheEvict(value = { CACHE_NAME, "pdf" }, allEntries = true)
