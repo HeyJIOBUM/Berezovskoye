@@ -31,7 +31,20 @@ public class PdfGenerator {
     private final static String phoneNumbers = "тел. ПЭС +375 1645 47 2 18, Сектор МТОиМ +375 1645 47 2 33";
     private final static String webSources = "www.torf.brest.gas.by, e-mail: torf@brest.gas.by, tbz@brest.gas.by";
 
-    public static byte[] generatePdf(ProductDetailsTable detailsTable) {
+    private final static int[] BG_COLOR = {220, 220, 220};
+
+    private final static int HEADER_FONT_SIZE = 10;
+    private final static int REGULAR_FONT_SIZE = 8;
+    private final static int SUB_HEADER_FONT_SIZE = 8;
+    private final static int TITLE_FONT_SIZE = 14;
+    private final static int CREDENTIALS_FONT_SIZE = 10;
+
+    private final static int SPACING_AFTER_TITLE = 30;
+
+    private final static float FIRST_COL_LENGTH = 3f;
+    private final static float OTHER_COL_LENGTH = 1f;
+
+    public static byte[] generatePdf(ProductDetailsTable detailsTable) throws RuntimeException {
         Document document = new Document();
 
         try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
@@ -45,11 +58,11 @@ public class PdfGenerator {
             document.open();
 
             BaseFont baseFont = BaseFont.createFont(fontsPath + "/TimesNewRoman.ttf", "cp1251", BaseFont.EMBEDDED);
-            Font headerFont = new Font(baseFont, 10, Font.BOLD);
-            Font regularFont = new Font(baseFont, 8);
-            Font subHeaderFont = new Font(baseFont, 8, Font.BOLD | Font.ITALIC);
-            Font titleFont = new Font(baseFont, 14, Font.BOLD);
-            Font credentialsFont = new Font(baseFont, 10, Font.BOLD);
+            Font headerFont = new Font(baseFont, HEADER_FONT_SIZE, Font.BOLD);
+            Font regularFont = new Font(baseFont, REGULAR_FONT_SIZE);
+            Font subHeaderFont = new Font(baseFont, SUB_HEADER_FONT_SIZE, Font.BOLD | Font.ITALIC);
+            Font titleFont = new Font(baseFont, TITLE_FONT_SIZE, Font.BOLD);
+            Font credentialsFont = new Font(baseFont, CREDENTIALS_FONT_SIZE, Font.BOLD);
 
             Paragraph titleParagraph = createDocumentTitle(titleFont);
             document.add(titleParagraph);
@@ -62,15 +75,14 @@ public class PdfGenerator {
             document.close();
             return outputStream.toByteArray();
         } catch (DocumentException | IOException e) {
-            e.printStackTrace();//
-            throw new RuntimeException("PDF не был сгенерирован!"); // TODO: custom exception handler + logs
+            throw new RuntimeException(e);
         }
     }
 
     private static Paragraph createDocumentTitle(Font titleFont) {
         Paragraph titleParagraph = new Paragraph(title, titleFont);
         titleParagraph.setAlignment(Element.ALIGN_CENTER);
-        titleParagraph.setSpacingAfter(30);
+        titleParagraph.setSpacingAfter(SPACING_AFTER_TITLE);
         return titleParagraph;
     }
 
@@ -98,9 +110,9 @@ public class PdfGenerator {
 
         // setting custom width of the first column
         float[] columnWidths = new float[detailsTable.getHeader().size()];
-        columnWidths[0] = 3f;
+        columnWidths[0] = FIRST_COL_LENGTH;
         for (int i = 1; i < columnWidths.length; i++) {
-            columnWidths[i] = 1f;
+            columnWidths[i] = OTHER_COL_LENGTH;
         }
         try {
             table.setWidths(columnWidths);
@@ -120,7 +132,7 @@ public class PdfGenerator {
     private static void addTableHeaders(PdfPTable table, java.util.List<String> headers, Font headerFont) {
         for (String header : headers) {
             PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
-            cell.setBackgroundColor(new BaseColor(220, 220, 220));
+            cell.setBackgroundColor(new BaseColor(BG_COLOR[0], BG_COLOR[1], BG_COLOR[2]));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
         }

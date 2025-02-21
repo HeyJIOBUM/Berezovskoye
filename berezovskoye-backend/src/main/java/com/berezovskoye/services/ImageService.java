@@ -1,6 +1,6 @@
 package com.berezovskoye.services;
 
-import com.berezovskoye.exceptions.global.BadRequestException;
+import com.berezovskoye.exceptions.errors.global.BadRequestException;
 import com.berezovskoye.utils.ImageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

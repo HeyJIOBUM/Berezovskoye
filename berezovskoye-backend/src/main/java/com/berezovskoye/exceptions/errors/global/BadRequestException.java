@@ -1,4 +1,4 @@
-package com.berezovskoye.exceptions.global;
+package com.berezovskoye.exceptions.errors.global;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,5 +22,12 @@ public class BadRequestException extends RuntimeException {
                 throw new BadRequestException(errorMessage);
             }
         }
+    }
+
+    public static BadRequestException throwAndLogBadRequest(String key, String MODEL_NAME){
+        String exist = messages.getString(key);
+        String existMessage = String.format(exist, MODEL_NAME);
+        log.info("{} {}", existMessage, LocalDateTime.now());
+        throw new BadRequestException(existMessage);
     }
 }

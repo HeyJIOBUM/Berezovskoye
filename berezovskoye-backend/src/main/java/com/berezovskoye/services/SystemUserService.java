@@ -1,7 +1,7 @@
 package com.berezovskoye.services;
 
-import com.berezovskoye.exceptions.global.BadRequestException;
-import com.berezovskoye.exceptions.users.BadCredentialsException;
+import com.berezovskoye.exceptions.errors.global.BadRequestException;
+import com.berezovskoye.exceptions.errors.authorization.BadCredentialsException;
 import com.berezovskoye.models.users.SystemUser;
 import com.berezovskoye.principals.SystemUserPrincipal;
 import com.berezovskoye.repositories.SystemUserRepository;
@@ -46,6 +46,7 @@ public class SystemUserService {
         encoder = new BCryptPasswordEncoder(encodingStrength);
     }
 
+    @Deprecated
     public ResponseEntity<SystemUser> register(SystemUser user){
         if(user == null || user.isCorrect()){
             String userIncorrect = messages.getString("user.incorrect");
@@ -106,13 +107,14 @@ public class SystemUserService {
         existingUser.setEnabled(newData.isEnabled());
     }
 
+    @Deprecated
     public ResponseEntity<String> deleteUser(SystemUserPrincipal userDetails){
         BadRequestException.checkObject("default.bad.request", userDetails);
 
         SystemUser userToDelete = userRepository.findByLogin(userDetails.getUsername());
-        //TODO handle missing user + logs
+
         userRepository.delete(userToDelete);
-        return new ResponseEntity<>("Success", HttpStatus.OK); // TODO get message from .properties
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
 }
