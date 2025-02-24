@@ -11,5 +11,6 @@ export const applicationApi = createApi({
             return headers;
         },
     }),
+    tagTypes: ["News", "Product"],
     endpoints: () => ({}),
 });
