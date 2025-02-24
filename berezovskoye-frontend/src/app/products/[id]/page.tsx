@@ -1,19 +1,32 @@
+"use client";
+
 import TextWithLines from "@/components/TextWithLines";
 import ProductDetails from "@/components/ProductDetails";
-import {TestProducts} from "@/items/TestProducts";
+import {useGetProductByIdQuery} from "@/lib/api/productsApi";
+import {use} from "react";
 
 interface ProductPageProps {
     params: Promise<{ id: string }>
 }
 
-export default async function Page({params}: ProductPageProps) {
-    const productId = (await params).id;
-    const product = TestProducts()[+productId - 1];
+export default function Page({params}: ProductPageProps) {
+    const {id} = use(params);
+    const productId = +id;
+    const {data: product, error: productError, isLoading: isProductsLoading} = useGetProductByIdQuery({id: productId});
+
+    if (productError) return <div>Error</div>;
 
     return (
         <div className="base-container">
             <TextWithLines text={"Подробнее о товаре"}/>
-            <ProductDetails product={product}/>
+            {
+                isProductsLoading || !product ?
+                    <div>
+                        Loading...
+                    </div>
+                    :
+                    <ProductDetails product={product}/>
+            }
         </div>
     );
 }
