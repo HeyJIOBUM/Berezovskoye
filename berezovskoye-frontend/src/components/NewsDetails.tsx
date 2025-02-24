@@ -1,6 +1,6 @@
 import React from 'react';
-import {News} from "@/items/TestNews";
 import Image from "next/image";
+import {News} from "@/database";
 
 interface NewsDetailsProps {
     news: News;

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import React from "react";
-import {News} from "@/items/TestNews";
 import Link from "next/link";
+import {News} from "@/database";
 
 interface NewsCardProps {
     news: News;
