@@ -3,7 +3,7 @@
 import {use} from "react";
 import TextWithLines from "@/components/TextWithLines";
 import NewsDetails from "@/components/NewsDetails";
-import {useGetNewsByIdQuery} from "@/lib/api/newsApi";
+import {useGetNewsQuery} from "@/lib/api/newsApi";
 
 interface NewsPageProps {
     params: Promise<{ id: string }>
@@ -12,20 +12,27 @@ interface NewsPageProps {
 export default function Page({params}: NewsPageProps) {
     const {id} = use(params);
     const newsId = +id;
-    const {data: news, error: newsError, isLoading: isNewsLoading} = useGetNewsByIdQuery({id: newsId});
+    const {data: allNews, error: newsError, isLoading: isNewsLoading} = useGetNewsQuery();
 
     if (newsError) return <div>Error</div>;
+
+    const news = allNews?.find((news) => news.id == newsId);
 
     return (
         <div className="base-container">
             <TextWithLines text={"Новости подробнее"}/>
             {
-                isNewsLoading || !news ?
+                isNewsLoading ?
                     <div>
                         Loading...
                     </div>
                     :
-                    <NewsDetails news={news}/>
+                    news ?
+                        <NewsDetails news={news}/>
+                        :
+                        <div>
+                            Not found
+                        </div>
             }
         </div>
     );
