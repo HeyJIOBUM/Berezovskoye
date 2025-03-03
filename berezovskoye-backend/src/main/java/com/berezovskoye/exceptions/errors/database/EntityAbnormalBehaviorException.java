@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import java.util.ResourceBundle;
 
 @Slf4j
-@Component
 public class EntityAbnormalBehaviorException extends RuntimeException {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");

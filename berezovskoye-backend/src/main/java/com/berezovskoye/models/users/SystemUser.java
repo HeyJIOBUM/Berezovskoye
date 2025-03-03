@@ -24,8 +24,7 @@ public class SystemUser {
     private boolean isEnabled = true;
 
     public boolean isCorrect(){
-        return role != null
-                && login != null
+        return login != null
                 && password != null;
     }
 }
