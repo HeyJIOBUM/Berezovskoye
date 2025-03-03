@@ -26,7 +26,7 @@ export default function NewsCard({news}: NewsCardProps) {
                 </div>
             </div>
 
-            <div className="w-full">
+            <div className="size-full">
                 <h2 className="text-xl">
                     {news.title}
                 </h2>
