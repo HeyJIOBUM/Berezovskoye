@@ -59,7 +59,7 @@ public class SystemUserService {
     }
 
     public ResponseEntity<String> verify(SystemUser user) {
-        if(user == null || user.isCorrect()){
+        if(user == null || !user.isCorrect()){
             String userIncorrect = messages.getString("user.incorrect");
             log.error("{}{}", userIncorrect, LocalDateTime.now());
             throw new BadRequestException(userIncorrect);

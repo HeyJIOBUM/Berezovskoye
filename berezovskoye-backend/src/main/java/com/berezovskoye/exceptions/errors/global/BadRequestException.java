@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 @Slf4j
-@Component
 public class BadRequestException extends RuntimeException {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
