@@ -7,9 +7,10 @@ import {Product} from "@/database";
 
 interface ProductCardProps {
     product: Product;
+    isAuthenticated: boolean;
 }
 
-export default function ProductCard({product}: ProductCardProps) {
+export default function ProductCard({product, isAuthenticated}: ProductCardProps) {
     return (
         <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5">
             <div className="relative aspect-[1] w-full select-none bg-gray-300">
@@ -29,18 +30,31 @@ export default function ProductCard({product}: ProductCardProps) {
                 </p>
             </div>
             <div className="flex w-full flex-wrap justify-between gap-1 sm:gap-2">
-                <Link
-                    className="base-button bg-detail"
-                    href={`/products/${product.id}`}
-                >
-                    Подробнее
-                </Link>
-                <Link
-                    className="base-button bg-buy"
-                    href="/feedback"
-                >
-                    Купить
-                </Link>
+                {
+                    isAuthenticated
+                        ?
+                        <Link
+                            className="base-button bg-detail"
+                            href={`/products/${product.id}`}
+                        >
+                            Редактировать
+                        </Link>
+                        :
+                        <>
+                            <Link
+                                className="base-button bg-detail"
+                                href={`/products/${product.id}`}
+                            >
+                                Подробнее
+                            </Link>
+                            <Link
+                                className="base-button bg-buy"
+                                href="/feedback"
+                            >
+                                Купить
+                            </Link>
+                        </>
+                }
             </div>
         </div>
     );

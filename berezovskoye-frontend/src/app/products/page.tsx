@@ -5,9 +5,11 @@ import TextWithLines from "@/components/TextWithLines";
 import ProductCard from "@/components/ProductCard";
 import {useGetProductsQuery} from "@/lib/api/productsApi";
 import {Product} from "@/database";
+import {useAuth} from "@/lib/hooks";
 
 export default function Page() {
     const {data: products, error: productsError, isLoading: isProductsLoading} = useGetProductsQuery();
+    const isAuthenticated = useAuth();
 
     if (productsError) return <div>Error</div>
 
@@ -34,6 +36,7 @@ export default function Page() {
                                 <ProductCard
                                     key={product.id}
                                     product={product}
+                                    isAuthenticated={isAuthenticated}
                                 />
                             ))}
                         </div>
