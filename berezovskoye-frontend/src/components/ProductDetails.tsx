@@ -11,7 +11,7 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({product}: ProductDetailsProps) {
-    const isAuthenticated = useAuth();
+    const {isAuthenticated} = useAuth();
 
     const onDownloadPrice = () => {
         console.log("download prices")

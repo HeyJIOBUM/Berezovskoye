@@ -9,7 +9,7 @@ import {useAuth} from "@/lib/hooks";
 
 export default function Page() {
     const {data: products, error: productsError, isLoading: isProductsLoading} = useGetProductsQuery();
-    const isAuthenticated = useAuth();
+    const {isAuthenticated} = useAuth();
 
     if (productsError) return <div>Error</div>
 
