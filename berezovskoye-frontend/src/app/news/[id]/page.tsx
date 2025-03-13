@@ -4,6 +4,7 @@ import {use} from "react";
 import TextWithLines from "@/components/TextWithLines";
 import NewsDetails from "@/components/NewsDetails";
 import {useGetNewsQuery} from "@/lib/api/newsApi";
+import {News} from "@/database";
 
 interface NewsPageProps {
     params: Promise<{ id: string }>
@@ -18,6 +19,10 @@ export default function Page({params}: NewsPageProps) {
 
     const news = allNews?.find((news) => news.id == newsId);
 
+    const onSave = (news: News) => {
+        console.log("save news:", news);
+    }
+
     return (
         <div className="base-container">
             <TextWithLines text={"Новости подробнее"}/>
@@ -28,7 +33,10 @@ export default function Page({params}: NewsPageProps) {
                     </div>
                     :
                     news ?
-                        <NewsDetails news={news}/>
+                        <NewsDetails
+                            news={news}
+                            onSave={onSave}
+                        />
                         :
                         <div>
                             Not found
