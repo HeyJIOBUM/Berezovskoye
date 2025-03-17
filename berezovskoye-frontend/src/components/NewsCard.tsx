@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import {News} from "@/database";
+import {useDeleteNewsMutation} from "@/lib/api/newsApi";
 
 interface NewsCardProps {
     news: News;
@@ -11,8 +12,10 @@ interface NewsCardProps {
 }
 
 export default function NewsCard({news, isAuthenticated}: NewsCardProps) {
+    const [deleteNews] = useDeleteNewsMutation();
+
     const onDeleteNews = () => {
-        console.log("delete news")
+        deleteNews({id: news.id});
     }
 
     return (

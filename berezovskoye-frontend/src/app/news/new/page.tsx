@@ -5,6 +5,7 @@ import {News} from "@/database";
 import {useAuth} from "@/lib/hooks";
 import TextWithLines from "@/components/TextWithLines";
 import {redirect} from "next/navigation";
+import {useAddNewsMutation} from "@/lib/api/newsApi";
 
 export default function Page() {
     const {isAuthenticated, isLoading} = useAuth();
@@ -13,8 +14,10 @@ export default function Page() {
         redirect('/news');
     }
 
+    const [addNews] = useAddNewsMutation();
+
     const onSave = (news: News) => {
-        console.log(news);
+        addNews({news: news});
     }
 
     return (
