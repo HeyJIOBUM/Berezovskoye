@@ -20,6 +20,14 @@ ENV PGUSER=user
 ENV PGPASSWORD=password
 ENV PGDATABASE=berezovskoye_database
 
+# supervisor for cron and postgresql launch
+RUN apt-get update && \
+    apt-get install -y supervisor && \ 
+    mkdir /etc/supervisor.d
+COPY supervisord.conf /etc/supervisord.conf
+COPY postgres_cron.ini /etc/supervisor.d/postgres_cron.ini
+
+
 ENV WALG_FILE_PREFIX=/wal-g-backups
 #ENV WALG_SSH_PREFIX=
 #ENV SSH_PORT=
@@ -37,4 +45,6 @@ RUN tar -zxvf wal-g-pg-ubuntu-22.04-amd64.tar.gz \
 RUN mkdir /wal-g-backups \
     && chown -R postgres:postgres /wal-g-backups
 
-CMD [ "-c", "config_file=/etc/postgresql/postgresql.conf" ]
+
+#CMD [ "-c", "config_file=/etc/postgresql/postgresql.conf" ]
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
