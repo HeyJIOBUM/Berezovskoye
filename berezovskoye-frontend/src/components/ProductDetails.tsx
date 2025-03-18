@@ -1,17 +1,24 @@
 "use client"
 
 import React from 'react';
-import {Product} from "@/items/TestProducts";
 import Image from "next/image";
 import Link from "next/link";
+import {Product} from "@/database";
+import {useAuth} from "@/lib/hooks";
 
 interface ProductDetailsProps {
     product: Product;
 }
 
 export default function ProductDetails({product}: ProductDetailsProps) {
+    const {isAuthenticated} = useAuth();
+
     const onDownloadPrice = () => {
         console.log("download prices")
+    }
+
+    const onEditPhoto = () => {
+        console.log("edit photo")
     }
 
     return (
@@ -26,6 +33,18 @@ export default function ProductDetails({product}: ProductDetailsProps) {
                             style={{objectFit: "cover"}}
                             alt="Product Image"
                         />
+                        {
+                            isAuthenticated &&
+                            <button
+                                onClick={onEditPhoto}
+                                className="absolute right-2 top-2 p-4">
+                                <Image
+                                    src="/edit.svg"
+                                    alt="изменить"
+                                    fill={true}
+                                />
+                            </button>
+                        }
                     </div>
                     <div className="flex w-full flex-col gap-1 text-sm sm:gap-2">
                         <Link

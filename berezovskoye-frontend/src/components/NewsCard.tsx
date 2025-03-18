@@ -2,14 +2,22 @@
 
 import Image from "next/image";
 import React from "react";
-import {News} from "@/items/TestNews";
 import Link from "next/link";
+import {News} from "@/database";
+import {useDeleteNewsMutation} from "@/lib/api/newsApi";
 
 interface NewsCardProps {
     news: News;
+    isAuthenticated: boolean;
 }
 
-export default function NewsCard({news}: NewsCardProps) {
+export default function NewsCard({news, isAuthenticated}: NewsCardProps) {
+    const [deleteNews] = useDeleteNewsMutation();
+
+    const onDeleteNews = () => {
+        deleteNews({id: news.id});
+    }
+
     return (
         <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             <div className="relative aspect-[7/3] w-full select-none">
@@ -26,7 +34,7 @@ export default function NewsCard({news}: NewsCardProps) {
                 </div>
             </div>
 
-            <div className="w-full">
+            <div className="size-full">
                 <h2 className="text-xl">
                     {news.title}
                 </h2>
@@ -35,14 +43,31 @@ export default function NewsCard({news}: NewsCardProps) {
                     {news.text}
                 </p>
             </div>
-
-            <Link
-                className="base-button bg-detail"
-                href={`/news/${news.id}`}
-            >
-                Читать подробнее
-            </Link>
-
+            {
+                isAuthenticated
+                    ?
+                    <div className="flex w-full flex-wrap justify-between gap-1 sm:gap-2">
+                        <Link
+                            className="base-button bg-detail"
+                            href={`/news/${news.id}`}
+                        >
+                            Редактировать
+                        </Link>
+                        <button
+                            className="base-button bg-delete"
+                            onClick={onDeleteNews}
+                        >
+                            Удалить
+                        </button>
+                    </div>
+                    :
+                    <Link
+                        className="base-button bg-detail"
+                        href={`/news/${news.id}`}
+                    >
+                        Читать подробнее
+                    </Link>
+            }
         </div>
     );
 }

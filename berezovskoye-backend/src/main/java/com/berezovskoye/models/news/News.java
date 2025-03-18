@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
 @Entity
 @Builder
@@ -23,4 +25,12 @@ public class News {
 
     @Column(nullable = false)
     private String postingDate;
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        News news = (News) object;
+        return Objects.equals(title, news.title) && Objects.equals(text, news.text) && Objects.equals(imgUrl, news.imgUrl) && Objects.equals(postingDate, news.postingDate);
+    }
 }
