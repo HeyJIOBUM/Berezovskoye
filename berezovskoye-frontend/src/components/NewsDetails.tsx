@@ -108,7 +108,7 @@ export default function NewsDetails({news, onSave, onCancel, isEditing: initialE
                         className="w-full border p-2 text-2xl"
                     />
                 ) : (
-                    <h2 className="text-2xl">
+                    <h2 className="size-full break-words text-2xl">
                         {title}
                     </h2>
                 )}
@@ -160,7 +160,7 @@ export default function NewsDetails({news, onSave, onCancel, isEditing: initialE
                         minRows={1}
                     />
                 ) : (
-                    <p className="text-base">
+                    <p className="size-full break-words text-base">
                         {text}
                     </p>
                 )
