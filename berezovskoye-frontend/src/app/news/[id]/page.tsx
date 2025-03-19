@@ -1,10 +1,11 @@
 "use client"
 
-import {use} from "react";
+import React, {use} from "react";
 import TextWithLines from "@/components/TextWithLines";
 import NewsDetails from "@/components/NewsDetails";
 import {useGetNewsQuery, useUpdateNewsMutation} from "@/lib/api/newsApi";
 import {News} from "@/database";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface NewsPageProps {
     params: Promise<{ id: string }>
@@ -30,9 +31,7 @@ export default function Page({params}: NewsPageProps) {
             <TextWithLines text={"Новости подробнее"}/>
             {
                 isNewsLoading ?
-                    <div>
-                        Loading...
-                    </div>
+                    <LoadingSpinner/>
                     :
                     news ?
                         <NewsDetails

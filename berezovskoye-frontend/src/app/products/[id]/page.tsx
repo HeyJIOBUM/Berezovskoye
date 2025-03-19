@@ -2,8 +2,9 @@
 
 import TextWithLines from "@/components/TextWithLines";
 import ProductDetails from "@/components/ProductDetails";
-import {use} from "react";
+import React, {use} from "react";
 import {useGetProductsQuery} from "@/lib/api/productsApi";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface ProductPageProps {
     params: Promise<{ id: string }>
@@ -23,9 +24,7 @@ export default function Page({params}: ProductPageProps) {
             <TextWithLines text={"Подробнее о товаре"}/>
             {
                 isProductsLoading ?
-                    <div>
-                        Loading...
-                    </div>
+                    <LoadingSpinner/>
                     :
                     product ?
                         <ProductDetails product={product}/>
