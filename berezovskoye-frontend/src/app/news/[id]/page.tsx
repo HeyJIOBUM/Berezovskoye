@@ -20,7 +20,7 @@ export default function Page({params}: NewsPageProps) {
 
     if (newsError) return <div>Error</div>;
 
-    const news = allNews?.find((news) => news.id === newsId);
+    const news = allNews?.find((news) => news.id == newsId);
 
     const onSave = (news: News) => {
         updateNews({id: newsId, news: news});
@@ -37,6 +37,7 @@ export default function Page({params}: NewsPageProps) {
                         <NewsDetails
                             news={news}
                             onSave={onSave}
+                            isEditing={false}
                         />
                         :
                         <div>

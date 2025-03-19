@@ -19,14 +19,16 @@ export const convertToDisplayFormat = (date: string) => {
 };
 
 interface NewsDetailsProps {
-    news: News | null;
+    news?: News;
+    onCancel?: () => void;
     onSave: (news: News) => void;
+    isEditing: boolean;
 }
 
-export default function NewsDetails({news, onSave}: NewsDetailsProps) {
+export default function NewsDetails({news, onSave, onCancel, isEditing: initialEditingState}: NewsDetailsProps) {
     const {isAuthenticated} = useAuth();
 
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(initialEditingState);
 
     const todayIsoDate = new Date().toISOString().slice(0, 10);
     const defaultNews = {
@@ -49,6 +51,10 @@ export default function NewsDetails({news, onSave}: NewsDetailsProps) {
     };
 
     const handleCancel = () => {
+        if (onCancel) {
+            onCancel();
+        }
+
         setTitle(defaultNews.title);
         setText(defaultNews.text);
         setPostingDate(defaultNews.postingDate);
@@ -64,27 +70,27 @@ export default function NewsDetails({news, onSave}: NewsDetailsProps) {
         <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             {
                 isAuthenticated && (
-                    <div className="mb-2 flex gap-2">
+                    <div className="mb-2 flex flex-wrap gap-2">
                         {isEditing
                             ?
                             <>
                                 <button
-                                    onClick={handleCancel}
-                                    className="rounded bg-blue-500 px-4 py-2 text-white"
-                                >
-                                    Отменить
-                                </button>
-                                <button
                                     onClick={handleSave}
-                                    className="rounded bg-green-500 px-4 py-2 text-white"
+                                    className="base-button bg-buy"
                                 >
                                     Сохранить
+                                </button>
+                                <button
+                                    onClick={handleCancel}
+                                    className="base-button bg-detail"
+                                >
+                                    Отменить
                                 </button>
                             </>
                             :
                             <button
                                 onClick={() => setIsEditing(true)}
-                                className="rounded bg-blue-500 px-4 py-2 text-white"
+                                className="base-button bg-detail"
                             >
                                 Редактировать
                             </button>
