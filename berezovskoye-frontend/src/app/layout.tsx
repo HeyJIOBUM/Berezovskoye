@@ -10,10 +10,10 @@ const montserrat = Montserrat({
     weight: ["300", "400", "500", "700"],
 });
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-        <body className={`${montserrat.className} flex min-h-screen flex-col`}>
+        <body className={`${montserrat.className} flex min-h-screen flex-col overflow-x-hidden`}>
         <Header/>
         <StoreProvider>
             <div className="flex w-full grow justify-center">
