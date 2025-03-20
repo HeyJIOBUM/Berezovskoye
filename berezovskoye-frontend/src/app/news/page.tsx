@@ -14,7 +14,7 @@ export default function Page() {
     const {data: allNews, error: newsError, isLoading: isNewsLoading} = useGetNewsQuery();
     const {isAuthenticated} = useAuth();
 
-    if (newsError) return <div>Error</div>
+    if (newsError) throw newsError;
 
     return (
         <div className="base-container">
