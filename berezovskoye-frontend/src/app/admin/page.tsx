@@ -72,7 +72,7 @@ export default function Page() {
             </form>
 
             {error && (
-                <div className="p-4 bg-red-100 border border-red-400 text-red-700">
+                <div className="border border-red-400 bg-red-100 p-4 text-red-700">
                     {error}
                 </div>
             )}

@@ -1,6 +1,7 @@
 import {baseApiUrl} from "@/lib/api/applicationApi";
 import {setAuthCookie} from "@/lib/cookieUtils";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const loginUser = async (login: string, password: string) => {
     try {
         const response = await fetch(`${baseApiUrl}/login`, {
