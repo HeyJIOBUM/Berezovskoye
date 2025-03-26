@@ -44,15 +44,15 @@ services:
       - elasticsearch
 
   postgres:
-    image: postgres:17.2
-    environment:
-      POSTGRES_DB: "berezovskoye_database"
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
+    #command: ["sleep", "infinity"]
+    build: 
+      context: ./postgres
+      dockerfile: Dockerfile
     ports:
       - "5432:5432"
     volumes:
       - ./db-data:/var/lib/postgresql/data
+      - ./db-data-backups:/wal-g-backups
 
   adminer:
     build:
