@@ -41,6 +41,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login", "/register").permitAll()
                         //.requestMatchers(HttpMethod.POST, "/**").authenticated()//TODO set roles for endpoints
+                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
                         .anyRequest().authenticated()
                 ).httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
