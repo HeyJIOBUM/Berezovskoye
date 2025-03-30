@@ -1,3 +1,8 @@
+FROM alpine:latest as downloader
+WORKDIR /downloads
+RUN wget https://github.com/wal-g/wal-g/releases/download/v3.0.5/wal-g-pg-ubuntu-22.04-amd64.tar.gz
+
+
 FROM postgres:17.3
 
 ENV POSTGRES_DB=berezovskoye_database
@@ -22,10 +27,14 @@ ENV PGDATABASE=berezovskoye_database
 
 # supervisor for cron and postgresql launch
 RUN apt-get update && \
-    apt-get install -y supervisor && \ 
+    apt-get install -y supervisor cron && \ 
     mkdir /etc/supervisor.d
+
 COPY supervisord.conf /etc/supervisord.conf
 COPY postgres_cron.ini /etc/supervisor.d/postgres_cron.ini
+
+COPY ./cron_backup.conf /etc/cron.d/postgres_backup
+RUN chmod 0644 /etc/cron.d/postgres_backup
 
 
 ENV WALG_FILE_PREFIX=/wal-g-backups
@@ -37,8 +46,8 @@ ENV WALG_FILE_PREFIX=/wal-g-backups
 
 ENV WALG_COMPRESSION_METHOD=brotli
 
-COPY ./wal-g-pg-ubuntu-22.04-amd64.tar.gz /wal-g-pg-ubuntu-22.04-amd64.tar.gz
-#RUN wget https://github.com/wal-g/wal-g/releases/download/v3.0.5/wal-g-pg-ubuntu-22.04-amd64.tar.gz
+#COPY ./wal-g-pg-ubuntu-22.04-amd64.tar.gz /wal-g-pg-ubuntu-22.04-amd64.tar.gz
+COPY --from=downloader /downloads/wal-g-pg-ubuntu-22.04-amd64.tar.gz /wal-g-pg-ubuntu-22.04-amd64.tar.gz
 RUN tar -zxvf wal-g-pg-ubuntu-22.04-amd64.tar.gz \
     && mv wal-g-pg-ubuntu-22.04-amd64 /usr/local/bin/wal-g
 
