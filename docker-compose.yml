@@ -60,8 +60,8 @@ services:
       dockerfile: Dockerfile
       args:
         PASSWORD: ${ADMINER_PASSWORD}
-    ports:
-      - 8081:8081
+    #ports:
+    #  - 8081:8081
 
   spring:
     build:
