@@ -61,7 +61,7 @@ export default function ProductDetails({product}: ProductDetailsProps) {
                         </button>
                     </div>
                 </div>
-                <div className="flex w-full flex-col gap-2">
+                <div className="flex w-full flex-col gap-2 break-words">
                     <div className="flex w-full flex-col gap-2 bg-white p-1 sm:p-2.5">
                         <div className="text-xl">
                             {product.name}

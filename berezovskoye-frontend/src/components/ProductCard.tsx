@@ -21,7 +21,7 @@ export default function ProductCard({product, isAuthenticated}: ProductCardProps
                     alt="Product Image"
                 />
             </div>
-            <div className="h-full">
+            <div className="size-full break-words">
                 <p className="text-base font-medium">
                     {product.name}
                 </p>

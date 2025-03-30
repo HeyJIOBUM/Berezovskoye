@@ -4,7 +4,7 @@ import NewsDetails from "@/components/NewsDetails";
 import {News} from "@/database";
 import {useAuth} from "@/lib/hooks";
 import TextWithLines from "@/components/TextWithLines";
-import {redirect} from "next/navigation";
+import {redirect, RedirectType} from "next/navigation";
 import {useAddNewsMutation} from "@/lib/api/newsApi";
 
 export default function Page() {
@@ -20,12 +20,17 @@ export default function Page() {
         addNews({news: news});
     }
 
+    const onCancel = () => {
+        redirect('/news', RedirectType.push);
+    }
+
     return (
         <div className="base-container">
             <TextWithLines text="Создание новости"/>
             <NewsDetails
-                news={null}
                 onSave={onSave}
+                onCancel={onCancel}
+                isEditing={true}
             />
         </div>
     );

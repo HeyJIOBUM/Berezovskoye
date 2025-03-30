@@ -1,35 +1,33 @@
 "use client";
 
 import TextWithLines from "@/components/TextWithLines";
-import React from "react";
-import {baseApiUrl} from "@/lib/api/applicationApi";
-import {setAuthCookie} from "@/lib/cookieUtils";
+import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {logIn} from "@/lib/redux/authSlice";
+import {redirect, RedirectType} from "next/navigation";
+import {loginUser} from "@/lib/api/loginApi";
 
 export default function Page() {
+    const dispatch = useDispatch();
+    const [error, setError] = useState<string | null>(null);
+
     const onRequestSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // const formData = new FormData(e.target as HTMLFormElement);
-        // const login = formData.get("login") as string;
-        // const password = formData.get("password") as string;
+        const formData = new FormData(e.target as HTMLFormElement);
+        const login = formData.get("login") as string;
+        const password = formData.get("password") as string;
 
-        try {
-            const response = await fetch(`${baseApiUrl}/login`, {
-                // change to POST and uncomment body with spring back
-                method: "GET",
-                // body: JSON.stringify({login, password}),
-            });
+        const result = await loginUser(login, password);
 
-            if (!response.ok) {
-                throw new Error("auth error");
-            }
-
-            const data = await response.json();
-            const {jwt} = data;
-
-            await setAuthCookie(jwt)
-        } catch (error) {
-            console.error("Error:", error);
+        if (result.success) {
+            dispatch(logIn());
+            redirect('/news', RedirectType.push);
+        } else {
+            setError(result.error || "Произошла ошибка при авторизации");
+            setTimeout(() => {
+                setError(null);
+            }, 5000);
         }
     };
 
@@ -47,6 +45,7 @@ export default function Page() {
                             id="login"
                             name="login"
                             required
+                            minLength={4}
                             className="base-input"
                             placeholder="Введите ваш логин"
                         />
@@ -61,6 +60,7 @@ export default function Page() {
                             id="password"
                             name="password"
                             required
+                            minLength={4}
                             className="base-input"
                             placeholder="Введите ваш пароль"
                         />
@@ -70,6 +70,12 @@ export default function Page() {
                     Войти в аккаунт
                 </button>
             </form>
+
+            {error && (
+                <div className="border border-red-400 bg-red-100 p-4 text-red-700">
+                    {error}
+                </div>
+            )}
         </div>
     );
 }

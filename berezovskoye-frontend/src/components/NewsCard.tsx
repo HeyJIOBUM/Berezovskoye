@@ -34,7 +34,7 @@ export default function NewsCard({news, isAuthenticated}: NewsCardProps) {
                 </div>
             </div>
 
-            <div className="size-full">
+            <div className="size-full break-words">
                 <h2 className="text-xl">
                     {news.title}
                 </h2>
