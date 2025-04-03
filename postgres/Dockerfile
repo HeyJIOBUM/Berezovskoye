@@ -55,5 +55,5 @@ RUN mkdir /wal-g-backups \
     && chown -R postgres:postgres /wal-g-backups
 
 
-#CMD [ "-c", "config_file=/etc/postgresql/postgresql.conf" ]
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+# 'printenv > /etc/environment' is needed for cronjobs, since cron reads environment from /etc/environment.
+ENTRYPOINT printenv > /etc/environment && /usr/bin/supervisord -c /etc/supervisord.conf
