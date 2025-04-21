@@ -29,4 +29,13 @@ public class ProductDetailsTable {
         return Objects.equals(header, that.header) &&
                 Objects.equals(productDetailsCategories, that.productDetailsCategories);
     }
+
+    @Override
+    public String toString() {
+        return "ProductDetailsTable{" +
+                "id=" + id +
+                ", header=" + header +
+                ", productDetailsCategories=" + productDetailsCategories +
+                '}';
+    }
 }

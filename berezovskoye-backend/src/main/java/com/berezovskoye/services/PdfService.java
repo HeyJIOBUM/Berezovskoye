@@ -46,16 +46,20 @@ public class PdfService {
             throw new EntityNotFoundException(missingFieldsMessage);
         }
 
-        byte[] pdfBytes;
+        byte[] pdfBytes= PdfGenerator.generatePdf(detailsTable);;
 
-        try {
-            pdfBytes = PdfGenerator.generatePdf(detailsTable);
-        } catch (RuntimeException ex){
-            String generationFail = messages.getString("pdf.generation.failure");
-            String generationFailMessage = String.format(generationFail, productId);
-            log.error("{} {}", generationFailMessage, LocalDateTime.now());
-            throw new PdfGenerationException(generationFailMessage);
-        }
+        String generationFail = messages.getString("pdf.generation.failure");
+        String generationFailMessage = String.format(generationFail, productId);
+        log.error("{} {}", generationFailMessage, LocalDateTime.now());
+
+//        try {
+//            pdfBytes = PdfGenerator.generatePdf(detailsTable);
+//        } catch (RuntimeException ex){
+//            String generationFail = messages.getString("pdf.generation.failure");
+//            String generationFailMessage = String.format(generationFail, productId);
+//            log.error("{} {}", generationFailMessage, LocalDateTime.now());
+//            throw new PdfGenerationException(generationFailMessage);
+//        }
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/pdf");
