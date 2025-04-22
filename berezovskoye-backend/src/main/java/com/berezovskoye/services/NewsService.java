@@ -113,7 +113,7 @@ public class NewsService {
 
         newsOptional = newsRepository.findById(id);
         if(newsOptional.isPresent()){
-            throw EntityAbnormalBehaviorException.throwAndLogNotDeleted(MODEL_NAME, id);
+            throw EntityAbnormalBehaviorException.throwAndLogNotDeleted(MODEL_NAME, id+"");
         }
 
         return logAndReturnText("entity.deleted", id);

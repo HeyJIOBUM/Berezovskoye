@@ -36,6 +36,11 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        if (isPublicEndpoint(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String token = null;
         String username = null;
         Cookie jwtCookie = null;
@@ -66,5 +71,13 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private boolean isPublicEndpoint(HttpServletRequest request) {
+        String uri = request.getRequestURI();
+        String method = request.getMethod();
+
+        return (method.equals("POST") && (uri.equals("/login") || uri.equals("/register"))) ||
+                (method.equals("GET") && !uri.startsWith("/api/secure"));
     }
 }

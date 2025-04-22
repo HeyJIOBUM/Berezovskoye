@@ -48,7 +48,7 @@ public class SystemUserService {
 
     @Deprecated
     public ResponseEntity<SystemUser> register(SystemUser user){
-        if(user == null || user.isCorrect()){
+        if(user == null || !user.isCorrect()){
             String userIncorrect = messages.getString("user.incorrect");
             log.error("{}{}", userIncorrect, LocalDateTime.now());
             throw new BadRequestException(userIncorrect);
