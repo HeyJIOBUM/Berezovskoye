@@ -25,14 +25,14 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PostMapping("/add")
+    @PutMapping("/add")
     public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto product){
         return productService.addProduct(
                 ProductDto.fromProductDto(product)
         );
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable int id,
                                                     @RequestBody ProductDto newProductData){
         return productService.updateProduct(id,

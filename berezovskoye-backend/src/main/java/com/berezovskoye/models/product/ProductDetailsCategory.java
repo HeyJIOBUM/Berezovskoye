@@ -33,4 +33,12 @@ public class ProductDetailsCategory {
                 Objects.equals(categoryDetails, that.categoryDetails);
     }
 
+    @Override
+    public String toString() {
+        return "ProductDetailsCategory{" +
+                "id=" + id +
+                ", categoryName='" + categoryName + '\'' +
+                ", categoryDetails=" + categoryDetails +
+                '}';
+    }
 }

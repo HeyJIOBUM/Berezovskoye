@@ -8,22 +8,30 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
 
 @Component
 public class PdfGenerator {
     public final static String FILE_TYPE = ".pdf";
 
-    @Value("${pdf.password}")
     private static String pdfPassword;
+    private static String fontsPath;
+
+    @Value("${pdf.password}")
+    private String injectedPdfPassword;
 
     @Value("${fonts.path}")
-    private static String fontsPath;
+    private String injectedFontsPath;
 
     private final static String title = "Цены на продукцию ТПУ \"Березовское\" УП \"Брестоблгаз\"";
     private final static String addressLine1 = "225260, Брестская область, Ивацевичский р-н";
@@ -43,6 +51,12 @@ public class PdfGenerator {
 
     private final static float FIRST_COL_LENGTH = 3f;
     private final static float OTHER_COL_LENGTH = 1f;
+
+    @PostConstruct
+    public void init() {
+        pdfPassword = injectedPdfPassword;
+        fontsPath = injectedFontsPath;
+    }
 
     public static byte[] generatePdf(ProductDetailsTable detailsTable) throws RuntimeException {
         Document document = new Document();
