@@ -16,7 +16,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable int id){
+    public ResponseEntity<ProductDto> getProduct(@PathVariable String id){
         return productService.getProduct(id);
     }
 
@@ -25,7 +25,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto product){
         return productService.addProduct(
                 ProductDto.fromProductDto(product)
@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable int id,
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable String id,
                                                     @RequestBody ProductDto newProductData){
         return productService.updateProduct(id,
                 ProductDto.fromProductDto(newProductData)
@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable int id){
+    public ResponseEntity<String> deleteProduct(@PathVariable String id){
         return productService.deleteProduct(id);
     }
 }

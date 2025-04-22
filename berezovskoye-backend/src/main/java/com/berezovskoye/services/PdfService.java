@@ -30,11 +30,11 @@ public class PdfService {
     private ProductRepository productRepository;
 
     @Cacheable(value = "pdf", key = "#productId")
-    public ResponseEntity<byte[]> downloadPdf(int productId) {
+    public ResponseEntity<byte[]> downloadPdf(String productId) {
         Optional<Product> productOptional = productRepository.findById(productId);
 
         Product existingProduct = productOptional.orElseThrow(() ->
-            EntityNotFoundException.throwAndLogNotFound("Product", productId+"")
+            EntityNotFoundException.throwAndLogNotFound("Product", productId)
         );
 
         ProductDetailsTable detailsTable = existingProduct.getProductDetailsTable();

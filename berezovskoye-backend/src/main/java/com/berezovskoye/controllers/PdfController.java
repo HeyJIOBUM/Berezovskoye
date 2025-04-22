@@ -22,7 +22,7 @@ public class PdfController {
 //    }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<byte[]> downloadPdf(@PathVariable int productId){
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable String productId){
         return pdfService.downloadPdf(productId);
     }
 }

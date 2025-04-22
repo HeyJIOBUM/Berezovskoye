@@ -14,7 +14,7 @@ public class EntityAbnormalBehaviorException extends RuntimeException {
         super(message);
     }
 
-    public static EntityNotFoundException throwAndLogNotDeleted(String MODEL_NAME, Integer id){
+    public static EntityNotFoundException throwAndLogNotDeleted(String MODEL_NAME, String id){
         String notDeleted = messages.getString("entity.not.deleted");
         String notDeletedMessage = String.format(notDeleted, MODEL_NAME, id);
         log.error(notDeletedMessage);

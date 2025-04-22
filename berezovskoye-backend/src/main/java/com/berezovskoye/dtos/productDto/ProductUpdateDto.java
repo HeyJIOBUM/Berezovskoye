@@ -6,8 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ProductDto {
-    private String uid;
+public class ProductUpdateDto {
     private String name;
     private String description;
     private String imgUrl;
@@ -15,11 +14,10 @@ public class ProductDto {
     private List<String> qualityIndicators;
     private ProductDetailsTableDto productDetailsTable;
 
-    public static ProductDto fromProduct(Product product) {
+    public static ProductUpdateDto fromProduct(Product product) {
 
-        ProductDto dto = new ProductDto();
+        ProductUpdateDto dto = new ProductUpdateDto();
 
-        dto.setUid(product.getUid());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setImgUrl(product.getImgUrl());
@@ -34,11 +32,10 @@ public class ProductDto {
         return dto;
     }
 
-    public static Product fromProductDto(ProductDto productDto) {
+    public static Product fromProductUpdateDto(ProductUpdateDto productDto) {
 
         Product product = new Product();
 
-        product.setUid(productDto.getUid());
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setImgUrl(productDto.getImgUrl());
@@ -53,11 +50,11 @@ public class ProductDto {
         return product;
     }
 
-    public static List<ProductDto> fromProduct(List<Product> products) {
-        return products.stream().map(ProductDto::fromProduct).toList();
+    public static List<ProductUpdateDto> fromProduct(List<Product> products) {
+        return products.stream().map(ProductUpdateDto::fromProduct).toList();
     }
 
-    public static List<Product> fromProductDto(List<ProductDto> products) {
-        return products.stream().map(ProductDto::fromProductDto).toList();
+    public static List<Product> fromProductDto(List<ProductUpdateDto> products) {
+        return products.stream().map(ProductUpdateDto::fromProductUpdateDto).toList();
     }
 }
