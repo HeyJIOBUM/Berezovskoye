@@ -15,6 +15,8 @@ public class Product {
     @Version
     private Integer version = 0;
 
+    private boolean isVisible;
+
     @Column(nullable = false)
     private String name;
 

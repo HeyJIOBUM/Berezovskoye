@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class ProductDto {
     private String uid;
+    private boolean isVisible;
     private String name;
     private String description;
     private String imgUrl;
@@ -20,6 +21,7 @@ public class ProductDto {
         ProductDto dto = new ProductDto();
 
         dto.setUid(product.getUid());
+        dto.setVisible(product.isVisible());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setImgUrl(product.getImgUrl());
@@ -39,6 +41,7 @@ public class ProductDto {
         Product product = new Product();
 
         product.setUid(productDto.getUid());
+        product.setVisible(productDto.isVisible());
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setImgUrl(productDto.getImgUrl());

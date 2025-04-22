@@ -34,10 +34,10 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable String id,
+    public ResponseEntity<ProductUpdateDto> updateProduct(@PathVariable String id,
                                                     @RequestBody ProductUpdateDto newProductData){
         return productService.updateProduct(id,
-                ProductUpdateDto.fromProductDto(newProductData)
+                ProductUpdateDto.fromProductUpdateDto(newProductData)
         );
     }
 
