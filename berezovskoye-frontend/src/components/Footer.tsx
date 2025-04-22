@@ -1,16 +1,17 @@
 import React from "react";
-import {SocialNetworks} from "@/items/footer/SocialNetworks";
+import {SocialMedia} from "@/items/footer/SocialMedia";
 import Link from "next/link";
 import Image from "next/image";
-import {RelatedOrganizations} from "@/items/footer/RelatedOrganizations";
+import {RelatedOrganization, RelatedOrganizations} from "@/items/footer/RelatedOrganizations";
+import CopyableText from "@/components/CopyableText";
 
 export default function Footer() {
-    const socialNetworks = SocialNetworks();
+    const socialNetworks = SocialMedia();
     const relatedOrganizations = RelatedOrganizations();
 
     return (
         <footer className="flex w-full items-center justify-center bg-back-bars">
-            <div className="flex w-full max-w-screen-lg flex-col justify-between gap-6 py-4 text-white sm:flex-row">
+            <div className="base-container justify-between gap-6 py-4 text-white sm:flex-row">
                 <div className="flex flex-col items-center text-xs sm:items-start">
                     <div>Номер телефона:</div>
                     <div className="ml-0 lg:ml-5">
@@ -18,12 +19,16 @@ export default function Footer() {
                     </div>
                     <div>Emails:</div>
                     <div className="ml-0 lg:ml-5">
-                        <div>
-                            Приёмная: <span className="text-logo-color">tbz@brest.gas.by</span>
-                        </div>
-                        <div>
-                            Юрисконсульт: <span className="text-logo-color">torf-jurist@brest.gas.by</span>
-                        </div>
+                        <CopyableText
+                            description={"Приёмная: "}
+                            textToCopy={"tbz@brest.gas.by"}
+                            timeToResetTooltip={3000}
+                        />
+                        <CopyableText
+                            description={"Юрисконсульт: "}
+                            textToCopy={"torf-jurist@brest.gas.by"}
+                            timeToResetTooltip={3000}
+                        />
                     </div>
                 </div>
 
@@ -35,23 +40,18 @@ export default function Footer() {
                         {socialNetworks.map((item, index) => (
                             <SocialMediaItem
                                 key={index}
-                                alt={item.alt}
-                                iconPath={item.imageSrc}
-                                href={item.href}
+                                socialMedia={item}
                             />
                         ))}
                     </div>
                 </div>
 
                 <div className="flex flex-col items-center justify-between gap-2">
-                    <div className="flex gap-2 lg:gap-4">
+                    <div className="flex flex-wrap gap-2 lg:gap-4">
                         {relatedOrganizations.map((item, index) => (
                             <RelatedOrganizationItem
                                 key={index}
-                                alt={item.alt}
-                                iconPath={item.imageSrc}
-                                width={item.width}
-                                height={item.height}
+                                relatedOrganization={item}
                             />
                         ))}
                     </div>
@@ -65,41 +65,40 @@ export default function Footer() {
 }
 
 interface SocialMediaItemProps {
-    alt: string;
-    iconPath: string;
-    href: string;
+    socialMedia: SocialMedia;
 }
 
-export const SocialMediaItem: React.FC<SocialMediaItemProps> = ({alt, iconPath, href}) => {
+export const SocialMediaItem: React.FC<SocialMediaItemProps> = ({socialMedia}) => {
     return (
         <Link
-            href={href}
+            href={socialMedia.href}
             className=""
         >
             <Image
-                src={iconPath}
+                src={socialMedia.imageSrc}
                 width={45}
                 height={45}
-                alt={alt}
+                alt={socialMedia.alt}
+                className="select-none"
             />
         </Link>
     );
 };
 
 interface RelatedOrganizationItemProps {
-    alt: string;
-    iconPath: string;
-    width: number;
-    height: number;
+    relatedOrganization: RelatedOrganization;
 }
 
-export const RelatedOrganizationItem: React.FC<RelatedOrganizationItemProps> = ({alt, iconPath, width, height}) => {
+export const RelatedOrganizationItem: React.FC<RelatedOrganizationItemProps> = ({relatedOrganization}) => {
     return (
-        <Image
-            src={iconPath}
-            width={width}
-            height={height}
-            alt={alt}
-        />
+        <Link href={`${relatedOrganization.href}`}>
+            <Image
+                src={relatedOrganization.imageSrc}
+                width={relatedOrganization.width}
+                height={relatedOrganization.height}
+                alt={relatedOrganization.alt}
+                className="select-none"
+            />
+        </Link>
     );
 };

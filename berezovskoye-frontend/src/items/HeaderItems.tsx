@@ -1,4 +1,10 @@
-export const HeaderItems = () => {
+export interface HeaderItem {
+    name: string,
+    href: string,
+    imageSrc: string,
+}
+
+export const HeaderItems = (): HeaderItem[] => {
     return [
         {
             name: 'Товары',

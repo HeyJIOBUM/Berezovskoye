@@ -1,10 +1,19 @@
-import {Product, TestProducts} from "@/items/TestProducts";
+"use client"
+
 import Image from "next/image";
 import TextWithLines from "@/components/TextWithLines";
 import ProductCard from "@/components/ProductCard";
+import {useGetProductsQuery} from "@/lib/api/productsApi";
+import {Product} from "@/database";
+import {useAuth} from "@/lib/hooks";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import React from "react";
 
 export default function Page() {
-    const products = TestProducts();
+    const {data: products, error: productsError, isLoading: isProductsLoading} = useGetProductsQuery();
+    const {isAuthenticated} = useAuth();
+
+    if (productsError) throw productsError;
 
     return (
         <div className="flex w-full flex-col items-center">
@@ -16,16 +25,22 @@ export default function Page() {
                     alt="Banner Image"
                 />
             </div>
-            <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+            <div className="base-container h-full">
                 <TextWithLines text={"Все товары"}/>
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-                    {products.map((product: Product) => (
-                        <ProductCard
-                            key={product.id}
-                            product={product}
-                        />
-                    ))}
-                </div>
+                {
+                    isProductsLoading ?
+                        <LoadingSpinner/>
+                        :
+                        <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+                            {products?.map((product: Product) => (
+                                <ProductCard
+                                    key={product.id}
+                                    product={product}
+                                    isAuthenticated={isAuthenticated}
+                                />
+                            ))}
+                        </div>
+                }
             </div>
         </div>
     );

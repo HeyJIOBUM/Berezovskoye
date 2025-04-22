@@ -1,3 +1,6 @@
+/db-data
+/db-data-backups
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

@@ -7,11 +7,11 @@ export default function Page() {
     const emailAddresses = GetEmails();
 
     return (
-        <div className="flex w-full max-w-screen-lg flex-col gap-2 py-2 sm:gap-4 sm:py-4">
+        <div className="base-container">
             <TextWithLines text="Контакты"/>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
-                <p className="text-base font-medium sm:text-lg">Реквизиты:</p>
-                <p className="text-sm font-light sm:text-base">
+                <p className="text-base font-medium sm:text-sm">Реквизиты:</p>
+                <p className="text-base font-normal sm:text-base">
                     225260 Брестская область Ивацевичский район пос. Зелёный Бор ул. Центральная 5 р/с
                     BY49AKBB30121111900111300000 БИК AKBBBY2X в ОАО «АСБ Беларусбанк», УНП 200274574, Голуб Виктор
                     Викторович на основании доверенности УП &#34;Брестоблгаз&#34; №315 от 29.12.2022
@@ -19,7 +19,7 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2 bg-white p-1 sm:p-2.5">
                 <p className="text-base font-medium sm:text-lg">Номера контактных телефонов:</p>
-                <table className="w-full border-collapse text-sm sm:text-base">
+                <table className="w-full border-collapse text-sm font-normal sm:text-base">
                     <thead>
                     <tr className="bg-gray-100">
                         <th className="py-2 text-left">Должность</th>
@@ -91,7 +91,7 @@ export default function Page() {
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d2870.6114106468126!2d25.213989369411745!3d52.65978796392076!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTLCsDM5JzM0LjIiTiAyNcKwMTInNTYuOSJF!5e1!3m2!1sru!2sby!4v1739396490058!5m2!1sru!2sby"
                             width="100%"
-                            height="450"
+                            height="400"
                             style={{border: 0}}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"/>
@@ -102,7 +102,7 @@ export default function Page() {
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2030.0815177167947!2d25.239607727838653!3d52.654345510947294!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2sby!4v1739397143292!5m2!1sru!2sby"
                             width="100%"
-                            height="450"
+                            height="400"
                             style={{border: 0}}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"/>
