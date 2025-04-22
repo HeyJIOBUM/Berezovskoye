@@ -4,10 +4,7 @@ import com.berezovskoye.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -22,8 +19,17 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) throws IOException, IllegalStateException {
-        return imageService.uploadImage(file);
+    @PostMapping("/upload/{filename}")
+    public ResponseEntity<String> uploadImage(
+            @RequestParam("image") MultipartFile image,
+            @PathVariable String filename)
+            throws IOException, IllegalStateException
+    {
+        return imageService.uploadImage(image, filename);
+    }
+
+    @DeleteMapping("/delete/{filename}")
+    public ResponseEntity<String> deleteImage(@PathVariable("filename") String filename){
+        return imageService.deleteImage(filename);
     }
 }

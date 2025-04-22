@@ -1,6 +1,8 @@
 package com.berezovskoye.dtos.news;
 
 import com.berezovskoye.models.news.News;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +34,17 @@ public class NewsDto {
                 .imgUrl(newsDto.getImgUrl())
                 .postingDate(newsDto.getPostingDate())
                 .build();
+    }
+
+    public static News fromNewsDto(String newsDtoJson) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            NewsDto newsDto = objectMapper.readValue(newsDtoJson, NewsDto.class);
+
+            return fromNewsDto(newsDto);
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException("Неверный формат JSON для NewsDto", e);
+        }
     }
 
     public static List<NewsDto> fromNews(List<News> newsList){

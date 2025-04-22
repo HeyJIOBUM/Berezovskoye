@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -27,15 +29,20 @@ public class NewsController {
         return newsService.getAllNews();
     }
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<NewsDto> addNews(@RequestBody NewsDto news){
         return newsService.addNews(NewsDto.fromNewsDto(news));
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<NewsDto> updateNews(@PathVariable int id, @RequestBody NewsDto newNewsData){
-        return newsService.updateNews(id,
-                NewsDto.fromNewsDto(newNewsData));
+    @PutMapping("/{id}")
+    public ResponseEntity<NewsDto> updateNews(
+            @PathVariable int id,
+            @RequestParam("product") String newNewsDataJson,
+            @RequestParam("imgFile") MultipartFile imgFile) throws IOException {
+        return newsService.updateNews(
+                id,
+                NewsDto.fromNewsDto(newNewsDataJson),
+                imgFile);
     }
 
     @DeleteMapping("/{id}")
