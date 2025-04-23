@@ -1,6 +1,7 @@
 package com.berezovskoye.controllers;
 
 import com.berezovskoye.dtos.productDto.ProductDto;
+import com.berezovskoye.dtos.productDto.ProductUpdateDto;
 import com.berezovskoye.models.product.Product;
 import com.berezovskoye.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,10 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable String id,
-                                                    @RequestBody ProductDto newProductData){
+    public ResponseEntity<ProductUpdateDto> updateProduct(@PathVariable String id,
+                                                    @RequestBody ProductUpdateDto newProductData){
         return productService.updateProduct(id,
-                ProductDto.fromProductDto(newProductData)
+                ProductUpdateDto.fromProductUpdateDto(newProductData)
         );
     }
 

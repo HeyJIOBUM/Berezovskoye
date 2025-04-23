@@ -1,6 +1,7 @@
 package com.berezovskoye.services;
 
 import com.berezovskoye.dtos.productDto.ProductDto;
+import com.berezovskoye.dtos.productDto.ProductUpdateDto;
 import com.berezovskoye.exceptions.errors.database.EntityAbnormalBehaviorException;
 import com.berezovskoye.exceptions.errors.database.EntityNotFoundException;
 import com.berezovskoye.exceptions.errors.global.BadRequestException;
@@ -72,12 +73,12 @@ public class ProductService {
 
         Product addedProduct = productRepository.save(product);
 
-        return logAndReturnObject("entity.saved", addedProduct);
+        return logAndReturnProduct("entity.saved", addedProduct);
     }
 
     @Transactional
     @CacheEvict(value = { CACHE_NAME, "pdf" }, allEntries = true)
-    public ResponseEntity<ProductDto> updateProduct(String id, Product newProductData) {
+    public ResponseEntity<ProductUpdateDto> updateProduct(String id, Product newProductData) {
         BadRequestException.checkObject("default.bad.request", newProductData);
 
         Optional<Product> productOptional = productRepository.findById(id);
@@ -90,7 +91,7 @@ public class ProductService {
             String sameData = messages.getString("entity.same.data");
             String sameDataMessage = String.format(sameData, MODEL_NAME, existingProduct.getUid());
             log.warn("{} {}", sameDataMessage, LocalDateTime.now());
-            return new ResponseEntity<>(ProductDto.fromProduct(existingProduct), HttpStatus.OK);
+            return new ResponseEntity<>(ProductUpdateDto.fromProduct(existingProduct), HttpStatus.OK);
         }
 
         Optional.ofNullable(newProductData.getName()).ifPresent(existingProduct::setName);
@@ -116,7 +117,7 @@ public class ProductService {
             throw new EntityAbnormalBehaviorException(notUpdatedMessage);
         }
 
-        return logAndReturnObject("entity.updated", updatedProduct);
+        return logAndReturnUpdatedProduct("entity.updated", updatedProduct);
     }
 
     @CacheEvict(value = { CACHE_NAME, "pdf" }, allEntries = true)
@@ -146,12 +147,21 @@ public class ProductService {
                 HttpStatus.OK);
     }
 
-    private ResponseEntity<ProductDto> logAndReturnObject(String key, Product product){
+    private ResponseEntity<ProductDto> logAndReturnProduct(String key, Product product){
         String success = messages.getString(key);
         String successMessage = String.format(success, MODEL_NAME, product.getUid());
         log.info("{}{}", successMessage, LocalDateTime.now());
 
         return new ResponseEntity<>(ProductDto.fromProduct(product),
+                HttpStatus.OK);
+    }
+
+    private ResponseEntity<ProductUpdateDto> logAndReturnUpdatedProduct(String key, Product product){
+        String success = messages.getString(key);
+        String successMessage = String.format(success, MODEL_NAME, product.getUid());
+        log.info("{}{}", successMessage, LocalDateTime.now());
+
+        return new ResponseEntity<>(ProductUpdateDto.fromProduct(product),
                 HttpStatus.OK);
     }
 }

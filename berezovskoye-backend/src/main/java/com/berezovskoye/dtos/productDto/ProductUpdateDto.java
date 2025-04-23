@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class ProductUpdateDto {
     private String name;
+    private boolean isVisible;
     private String description;
     private String imgUrl;
     private List<String> packagingTypes;
@@ -18,6 +19,7 @@ public class ProductUpdateDto {
 
         ProductUpdateDto dto = new ProductUpdateDto();
 
+        dto.setVisible(product.isVisible());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setImgUrl(product.getImgUrl());
@@ -36,6 +38,7 @@ public class ProductUpdateDto {
 
         Product product = new Product();
 
+        product.setVisible(productDto.isVisible());
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setImgUrl(productDto.getImgUrl());
@@ -54,7 +57,7 @@ public class ProductUpdateDto {
         return products.stream().map(ProductUpdateDto::fromProduct).toList();
     }
 
-    public static List<Product> fromProductDto(List<ProductUpdateDto> products) {
+    public static List<Product> fromProductUpdateDto(List<ProductUpdateDto> products) {
         return products.stream().map(ProductUpdateDto::fromProductUpdateDto).toList();
     }
 }
