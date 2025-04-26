@@ -21,13 +21,32 @@ export default function ProductCard({product, isAuthenticated}: ProductCardProps
                     alt="Product Image"
                 />
             </div>
-            <div className="size-full break-words">
-                <p className="text-base font-medium">
+            <div className="flex flex-col size-full break-words justify-between gap-1">
+                <p className="text-base font-medium line-clamp-3">
                     {product.name}
                 </p>
-                <p className="line-clamp-3 text-sm font-light">
-                    {product.description}
-                </p>
+                <div className="flex flex-row gap-4">
+                    <div className="flex flex-row items-center gap-1">
+                        <Image
+                            src={"/wallet.svg"}
+                            width={13.4}
+                            height={14}
+                            alt={""}
+                            className={"select-none"}
+                        />
+                        {`${product.price} руб.`}
+                    </div>
+                    <div className="flex flex-row items-center gap-1">
+                        <Image
+                            src={"/package.svg"}
+                            width={14}
+                            height={14}
+                            alt={""}
+                            className={"select-none"}
+                        />
+                        {product.packagingTypes}
+                    </div>
+                </div>
             </div>
             <div className="flex w-full flex-wrap justify-between gap-1 sm:gap-2">
                 {
