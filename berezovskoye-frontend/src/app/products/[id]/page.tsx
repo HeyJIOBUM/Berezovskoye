@@ -6,7 +6,6 @@ import React, {use} from "react";
 import {useGetProductsQuery, useUpdateProductImageMutation} from "@/lib/api/productsApi";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import {notFound} from "next/navigation";
-import {Product} from "@/database";
 
 interface ProductPageProps {
     params: Promise<{ id: string }>
@@ -21,12 +20,12 @@ export default function Page({params}: ProductPageProps) {
 
     if (productsError) throw productsError;
 
-    const product = products?.find((product) => product.id == productId);
+    const product = products?.find((product) => product.id == id);
 
     if (!isProductsLoading && !product) notFound();
 
-    const onSave = (product: Product, imgFile: File | null) => {
-        updateProductImage({id: productId, product: product, imgFile: imgFile});
+    const onSave = (imgFile: File) => {
+        updateProductImage({id: productId, imgFile: imgFile});
     }
 
     return (
