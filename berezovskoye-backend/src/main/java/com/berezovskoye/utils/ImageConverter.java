@@ -1,6 +1,5 @@
 package com.berezovskoye.utils;
 
-import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;

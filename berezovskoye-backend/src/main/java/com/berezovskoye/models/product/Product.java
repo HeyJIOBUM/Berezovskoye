@@ -5,12 +5,13 @@ import lombok.Data;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Data
 @Entity
 public class Product {
     @Id
-    private String uid;
+    private String id;
 
     @Version
     private Integer version = 0;
@@ -25,33 +26,31 @@ public class Product {
 
     private String imgUrl;
 
-    @ElementCollection
-    @CollectionTable(name = "product_packaging_types", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "packaging_type")
-    private List<String> packagingTypes;
+    private String packagingType;
 
-    @ElementCollection
-    @CollectionTable(name = "product_quality_indicators", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "quality_indicator")
-    private List<String> qualityIndicators;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_details_table_id", referencedColumnName = "id")
-    private ProductDetailsTable productDetailsTable;
+    private String price;
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Product product = (Product) object;
-        return Objects.equals(version, product.version) &&
+        return Objects.equals(isVisible, product.isVisible) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(description, product.description) &&
-                Objects.equals(imgUrl, product.imgUrl) &&
-                Objects.equals(packagingTypes, product.packagingTypes) &&
-                Objects.equals(qualityIndicators, product.qualityIndicators)
-                //&& Objects.equals(productDetailsTable, product.productDetailsTable) //TODO find out will front admin update details or not
-                ;
+                Objects.equals(packagingType, product.packagingType) &&
+                Objects.equals(price, product.price);
+    }
+
+    public Product update(Product newProductData){
+        Optional.of(newProductData.isVisible()).ifPresent(this::setVisible);
+        Optional.ofNullable(newProductData.getName()).ifPresent(this::setName);
+        Optional.ofNullable(newProductData.getDescription()).ifPresent(this::setDescription);
+        Optional.ofNullable(newProductData.getImgUrl()).ifPresent(this::setImgUrl);
+        Optional.ofNullable(newProductData.getPackagingType()).ifPresent(this::setPackagingType);
+        Optional.ofNullable(newProductData.getPrice()).ifPresent(this::setPrice);
+
+        return this;
     }
 
 }

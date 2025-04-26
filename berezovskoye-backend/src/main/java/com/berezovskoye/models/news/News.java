@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -32,5 +33,14 @@ public class News {
         if (object == null || getClass() != object.getClass()) return false;
         News news = (News) object;
         return Objects.equals(title, news.title) && Objects.equals(text, news.text) && Objects.equals(imgUrl, news.imgUrl) && Objects.equals(postingDate, news.postingDate);
+    }
+
+    public News update(News newNewsData){
+        Optional.ofNullable(newNewsData.getTitle()).ifPresent(this::setTitle);
+        Optional.ofNullable(newNewsData.getText()).ifPresent(this::setText);
+        Optional.ofNullable(newNewsData.getImgUrl()).ifPresent(this::setImgUrl);
+        Optional.ofNullable(newNewsData.getPostingDate()).ifPresent(this::setPostingDate);
+
+        return this;
     }
 }

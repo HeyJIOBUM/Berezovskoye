@@ -1,7 +1,7 @@
 package com.berezovskoye.services;
 
 import com.berezovskoye.dtos.productDto.ProductDto;
-import com.berezovskoye.dtos.productDto.ProductUpdateDto;
+import com.berezovskoye.dtos.productDto.ProductProcessDto;
 import com.berezovskoye.exceptions.errors.database.EntityAbnormalBehaviorException;
 import com.berezovskoye.exceptions.errors.database.EntityNotFoundException;
 import com.berezovskoye.exceptions.errors.global.BadRequestException;
@@ -81,7 +81,7 @@ public class ProductService {
 
     @Transactional
     @CacheEvict(value = { CACHE_NAME, "pdf" }, allEntries = true)
-    public ResponseEntity<ProductUpdateDto> updateProduct(String id, MultipartFile image, Product newProductData) throws IOException {
+    public ResponseEntity<ProductProcessDto> updateProduct(String id, MultipartFile image, Product newProductData) throws IOException {
         BadRequestException.checkObject("default.bad.request", newProductData);
 
         String newImageName = null;
@@ -98,30 +98,17 @@ public class ProductService {
 
         if(newProductData.equals(existingProduct)){
             String sameData = messages.getString("entity.same.data");
-            String sameDataMessage = String.format(sameData, MODEL_NAME, existingProduct.getUid());
+            String sameDataMessage = String.format(sameData, MODEL_NAME, existingProduct.getId());
             log.warn("{} {}", sameDataMessage, LocalDateTime.now());
-            return new ResponseEntity<>(ProductUpdateDto.fromProduct(existingProduct), HttpStatus.OK);
+            return new ResponseEntity<>(ProductProcessDto.fromProduct(existingProduct), HttpStatus.OK);
         }
 
-        Optional.ofNullable(newProductData.getName()).ifPresent(existingProduct::setName);
-        Optional.ofNullable(newProductData.getDescription()).ifPresent(existingProduct::setDescription);
-        Optional.ofNullable(newProductData.getImgUrl()).ifPresent(existingProduct::setImgUrl);
-
-        Optional.ofNullable(newProductData.getPackagingTypes()).ifPresent(packaging -> {
-            existingProduct.getPackagingTypes().clear();
-            existingProduct.getPackagingTypes().addAll(packaging);
-        });
-
-        Optional.ofNullable(newProductData.getQualityIndicators()).ifPresent(quality -> {
-            existingProduct.getQualityIndicators().clear();
-            existingProduct.getQualityIndicators().addAll(quality);
-        });
-
+        existingProduct.update(newProductData);
         Product updatedProduct = productRepository.save(existingProduct);
 
         if(!newProductData.equals(updatedProduct)){
             String notUpdated = messages.getString("entity.not.updated");
-            String notUpdatedMessage = String.format(notUpdated, MODEL_NAME, existingProduct.getUid());
+            String notUpdatedMessage = String.format(notUpdated, MODEL_NAME, existingProduct.getId());
             log.error("{} {}", notUpdatedMessage, LocalDateTime.now());
             if(image != null){
                 imageService.deleteImage(newImageName);
@@ -167,19 +154,19 @@ public class ProductService {
 
     private ResponseEntity<ProductDto> logAndReturnProduct(String key, Product product){
         String success = messages.getString(key);
-        String successMessage = String.format(success, MODEL_NAME, product.getUid());
+        String successMessage = String.format(success, MODEL_NAME, product.getId());
         log.info("{}{}", successMessage, LocalDateTime.now());
 
         return new ResponseEntity<>(ProductDto.fromProduct(product),
                 HttpStatus.OK);
     }
 
-    private ResponseEntity<ProductUpdateDto> logAndReturnUpdatedProduct(String key, Product product){
+    private ResponseEntity<ProductProcessDto> logAndReturnUpdatedProduct(String key, Product product){
         String success = messages.getString(key);
-        String successMessage = String.format(success, MODEL_NAME, product.getUid());
+        String successMessage = String.format(success, MODEL_NAME, product.getId());
         log.info("{}{}", successMessage, LocalDateTime.now());
 
-        return new ResponseEntity<>(ProductUpdateDto.fromProduct(product),
+        return new ResponseEntity<>(ProductProcessDto.fromProduct(product),
                 HttpStatus.OK);
     }
 }
