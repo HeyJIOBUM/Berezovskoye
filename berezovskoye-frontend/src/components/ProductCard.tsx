@@ -4,6 +4,7 @@ import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import {Product} from "@/database";
+import {useUpdateProductMutation} from "@/lib/api/productsApi";
 
 interface ProductCardProps {
     product: Product;
@@ -11,8 +12,16 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({product, isAuthenticated}: ProductCardProps) {
+    const [updateProductImage] = useUpdateProductMutation();
+
+    const onToggleVisible = () => {
+        updateProductImage({id: product.id, visible: !product.visible});
+    };
+
     return (
-        <div className="flex flex-col gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5">
+        <div className={`flex flex-col gap-1 bg-white p-1 sm:gap-2.5 sm:p-2.5 ${
+            !product.visible ? "opacity-75" : ""
+        }`}>
             <div className="relative aspect-[1] w-full select-none bg-gray-300">
                 <Image
                     src={product.imgUrl}
@@ -21,8 +30,8 @@ export default function ProductCard({product, isAuthenticated}: ProductCardProps
                     alt="Product Image"
                 />
             </div>
-            <div className="flex flex-col size-full break-words justify-between gap-1">
-                <p className="text-base font-medium line-clamp-3">
+            <div className="flex size-full flex-col justify-between gap-1 break-words">
+                <p className="line-clamp-3 text-base font-medium">
                     {product.name}
                 </p>
                 <div className="flex flex-row gap-4">
@@ -44,20 +53,30 @@ export default function ProductCard({product, isAuthenticated}: ProductCardProps
                             alt={""}
                             className={"select-none"}
                         />
-                        {product.packagingTypes}
+                        {product.packagingType}
                     </div>
                 </div>
             </div>
-            <div className="flex w-full flex-wrap justify-between gap-1 sm:gap-2">
+            <div className={`flex w-full flex-wrap justify-between gap-1 sm:gap-2 ${
+                isAuthenticated ? "flex-col" : ""
+            }`}>
                 {
                     isAuthenticated
                         ?
-                        <Link
-                            className="base-button bg-detail"
-                            href={`/products/${product.id}`}
-                        >
-                            Редактировать
-                        </Link>
+                        <>
+                            <button
+                                className="base-button bg-buy"
+                                onClick={onToggleVisible}
+                            >
+                                {product.visible ? "Скрыть" : "Показать"}
+                            </button>
+                            <Link
+                                className="base-button bg-detail"
+                                href={`/products/${product.id}`}
+                            >
+                                Редактировать
+                            </Link>
+                        </>
                         :
                         <>
                             <Link

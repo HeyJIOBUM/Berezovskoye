@@ -2,27 +2,47 @@ import React, {useState} from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import {Product} from "@/database";
-import {useAuth} from "@/lib/hooks";
+import {useUpdateProductMutation} from "@/lib/api/productsApi";
 
 interface ProductDetailsProps {
     product: Product;
     onSave: (imgFile: File) => void;
+    isAuthenticated: boolean;
 }
 
-export default function ProductDetails({product, onSave}: ProductDetailsProps) {
-    const {isAuthenticated} = useAuth();
-
+export default function ProductDetails({product, onSave, isAuthenticated}: ProductDetailsProps) {
     const [imgFile, setImgFile] = useState<File | null>(null);
+    const [updateProductImage] = useUpdateProductMutation();
+
+    const onToggleVisible = () => {
+        updateProductImage({id: product.id, visible: !product.visible});
+    };
 
     const onDownloadPrice = () => {
-        console.log("download prices")
+        const link = document.createElement('a');
+        link.href = product.priceUrl;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
+
+    const onEditPrice = () => {
+        document.getElementById('priceInput')?.click();
+    }
+
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            updateProductImage({id: product.id, price: file});
+        }
+    };
 
     const onEditPhoto = () => {
-        document.getElementById('fileInput')?.click();
+        document.getElementById('photoInput')?.click();
     }
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setImgFile(file);
@@ -31,7 +51,9 @@ export default function ProductDetails({product, onSave}: ProductDetailsProps) {
     };
 
     return (
-        <div className="flex flex-col gap-2 sm:gap-4">
+        <div className={`flex flex-col gap-2 sm:gap-4 ${
+            !product.visible ? "opacity-75" : ""
+        }`}>
             <div className="flex flex-col gap-2 sm:gap-4 md:flex-row">
                 <div className="flex min-w-[35%] flex-col gap-1 sm:gap-2">
                     <div className="flex w-full flex-col gap-1 bg-white p-1 sm:gap-4 sm:p-2.5">
@@ -68,33 +90,60 @@ export default function ProductDetails({product, onSave}: ProductDetailsProps) {
                                         />
                                     </button>
                                     <input
-                                        id="fileInput"
+                                        id="photoInput"
                                         type="file"
                                         accept="image/*"
-                                        onChange={handleFileChange}
+                                        onChange={handlePhotoChange}
                                         className="hidden"
                                     />
                                 </>
                             }
                         </div>
                         <div className="flex w-full flex-col gap-1 text-sm sm:gap-2">
-                            <Link
-                                className="base-button bg-buy"
-                                href="/feedback"
-                            >
-                                Купить
-                            </Link>
-                            <button
-                                className="base-button bg-detail"
-                                onClick={onDownloadPrice}
-                            >
-                                Скачать прайс-лист
-                            </button>
+                            {
+                                isAuthenticated ?
+                                    <>
+                                        <button
+                                            className="base-button bg-buy"
+                                            onClick={onToggleVisible}
+                                        >
+                                            {product.visible ? "Скрыть" : "Показать"}
+                                        </button>
+                                        <button
+                                            className="base-button bg-detail"
+                                            onClick={onEditPrice}
+                                        >
+                                            Загрузить прайс-лист
+                                        </button>
+                                        <input
+                                            id="priceInput"
+                                            type="file"
+                                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                            onChange={handlePriceChange}
+                                            className="hidden"
+                                        />
+                                    </>
+                                    :
+                                    <>
+                                        <Link
+                                            className="base-button bg-buy"
+                                            href="/feedback"
+                                        >
+                                            Купить
+                                        </Link>
+                                        <button
+                                            className="base-button bg-detail"
+                                            onClick={onDownloadPrice}
+                                        >
+                                            Скачать прайс-лист
+                                        </button>
+                                    </>
+                            }
                         </div>
                     </div>
                     <div className="bg-white p-1 sm:p-2.5">
                         <p className="text-base font-medium">
-                            <span className="font-semibold">Тип упаковки:</span> {product.packagingTypes}
+                            <span className="font-semibold">Тип упаковки:</span> {product.packagingType}
                         </p>
                     </div>
                     <div className="bg-white p-1 sm:p-2.5">
