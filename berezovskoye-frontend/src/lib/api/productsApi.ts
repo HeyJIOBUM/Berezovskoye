@@ -1,5 +1,5 @@
 import {applicationApi} from "@/lib/api/applicationApi";
-import {Product} from "@/database";
+import {News, Product} from "@/database";
 
 export const productsApi = applicationApi.injectEndpoints({
     endpoints: (build) => ({
@@ -17,10 +17,27 @@ export const productsApi = applicationApi.injectEndpoints({
                     ? [({type: 'Product', id: result.id})]
                     : [{type: 'Product', id: 'LIST'}],
         }),
+        updateProductImage: build.mutation<News, { id: number, product: Product, imgFile: File | null }>({
+            query: ({id, product, imgFile}) => {
+                const formData = new FormData();
+
+                formData.append('product', JSON.stringify(product));
+                if (imgFile)
+                    formData.append('imgFile', imgFile);
+
+                return {
+                    url: `/products/${id}`,
+                    method: 'PUT',
+                    body: formData,
+                };
+            },
+            invalidatesTags: (result, error, arg) => [{type: 'Product', id: arg.id}],
+        }),
     })
 });
 
 export const {
     useGetProductByIdQuery,
-    useGetProductsQuery
+    useGetProductsQuery,
+    useUpdateProductImageMutation
 } = productsApi;
