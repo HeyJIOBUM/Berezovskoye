@@ -1,7 +1,6 @@
 package com.berezovskoye.exceptions.errors.global;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;

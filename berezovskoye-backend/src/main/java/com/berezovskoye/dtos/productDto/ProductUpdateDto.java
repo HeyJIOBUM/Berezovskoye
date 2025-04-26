@@ -1,6 +1,8 @@
 package com.berezovskoye.dtos.productDto;
 
 import com.berezovskoye.models.product.Product;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 import java.util.List;
@@ -51,6 +53,17 @@ public class ProductUpdateDto {
                 ));
 
         return product;
+    }
+
+    public static Product fromProductUpdateDto(String productUpdateDtoJson) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ProductUpdateDto productUpdateDto = objectMapper.readValue(productUpdateDtoJson, ProductUpdateDto.class);
+
+            return fromProductUpdateDto(productUpdateDto);
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException("Неверный формат JSON для ProductUpdateDto", e);
+        }
     }
 
     public static List<ProductUpdateDto> fromProduct(List<Product> products) {

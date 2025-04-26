@@ -6,8 +6,6 @@ import com.berezovskoye.exceptions.errors.database.EntityAbnormalBehaviorExcepti
 import com.berezovskoye.exceptions.errors.database.EntityNotFoundException;
 import com.berezovskoye.exceptions.errors.global.BadRequestException;
 import com.berezovskoye.models.product.Product;
-import com.berezovskoye.models.product.ProductDetailsCategory;
-import com.berezovskoye.models.product.ProductDetailsTable;
 import com.berezovskoye.repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -18,7 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +36,9 @@ public class ProductService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ImageService imageService;
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
@@ -78,8 +81,14 @@ public class ProductService {
 
     @Transactional
     @CacheEvict(value = { CACHE_NAME, "pdf" }, allEntries = true)
-    public ResponseEntity<ProductUpdateDto> updateProduct(String id, Product newProductData) {
+    public ResponseEntity<ProductUpdateDto> updateProduct(String id, MultipartFile image, Product newProductData) throws IOException {
         BadRequestException.checkObject("default.bad.request", newProductData);
+
+        String newImageName = null;
+        if(image != null){
+            newImageName = imageService.uploadImage(image, newProductData.getImgUrl()).getBody();
+            newProductData.setImgUrl(newImageName);
+        }
 
         Optional<Product> productOptional = productRepository.findById(id);
 
@@ -114,6 +123,9 @@ public class ProductService {
             String notUpdated = messages.getString("entity.not.updated");
             String notUpdatedMessage = String.format(notUpdated, MODEL_NAME, existingProduct.getUid());
             log.error("{} {}", notUpdatedMessage, LocalDateTime.now());
+            if(image != null){
+                imageService.deleteImage(newImageName);
+            }
             throw new EntityAbnormalBehaviorException(notUpdatedMessage);
         }
 
@@ -128,11 +140,17 @@ public class ProductService {
             throw EntityNotFoundException.throwAndLogNotFound(MODEL_NAME, id);
         }
 
+        String imageName = productOptional.get().getImgUrl();
+
         productRepository.deleteById(id);
 
         productOptional = productRepository.findById(id);
         if(productOptional.isPresent()){
             throw EntityAbnormalBehaviorException.throwAndLogNotDeleted(MODEL_NAME, id);
+        }
+
+        if(imageName != null){
+            imageService.deleteImage(imageName);
         }
 
         return logAndReturnText("entity.deleted", id);

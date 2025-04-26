@@ -68,6 +68,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<TpuErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
+        TpuErrorResponse errorResponse = new TpuErrorResponse(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     //  JPA exceptions
 
     @ExceptionHandler(DataIntegrityViolationException.class)
@@ -87,6 +93,8 @@ public class GlobalExceptionHandler {
         TpuErrorResponse errorResponse = new TpuErrorResponse(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 
     //  Everything else
 

@@ -14,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,9 @@ public class NewsService {
     private static final String CACHE_NAME = "news";
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private NewsRepository newsRepository;
@@ -72,8 +77,14 @@ public class NewsService {
 
     @Transactional
     @CacheEvict(value = CACHE_NAME, allEntries = true)
-    public ResponseEntity<NewsDto> updateNews(int id, News newNewsData) {
+    public ResponseEntity<NewsDto> updateNews(int id, News newNewsData, MultipartFile imgFile) throws IOException {
         BadRequestException.checkObject("default.bad.request", newNewsData);
+
+        String newImageName = null;
+        if(imgFile != null){
+            newImageName = imageService.uploadImage(imgFile, newNewsData.getImgUrl()).getBody();
+            newNewsData.setImgUrl(newImageName);
+        }
 
         Optional<News> newsOptional = newsRepository.findById(id);
 
@@ -95,6 +106,9 @@ public class NewsService {
             String notUpdated = messages.getString("entity.not.updated");
             String notUpdatedMessage = String.format(notUpdated, MODEL_NAME, existingNew.getId());
             log.error("{} {}", notUpdatedMessage, LocalDateTime.now());
+            if(imgFile != null){
+                imageService.deleteImage(newImageName);
+            }
             throw new EntityAbnormalBehaviorException(notUpdatedMessage);
         }
 
