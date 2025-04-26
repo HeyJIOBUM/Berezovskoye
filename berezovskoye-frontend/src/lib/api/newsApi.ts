@@ -17,20 +17,36 @@ export const newsApi = applicationApi.injectEndpoints({
                     ? [({type: 'News', id: result.id})]
                     : [{type: 'News', id: 'LIST'}],
         }),
-        addNews: build.mutation<News, { news: News }>({
-            query: ({news}) => ({
-                url: '/news',
-                method: 'POST',
-                body: news,
-            }),
+        addNews: build.mutation<News, { news: News, imgFile: File | null }>({
+            query: ({news, imgFile}) => {
+                const formData = new FormData();
+
+                formData.append('news', JSON.stringify(news));
+                if (imgFile)
+                    formData.append('imgFile', imgFile);
+
+                return {
+                    url: `/news`,
+                    method: 'POST',
+                    body: formData,
+                };
+            },
             invalidatesTags: ['News'],
         }),
-        updateNews: build.mutation<News, { id: number; news: News }>({
-            query: ({id, news}) => ({
-                url: `/news/${id}`,
-                method: 'PUT',
-                body: news,
-            }),
+        updateNews: build.mutation<News, { id: number, news: News, imgFile: File | null }>({
+            query: ({id, news, imgFile}) => {
+                const formData = new FormData();
+
+                formData.append('news', JSON.stringify(news));
+                if (imgFile)
+                    formData.append('imgFile', imgFile);
+
+                return {
+                    url: `/news/${id}`,
+                    method: 'PUT',
+                    body: formData,
+                };
+            },
             invalidatesTags: (result, error, arg) => [{type: 'News', id: arg.id}],
         }),
         deleteNews: build.mutation<void, { id: number }>({

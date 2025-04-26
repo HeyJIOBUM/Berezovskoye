@@ -25,8 +25,8 @@ export default function Page({params}: NewsPageProps) {
 
     if (!isNewsLoading && !news) notFound();
 
-    const onSave = (news: News) => {
-        updateNews({id: newsId, news: news});
+    const onSave = (news: News, imgFile: File | null) => {
+        updateNews({id: newsId, news: news, imgFile: imgFile});
     }
 
     return (

@@ -16,8 +16,8 @@ export default function Page() {
 
     const [addNews] = useAddNewsMutation();
 
-    const onSave = (news: News) => {
-        addNews({news: news});
+    const onSave = (news: News, imgFile: File | null) => {
+        addNews({news: news, imgFile: imgFile});
     }
 
     const onCancel = () => {
