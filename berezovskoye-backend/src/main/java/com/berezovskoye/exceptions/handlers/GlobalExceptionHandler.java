@@ -32,12 +32,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(UsernameNotFoundException.class)
-//    public ResponseEntity<TpuErrorResponse> handleUsernameNotFound(UsernameNotFoundException ex) {
-//        TpuErrorResponse errorResponse = new TpuErrorResponse(ex.getMessage());
-//        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-//    }
-
     @ExceptionHandler(UnsupportedEncodingException.class)
     public ResponseEntity<TpuErrorResponse> handleUnsupportedEncoding(UnsupportedEncodingException ex) {
         TpuErrorResponse errorResponse = new TpuErrorResponse(ex.getMessage());
@@ -93,8 +87,6 @@ public class GlobalExceptionHandler {
         TpuErrorResponse errorResponse = new TpuErrorResponse(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-
 
     //  Everything else
 

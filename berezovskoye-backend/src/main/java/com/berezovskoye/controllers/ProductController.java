@@ -1,7 +1,7 @@
 package com.berezovskoye.controllers;
 
 import com.berezovskoye.dtos.productDto.ProductDto;
-import com.berezovskoye.dtos.productDto.ProductUpdateDto;
+import com.berezovskoye.dtos.productDto.ProductProcessDto;
 import com.berezovskoye.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +35,13 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductUpdateDto> updateProduct(
+    public ResponseEntity<ProductProcessDto> updateProduct(
             @PathVariable String id,
             @RequestParam("image") MultipartFile image,
             @RequestParam String newProductDataJson) throws IOException {
         return productService.updateProduct(id,
                 image,
-                ProductUpdateDto.fromProductUpdateDto(newProductDataJson)
+                ProductProcessDto.fromProductUpdateDto(newProductDataJson)
         );
     }
 

@@ -99,8 +99,8 @@ public class NewsService {
             return new ResponseEntity<>(NewsDto.fromNews(existingNew), HttpStatus.OK);
         }
 
-        newNewsData.setId(existingNew.getId());
-        News updatedNews = newsRepository.save(newNewsData);
+        existingNew.update(newNewsData);
+        News updatedNews = newsRepository.save(existingNew);
 
         if(!newNewsData.equals(updatedNews)){
             String notUpdated = messages.getString("entity.not.updated");

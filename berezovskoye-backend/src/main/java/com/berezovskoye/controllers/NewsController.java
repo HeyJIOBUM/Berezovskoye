@@ -1,7 +1,6 @@
 package com.berezovskoye.controllers;
 
 import com.berezovskoye.dtos.news.NewsDto;
-import com.berezovskoye.models.news.News;
 import com.berezovskoye.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
