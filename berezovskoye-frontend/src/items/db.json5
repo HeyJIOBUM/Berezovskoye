@@ -27,7 +27,9 @@ WOK-конфорка: Есть \n \
 Тип духовки: Электрическая \n \
 Тип управления: Механическое",
       imgUrl: "/product_images/peat_briquettes.png",
-      packagingTypes: "шт.",
+      priceUrl: "file:///C:/Users/kiril/Downloads/convert.xlsx",
+      packagingType: "шт.",
+      visible: true,
       price: 19.61
     },
     {
@@ -57,7 +59,9 @@ WOK-конфорка: Есть \n \
 Тип духовки: Электрическая \n \
 Тип управления: Механическое",
       imgUrl: "/product_images/peat_for_composts.png",
-      packagingTypes: "шт.",
+      priceUrl: "file:///C:/Users/kiril/Downloads/convert.xlsx",
+      packagingType: "шт.",
+      visible: true,
       price: 19.61
     },
     {
@@ -87,7 +91,9 @@ WOK-конфорка: Есть \n \
 Тип духовки: Электрическая \n \
 Тип управления: Механическое",
       imgUrl: "/product_images/woods.png",
-      packagingTypes: "шт.",
+      priceUrl: "file:///C:/Users/kiril/Downloads/convert.xlsx",
+      packagingType: "шт.",
+      visible: true,
       price: 19.61
     },
     {
@@ -117,7 +123,9 @@ WOK-конфорка: Есть \n \
 Тип духовки: Электрическая \n \
 Тип управления: Механическое",
       imgUrl: "/product_images/dried_peat.png",
-      packagingTypes: "шт.",
+      priceUrl: "file:///C:/Users/kiril/Downloads/convert.xlsx",
+      packagingType: "шт.",
+      visible: true,
       price: 19.61
     },
   ],

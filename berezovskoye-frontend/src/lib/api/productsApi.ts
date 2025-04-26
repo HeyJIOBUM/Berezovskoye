@@ -1,5 +1,5 @@
 import {applicationApi} from "@/lib/api/applicationApi";
-import {News, Product} from "@/database";
+import {Product} from "@/database";
 
 export const productsApi = applicationApi.injectEndpoints({
     endpoints: (build) => ({
@@ -10,17 +10,18 @@ export const productsApi = applicationApi.injectEndpoints({
                     ? [...result.map(({id}) => ({type: 'Product' as const, id})), {type: 'Product', id: 'LIST'}]
                     : [{type: 'Product', id: 'LIST'}],
         }),
-        getProductById: build.query<Product, { id: number }>({
-            query: ({id}) => `/products/${id}`,
-            providesTags: (result) =>
-                result
-                    ? [({type: 'Product', id: result.id})]
-                    : [{type: 'Product', id: 'LIST'}],
-        }),
-        updateProductImage: build.mutation<News, { id: number, imgFile: File }>({
-            query: ({id, imgFile}) => {
+        updateProduct: build.mutation<Product, {
+            id: string,
+            imgFile?: File,
+            visible?: boolean,
+            price?: File
+        }>({
+            query: ({id, imgFile, visible, price}) => {
                 const formData = new FormData();
-                formData.append('imgFile', imgFile);
+
+                if (imgFile) formData.append('imgFile', imgFile);
+                if (visible) formData.append('visible', String(visible));
+                if (price) formData.append('price', price);
 
                 return {
                     url: `/products/${id}`,
@@ -34,7 +35,6 @@ export const productsApi = applicationApi.injectEndpoints({
 });
 
 export const {
-    useGetProductByIdQuery,
     useGetProductsQuery,
-    useUpdateProductImageMutation
+    useUpdateProductMutation
 } = productsApi;

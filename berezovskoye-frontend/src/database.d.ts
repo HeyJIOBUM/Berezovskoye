@@ -8,9 +8,11 @@ export interface News {
 
 export interface Product {
     id: string;
+    visible: boolean;
     name: string;
     description: string;
     imgUrl: string;
-    packagingTypes: string;
+    priceUrl: string;
+    packagingType: string;
     price: string;
 }
