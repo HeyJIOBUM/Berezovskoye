@@ -15,6 +15,8 @@ export default function Page() {
 
     if (productsError) throw productsError;
 
+    const filteredProducts = products?.filter(el => isAuthenticated || el.visible);
+
     return (
         <div className="flex w-full flex-col items-center">
             <div className="relative h-28 w-full select-none">
@@ -32,7 +34,7 @@ export default function Page() {
                         <LoadingSpinner/>
                         :
                         <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-                            {products?.map((product: Product) => (
+                            {filteredProducts?.map((product: Product) => (
                                 <ProductCard
                                     key={product.id}
                                     product={product}
