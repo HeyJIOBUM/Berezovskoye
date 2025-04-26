@@ -7,21 +7,10 @@ export interface News {
 }
 
 export interface Product {
-    id: number;
+    id: string;
     name: string;
     description: string;
     imgUrl: string;
-    packagingTypes: string[];
-    qualityIndicators: string[];
-    productDetailsTable: ProductDetailsTable;
-}
-
-export interface ProductDetailsTable {
-    header: string[];
-    categories: ProductDetailsCategory[];
-}
-
-export interface ProductDetailsCategory {
-    categoryName: string;
-    categoryDetails: string[][];
+    packagingTypes: string;
+    price: string;
 }

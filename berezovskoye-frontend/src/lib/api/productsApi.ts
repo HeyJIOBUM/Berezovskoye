@@ -17,17 +17,14 @@ export const productsApi = applicationApi.injectEndpoints({
                     ? [({type: 'Product', id: result.id})]
                     : [{type: 'Product', id: 'LIST'}],
         }),
-        updateProductImage: build.mutation<News, { id: number, product: Product, imgFile: File | null }>({
-            query: ({id, product, imgFile}) => {
+        updateProductImage: build.mutation<News, { id: number, imgFile: File }>({
+            query: ({id, imgFile}) => {
                 const formData = new FormData();
-
-                formData.append('product', JSON.stringify(product));
-                if (imgFile)
-                    formData.append('imgFile', imgFile);
+                formData.append('imgFile', imgFile);
 
                 return {
                     url: `/products/${id}`,
-                    method: 'PUT',
+                    method: 'PATCH',
                     body: formData,
                 };
             },
