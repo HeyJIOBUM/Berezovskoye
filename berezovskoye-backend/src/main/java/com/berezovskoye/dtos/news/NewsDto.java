@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @Builder
 public class NewsDto {
-    private int id;
     private String title;
     private String text;
     private String imgUrl;
@@ -20,7 +19,6 @@ public class NewsDto {
 
     public static NewsDto fromNews(News news){
         return NewsDto.builder()
-                .id(news.getId())
                 .title(news.getTitle())
                 .imgUrl(news.getImgUrl())
                 .postingDate(news.getPostingDate())
@@ -29,7 +27,6 @@ public class NewsDto {
 
     public static News fromNewsDto(NewsDto newsDto){
         return News.builder()
-                .id(newsDto.getId())
                 .title(newsDto.getTitle())
                 .imgUrl(newsDto.getImgUrl())
                 .postingDate(newsDto.getPostingDate())
