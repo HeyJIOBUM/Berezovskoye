@@ -40,6 +40,9 @@ public class ProductService {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private XlsService xlsService;
+
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
     @Cacheable(value = CACHE_NAME, key = "#id")
@@ -81,13 +84,24 @@ public class ProductService {
 
     @Transactional
     @CacheEvict(value = { CACHE_NAME, "pdf" }, allEntries = true)
-    public ResponseEntity<ProductProcessDto> updateProduct(String id, MultipartFile image, Product newProductData) throws IOException {
+    public ResponseEntity<ProductProcessDto> updateProduct(
+            String id,
+            MultipartFile image,
+            MultipartFile priceXls,
+            Product newProductData) throws IOException
+    {
         BadRequestException.checkObject("default.bad.request", newProductData);
 
         String newImageName = null;
         if(image != null){
             newImageName = imageService.uploadImage(image, newProductData.getImgUrl()).getBody();
             newProductData.setImgUrl(newImageName);
+        }
+
+        String newXmlName = null;
+        if(priceXls != null){
+            newXmlName = xlsService.uploadXml(priceXls, newProductData.getPriceUrl()).getBody();
+            newProductData.setPriceUrl(newXmlName);
         }
 
         Optional<Product> productOptional = productRepository.findById(id);
@@ -113,6 +127,9 @@ public class ProductService {
             if(image != null){
                 imageService.deleteImage(newImageName);
             }
+            if(priceXls != null){
+                xlsService.deleteXml(newXmlName);
+            }
             throw new EntityAbnormalBehaviorException(notUpdatedMessage);
         }
 
@@ -128,6 +145,7 @@ public class ProductService {
         }
 
         String imageName = productOptional.get().getImgUrl();
+        String priceFilename = productOptional.get().getPriceUrl();
 
         productRepository.deleteById(id);
 
@@ -138,6 +156,10 @@ public class ProductService {
 
         if(imageName != null){
             imageService.deleteImage(imageName);
+        }
+
+        if(priceFilename != null){
+            xlsService.deleteXml(priceFilename);
         }
 
         return logAndReturnText("entity.deleted", id);

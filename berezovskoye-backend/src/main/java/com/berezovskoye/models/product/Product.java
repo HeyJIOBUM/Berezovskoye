@@ -30,6 +30,8 @@ public class Product {
 
     private String price;
 
+    private String priceUrl;
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -46,7 +48,7 @@ public class Product {
         Optional.of(newProductData.isVisible()).ifPresent(this::setVisible);
         Optional.ofNullable(newProductData.getName()).ifPresent(this::setName);
         Optional.ofNullable(newProductData.getDescription()).ifPresent(this::setDescription);
-        Optional.ofNullable(newProductData.getImgUrl()).ifPresent(this::setImgUrl);
+        //Optional.ofNullable(newProductData.getImgUrl()).ifPresent(this::setImgUrl);
         Optional.ofNullable(newProductData.getPackagingType()).ifPresent(this::setPackagingType);
         Optional.ofNullable(newProductData.getPrice()).ifPresent(this::setPrice);
 

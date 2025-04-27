@@ -12,11 +12,15 @@ public class MvcConfig implements WebMvcConfigurer {
     @Value("${images.path}")
     private String imagesPath;
 
+    @Value("${xls.path}")
+    private String xlsPath;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/image/**")
                 .addResourceLocations("file:" + imagesPath + "/");
-    }
 
-    
+        registry.addResourceHandler("/xls/**")
+                .addResourceLocations("file:" + xlsPath + "/");
+    }
 }

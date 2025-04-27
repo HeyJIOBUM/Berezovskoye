@@ -37,10 +37,12 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductProcessDto> updateProduct(
             @PathVariable String id,
-            @RequestParam("image") MultipartFile image,
+            @RequestParam("imgFile") MultipartFile image,
+            @RequestParam("price") MultipartFile priceXls,
             @RequestParam String newProductDataJson) throws IOException {
         return productService.updateProduct(id,
                 image,
+                priceXls,
                 ProductProcessDto.fromProductUpdateDto(newProductDataJson)
         );
     }

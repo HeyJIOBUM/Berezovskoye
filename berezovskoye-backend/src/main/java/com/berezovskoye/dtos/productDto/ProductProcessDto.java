@@ -15,6 +15,7 @@ public class ProductProcessDto {
     private String imgUrl;
     private String packagingType;
     private String price;
+    private String priceUrl;
 
     public static ProductProcessDto fromProduct(Product product) {
 
@@ -26,6 +27,7 @@ public class ProductProcessDto {
         dto.setImgUrl(product.getImgUrl());
         dto.setPackagingType(product.getPackagingType());
         dto.setPrice(product.getPrice());
+        dto.setPriceUrl(product.getPriceUrl());
 
         return dto;
     }
@@ -39,7 +41,8 @@ public class ProductProcessDto {
         product.setDescription(productDto.getDescription());
         product.setImgUrl(productDto.getImgUrl());
         product.setPackagingType(productDto.getPackagingType());
-        product.setPrice(product.getPrice());
+        product.setPrice(productDto.getPrice());
+        product.setPriceUrl(productDto.getPriceUrl());
 
         return product;
     }
