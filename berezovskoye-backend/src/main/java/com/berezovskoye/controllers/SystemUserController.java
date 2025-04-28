@@ -16,12 +16,6 @@ public class SystemUserController {
     @Autowired
     private SystemUserService userService;
 
-    @Deprecated
-    @PostMapping("/register")
-    public ResponseEntity<SystemUser> register(@RequestBody SystemUser user){
-        return userService.register(user);
-    }
-
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody SystemUser user){
         return userService.verify(user);

@@ -3,6 +3,7 @@ package com.berezovskoye.services;
 import com.berezovskoye.exceptions.errors.global.BadRequestException;
 import com.berezovskoye.exceptions.errors.authorization.BadCredentialsException;
 import com.berezovskoye.models.users.SystemUser;
+import com.berezovskoye.models.users.UserRole;
 import com.berezovskoye.principals.SystemUserPrincipal;
 import com.berezovskoye.repositories.SystemUserRepository;
 import jakarta.annotation.PostConstruct;
@@ -30,6 +31,11 @@ public class SystemUserService {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
+    @Value("${user.name}")
+    private String adminName;
+    @Value("${user.password}")
+    private String adminPassword;
+
     @Autowired
     private AuthenticationManager manager;
 
@@ -44,9 +50,9 @@ public class SystemUserService {
     @PostConstruct
     public void init() {
         encoder = new BCryptPasswordEncoder(encodingStrength);
+        createSuperAdmin();
     }
 
-    @Deprecated
     public ResponseEntity<SystemUser> register(SystemUser user){
         if(user == null || !user.isCorrect()){
             String userIncorrect = messages.getString("user.incorrect");
@@ -55,7 +61,13 @@ public class SystemUserService {
         }
         user.setPassword(encoder.encode(user.getPassword()));
 
-        return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
+        SystemUser userInDb = userRepository.findByLogin(user.getLogin());
+
+        if(userInDb == null){
+            userInDb = userRepository.save(user);
+        }
+
+        return new ResponseEntity<>(userInDb, HttpStatus.OK);
     }
 
     public ResponseEntity<String> verify(SystemUser user) {
@@ -117,4 +129,12 @@ public class SystemUserService {
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
+    private void createSuperAdmin() {
+        SystemUser admin = new SystemUser();
+        admin.setRole(UserRole.ADMIN);
+        admin.setPassword(adminPassword);
+        admin.setLogin(adminName);
+
+        register(admin);
+    }
 }
