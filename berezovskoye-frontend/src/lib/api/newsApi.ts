@@ -21,13 +21,18 @@ export const newsApi = applicationApi.injectEndpoints({
             query: ({news, imgFile}) => {
                 const formData = new FormData();
 
-                formData.append('news', JSON.stringify(news));
+                const newsBlob = new Blob([JSON.stringify(news)], { type: 'application/json' });
+                formData.append('news', newsBlob, 'news.json');
+
                 if (imgFile)
                     formData.append('imgFile', imgFile);
+
+                console.log('Отправляемый news:', news);
 
                 return {
                     url: `/news`,
                     method: 'POST',
+                    credentials: 'include',
                     body: formData,
                 };
             },
@@ -37,13 +42,18 @@ export const newsApi = applicationApi.injectEndpoints({
             query: ({id, news, imgFile}) => {
                 const formData = new FormData();
 
-                formData.append('news', JSON.stringify(news));
+                //formData.append('news', JSON.stringify(news));
+
+                const newsBlob = new Blob([JSON.stringify(news)], { type: 'application/json' });
+                formData.append('news', newsBlob, 'news.json');
+
                 if (imgFile)
                     formData.append('imgFile', imgFile);
 
                 return {
                     url: `/news/${id}`,
                     method: 'PUT',
+                    credentials: 'include',
                     body: formData,
                 };
             },
@@ -52,6 +62,7 @@ export const newsApi = applicationApi.injectEndpoints({
         deleteNews: build.mutation<void, { id: number }>({
             query: ({id}) => ({
                 url: `/news/${id}`,
+                credentials: 'include',
                 method: 'DELETE',
             }),
             invalidatesTags: (result, error, arg) => [{type: 'News', id: arg.id}],

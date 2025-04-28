@@ -1,7 +1,9 @@
 package com.berezovskoye.models.product;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +11,8 @@ import java.util.Optional;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     private String id;

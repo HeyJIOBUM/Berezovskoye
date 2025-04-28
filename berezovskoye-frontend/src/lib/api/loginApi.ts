@@ -6,19 +6,24 @@ export const loginUser = async (login: string, password: string) => {
     try {
         const response = await fetch(`${baseApiUrl}/login`, {
             // change to POST and uncomment body with spring backend
-            method: "GET",
+            // method: "GET",
+            // headers: {
+            //     "Content-Type": "application/json",
+            // },
+            // // body: JSON.stringify({login, password}),
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            // body: JSON.stringify({login, password}),
+            body: JSON.stringify({login, password}),
         });
 
         if (!response.ok) {
             throw new Error("Ошибка авторизации");
         }
 
-        const data = await response.json();
-        const {jwt} = data;
+        const jwt = await response.text();
+        //const jwt = data;
 
         await setAuthCookie(jwt);
         return {success: true};

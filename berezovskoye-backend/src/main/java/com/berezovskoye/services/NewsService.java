@@ -1,6 +1,7 @@
 package com.berezovskoye.services;
 
 import com.berezovskoye.dtos.news.NewsDto;
+import com.berezovskoye.dtos.news.NewsProcessDto;
 import com.berezovskoye.exceptions.errors.database.EntityAbnormalBehaviorException;
 import com.berezovskoye.exceptions.errors.global.BadRequestException;
 import com.berezovskoye.exceptions.errors.database.EntityNotFoundException;
@@ -63,8 +64,14 @@ public class NewsService {
 
     @Transactional
     @CacheEvict(value = CACHE_NAME, allEntries = true)
-    public ResponseEntity<NewsDto> addNews(News newToAdd) {
+    public ResponseEntity<NewsProcessDto> addNews(News newToAdd, MultipartFile imgFile) throws IOException {
         BadRequestException.checkObject("default.bad.request", newToAdd);
+
+        String newImageName = null;
+        if(imgFile != null){
+            newImageName = imageService.uploadImage(imgFile, newToAdd.getImgUrl()).getBody();
+            newToAdd.setImgUrl(newImageName);
+        }
 
         if(newToAdd.getId() != null){
             throw BadRequestException.throwAndLogBadRequest("entity.wrong.key", MODEL_NAME);
@@ -77,7 +84,7 @@ public class NewsService {
 
     @Transactional
     @CacheEvict(value = CACHE_NAME, allEntries = true)
-    public ResponseEntity<NewsDto> updateNews(int id, News newNewsData, MultipartFile imgFile) throws IOException {
+    public ResponseEntity<NewsProcessDto> updateNews(int id, News newNewsData, MultipartFile imgFile) throws IOException {
         BadRequestException.checkObject("default.bad.request", newNewsData);
 
         String newImageName = null;
@@ -96,7 +103,7 @@ public class NewsService {
             String sameData = messages.getString("entity.same.data");
             String sameDataMessage = String.format(sameData, MODEL_NAME, existingNew.getId());
             log.warn("{} {}", sameDataMessage, LocalDateTime.now());
-            return new ResponseEntity<>(NewsDto.fromNews(existingNew), HttpStatus.OK);
+            return new ResponseEntity<>(NewsProcessDto.fromNews(existingNew), HttpStatus.OK);
         }
 
         existingNew.update(newNewsData);
@@ -142,12 +149,12 @@ public class NewsService {
                 HttpStatus.OK);
     }
 
-    private ResponseEntity<NewsDto> logAndReturnObject(String key, News news){
+    private ResponseEntity<NewsProcessDto> logAndReturnObject(String key, News news){
         String success = messages.getString(key);
         String successMessage = String.format(success, MODEL_NAME, news.getId());
         log.info("{}{}", successMessage, LocalDateTime.now());
 
-        return new ResponseEntity<>(NewsDto.fromNews(news),
+        return new ResponseEntity<>(NewsProcessDto.fromNews(news),
                 HttpStatus.OK);
     }
 }

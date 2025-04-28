@@ -34,7 +34,7 @@ public class ProductController {
         );
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ProductProcessDto> updateProduct(
             @PathVariable String id,
             @RequestParam("imgFile") MultipartFile image,

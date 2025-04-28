@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {Product} from "@/database";
 import {useUpdateProductMutation} from "@/lib/api/productsApi";
+import {getImageUrl} from "@/lib/images";
 
 interface ProductCardProps {
     product: Product;
@@ -24,7 +25,7 @@ export default function ProductCard({product, isAuthenticated}: ProductCardProps
         }`}>
             <div className="relative aspect-[1] w-full select-none bg-gray-300">
                 <Image
-                    src={product.imgUrl}
+                    src={getImageUrl(product.imgUrl)}
                     fill={true}
                     style={{objectFit: "contain"}}
                     alt="Product Image"

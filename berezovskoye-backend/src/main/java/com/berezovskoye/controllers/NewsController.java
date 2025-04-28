@@ -1,8 +1,11 @@
 package com.berezovskoye.controllers;
 
 import com.berezovskoye.dtos.news.NewsDto;
+import com.berezovskoye.dtos.news.NewsProcessDto;
 import com.berezovskoye.services.NewsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,18 +32,22 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<NewsDto> addNews(@RequestBody NewsDto news){
-        return newsService.addNews(NewsDto.fromNewsDto(news));
+    public ResponseEntity<NewsProcessDto> addNews(
+            //@RequestParam("news") String newsDataJson,
+            @RequestPart("news") @Valid NewsProcessDto newsDto,
+            @RequestPart(value = "imgFile", required = false) @Valid MultipartFile imgFile) throws IOException {
+        //System.out.println(newsDataJson);
+        return newsService.addNews(NewsProcessDto.fromNewsDto(newsDto), imgFile);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NewsDto> updateNews(
+    public ResponseEntity<NewsProcessDto> updateNews(
             @PathVariable int id,
-            @RequestParam("product") String newNewsDataJson,
-            @RequestParam("imgFile") MultipartFile imgFile) throws IOException {
+            @RequestPart("news") @Valid NewsProcessDto newsDto,
+            @RequestPart(value = "imgFile", required = false) @Valid MultipartFile imgFile) throws IOException {
         return newsService.updateNews(
                 id,
-                NewsDto.fromNewsDto(newNewsDataJson),
+                NewsProcessDto.fromNewsDto(newsDto),
                 imgFile);
     }
 

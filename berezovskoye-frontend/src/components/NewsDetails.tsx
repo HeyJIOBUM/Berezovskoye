@@ -3,6 +3,7 @@ import Image from "next/image";
 import {News} from "@/database";
 import {useAuth} from "@/lib/hooks";
 import TextareaAutosize from "react-textarea-autosize";
+import {getImageUrl} from "@/lib/images";
 
 // from dd.mm.yyyy to yyyy-mm-dd
 export const convertFromDisplayToDateInputFormat = (date: string) => {
@@ -127,7 +128,7 @@ export default function NewsDetails({news, onSave, onCancel, isEditing: initialE
                 {
                     imgFile == null ?
                         <Image
-                            src={imgUrl}
+                            src={getImageUrl(imgUrl)}
                             fill={true}
                             style={{objectFit: "cover"}}
                             alt="News Image"

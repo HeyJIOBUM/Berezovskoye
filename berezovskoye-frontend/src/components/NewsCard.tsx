@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import {News} from "@/database";
 import {useDeleteNewsMutation} from "@/lib/api/newsApi";
+import {getImageUrl} from "@/lib/images";
 
 interface NewsCardProps {
     news: News;
@@ -22,7 +23,7 @@ export default function NewsCard({news, isAuthenticated}: NewsCardProps) {
         <div className="flex flex-col items-start justify-between gap-2 bg-white p-1 sm:p-2.5">
             <div className="relative aspect-[7/3] w-full select-none">
                 <Image
-                    src={news.imgUrl}
+                    src={getImageUrl(news.imgUrl)}
                     fill={true}
                     style={{objectFit: "cover"}}
                     alt="News Image"

@@ -8,4 +8,15 @@ const nextConfig: NextConfig = {
     output: "standalone",
 };
 
+module.exports = {
+    images: {
+        domains: ['localhost'],
+    },
+    experimental: {
+        serverActions: {
+            bodySizeLimit: '10mb',
+        },
+    },
+};
+
 export default nextConfig;

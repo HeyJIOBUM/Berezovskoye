@@ -3,7 +3,6 @@ package com.berezovskoye.dtos.news;
 import com.berezovskoye.models.news.News;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,16 +10,14 @@ import java.util.List;
 
 @Data
 @Builder
-public class NewsDto {
-    private Integer id;
+public class NewsProcessDto {
     private String title;
     private String text;
     private String imgUrl;
     private String postingDate;
 
-    public static NewsDto fromNews(News news){
-        return NewsDto.builder()
-                .id(news.getId())
+    public static NewsProcessDto fromNews(News news){
+        return NewsProcessDto.builder()
                 .title(news.getTitle())
                 .text(news.getText())
                 .imgUrl(news.getImgUrl())
@@ -28,9 +25,8 @@ public class NewsDto {
                 .build();
     }
 
-    public static News fromNewsDto(NewsDto newsDto){
+    public static News fromNewsDto(NewsProcessDto newsDto){
         return News.builder()
-                .id(newsDto.getId())
                 .title(newsDto.getTitle())
                 .text(newsDto.getText())
                 .imgUrl(newsDto.getImgUrl())
@@ -41,7 +37,7 @@ public class NewsDto {
     public static News fromNewsDto(String newsDtoJson) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            NewsDto newsDto = objectMapper.readValue(newsDtoJson, NewsDto.class);
+            NewsProcessDto newsDto = objectMapper.readValue(newsDtoJson, NewsProcessDto.class);
 
             return fromNewsDto(newsDto);
         } catch (JsonProcessingException e) {
@@ -49,11 +45,12 @@ public class NewsDto {
         }
     }
 
-    public static List<NewsDto> fromNews(List<News> newsList){
-        return newsList.stream().map(NewsDto::fromNews).toList();
+    public static List<NewsProcessDto> fromNews(List<News> newsList){
+        return newsList.stream().map(NewsProcessDto::fromNews).toList();
     }
 
-    public static List<News> fromNewsDto(List<NewsDto> newsDtoList){
-        return newsDtoList.stream().map(NewsDto::fromNewsDto).toList();
+    public static List<News> fromNewsDto(List<NewsProcessDto> newsDtoList){
+        return newsDtoList.stream().map(NewsProcessDto::fromNewsDto).toList();
     }
 }
+

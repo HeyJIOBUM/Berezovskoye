@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import {Product} from "@/database";
 import {useUpdateProductMutation} from "@/lib/api/productsApi";
+import {getImageUrl} from "@/lib/images";
+import {getXlsUrl} from "@/lib/xls";
 
 interface ProductDetailsProps {
     product: Product;
@@ -20,7 +22,7 @@ export default function ProductDetails({product, onSave, isAuthenticated}: Produ
 
     const onDownloadPrice = () => {
         const link = document.createElement('a');
-        link.href = product.priceUrl;
+        link.href = getXlsUrl(product.priceUrl);
         link.download = '';
         document.body.appendChild(link);
         link.click();
@@ -61,7 +63,7 @@ export default function ProductDetails({product, onSave, isAuthenticated}: Produ
                             {
                                 imgFile == null ?
                                     <Image
-                                        src={product.imgUrl}
+                                        src={getImageUrl(product.imgUrl)}
                                         fill={true}
                                         style={{objectFit: "cover"}}
                                         alt="Product Image"
