@@ -1,6 +1,7 @@
 package com.berezovskoye.services;
 
 import com.berezovskoye.exceptions.errors.global.BadRequestException;
+import com.berezovskoye.models.product.Product;
 import com.berezovskoye.utils.ImageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +29,7 @@ public class XlsService {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
-    public ResponseEntity<String> uploadXml(MultipartFile xlsFile, String previousFile) throws IOException, IllegalStateException {
+    public ResponseEntity<String> uploadXml(MultipartFile xlsFile, Product product, String previousFile) throws IOException, IllegalStateException {
         BadRequestException.checkObject("xls.bad.request", xlsFile);
 
         try{
@@ -46,10 +47,19 @@ public class XlsService {
                 throw new BadRequestException(imgSaveException);
             }
 
-            String filename = UUID.randomUUID() + "." + fileType;
+            String productName;
+            
+            if(product.getName() != null){
+                productName = product.getName();
+            } else {
+                productName = UUID.randomUUID()+"";
+            }
+
+            String filename = productName + "." + fileType;
             Path savePath = path.resolve(filename);
 
-            xlsFile.transferTo(savePath.toFile());
+            InputStream xlsInputStream = xlsFile.getInputStream();
+            Files.copy(xlsInputStream, savePath);
 
             String imgUploaded = messages.getString("xls.uploaded");
             log.info(String.format(imgUploaded, savePath), imgUploaded, LocalDateTime.now());

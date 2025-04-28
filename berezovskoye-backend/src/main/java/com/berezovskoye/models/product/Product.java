@@ -44,14 +44,17 @@ public class Product {
                 Objects.equals(name, product.name) &&
                 Objects.equals(description, product.description) &&
                 Objects.equals(packagingType, product.packagingType) &&
-                Objects.equals(price, product.price);
+                Objects.equals(price, product.price) &&
+                Objects.equals(imgUrl, product.imgUrl) &&
+                Objects.equals(priceUrl, product.priceUrl);
     }
 
     public Product update(Product newProductData){
         Optional.of(newProductData.isVisible()).ifPresent(this::setVisible);
         Optional.ofNullable(newProductData.getName()).ifPresent(this::setName);
         Optional.ofNullable(newProductData.getDescription()).ifPresent(this::setDescription);
-        //Optional.ofNullable(newProductData.getImgUrl()).ifPresent(this::setImgUrl);
+        Optional.ofNullable(newProductData.getImgUrl()).ifPresent(this::setImgUrl);
+        Optional.ofNullable(newProductData.getPriceUrl()).ifPresent(this::setPriceUrl);
         Optional.ofNullable(newProductData.getPackagingType()).ifPresent(this::setPackagingType);
         Optional.ofNullable(newProductData.getPrice()).ifPresent(this::setPrice);
 

@@ -3,6 +3,8 @@ package com.berezovskoye.utils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Base64;
 
 public class MultipartFileConverter {

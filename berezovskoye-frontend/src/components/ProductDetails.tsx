@@ -17,10 +17,12 @@ export default function ProductDetails({product, onSave, isAuthenticated}: Produ
     const [updateProductImage] = useUpdateProductMutation();
 
     const onToggleVisible = () => {
-        updateProductImage({id: product.id, visible: !product.visible});
+        updateProductImage({id: product.id, existingProduct: product});
     };
 
     const onDownloadPrice = () => {
+        if (!product.priceUrl)
+            return;
         const link = document.createElement('a');
         link.href = getXlsUrl(product.priceUrl);
         link.download = '';
@@ -36,7 +38,8 @@ export default function ProductDetails({product, onSave, isAuthenticated}: Produ
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            updateProductImage({id: product.id, price: file});
+            console.log(product);
+            updateProductImage({id: product.id, existingProduct: product, price: file});
         }
     };
 

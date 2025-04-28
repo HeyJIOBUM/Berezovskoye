@@ -100,7 +100,7 @@ public class ProductService {
 
         String newXmlName = null;
         if(priceXls != null){
-            newXmlName = xlsService.uploadXml(priceXls, newProductData.getPriceUrl()).getBody();
+            newXmlName = xlsService.uploadXml(priceXls, newProductData, newProductData.getPriceUrl()).getBody();
             newProductData.setPriceUrl(newXmlName);
         }
 
@@ -120,7 +120,7 @@ public class ProductService {
         existingProduct.update(newProductData);
         Product updatedProduct = productRepository.save(existingProduct);
 
-        if(!newProductData.equals(updatedProduct)){
+        if(!existingProduct.equals(updatedProduct)){
             String notUpdated = messages.getString("entity.not.updated");
             String notUpdatedMessage = String.format(notUpdated, MODEL_NAME, existingProduct.getId());
             log.error("{} {}", notUpdatedMessage, LocalDateTime.now());

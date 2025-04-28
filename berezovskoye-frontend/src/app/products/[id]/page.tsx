@@ -29,7 +29,7 @@ export default function Page({params}: ProductPageProps) {
     }
 
     const onSave = (imgFile: File) => {
-        updateProductImage({id: id, imgFile: imgFile});
+        updateProductImage({id: id, existingProduct: product, imgFile: imgFile});
     }
 
     return (

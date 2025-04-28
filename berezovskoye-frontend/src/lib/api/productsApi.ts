@@ -12,14 +12,24 @@ export const productsApi = applicationApi.injectEndpoints({
         }),
         updateProduct: build.mutation<Product, {
             id: string,
+            existingProduct?: Product,
             imgFile?: File,
-            visible?: boolean,
             price?: File
         }>({
-            query: ({id, imgFile, visible, price}) => {
+            query: ({id, existingProduct, imgFile, price}) => {
                 const formData = new FormData();
 
-                const product = {visible: visible};
+                const product = existingProduct ? {
+                    visible: !existingProduct.visible,
+                    name: existingProduct.name,
+                    imgUrl: existingProduct.imgUrl,
+                    priceUrl: existingProduct.priceUrl,
+                } : {
+                    visible: false,
+                    name: null,
+                    imgUrl: null,
+                    priceUrl: null,
+                };
 
                 if (imgFile) formData.append('imgFile', imgFile);
                 if (price) formData.append('price', price);

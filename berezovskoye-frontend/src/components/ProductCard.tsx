@@ -16,7 +16,7 @@ export default function ProductCard({product, isAuthenticated}: ProductCardProps
     const [updateProductImage] = useUpdateProductMutation();
 
     const onToggleVisible = () => {
-        updateProductImage({id: product.id, visible: !product.visible});
+        updateProductImage({id: product.id, existingProduct: product});
     };
 
     return (
