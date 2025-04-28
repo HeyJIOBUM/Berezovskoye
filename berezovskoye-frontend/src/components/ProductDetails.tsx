@@ -8,11 +8,10 @@ import {getXlsUrl} from "@/lib/xls";
 
 interface ProductDetailsProps {
     product: Product;
-    onSave: (imgFile: File) => void;
     isAuthenticated: boolean;
 }
 
-export default function ProductDetails({product, onSave, isAuthenticated}: ProductDetailsProps) {
+export default function ProductDetails({product, isAuthenticated}: ProductDetailsProps) {
     const [imgFile, setImgFile] = useState<File | null>(null);
     const [updateProductImage] = useUpdateProductMutation();
 
@@ -51,7 +50,7 @@ export default function ProductDetails({product, onSave, isAuthenticated}: Produ
         const file = e.target.files?.[0];
         if (file) {
             setImgFile(file);
-            onSave(file);
+            updateProductImage({id: product.id, imgFile: file});
         }
     };
 
