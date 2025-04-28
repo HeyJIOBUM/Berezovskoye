@@ -24,10 +24,9 @@ public class SystemUserController {
     @PutMapping("/change-credentials")
     public ResponseEntity<String> changeCredentials(
             @AuthenticationPrincipal SystemUserPrincipal userDetails,
-            @RequestBody SystemUser newData){
-
+            @RequestBody SystemUser newData)
+    {
         return userService.changeCredentials(userDetails, newData);
 
     }
-
 }
