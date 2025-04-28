@@ -3,7 +3,7 @@
 import TextWithLines from "@/components/TextWithLines";
 import ProductDetails from "@/components/ProductDetails";
 import React, {use} from "react";
-import {useGetProductsQuery, useUpdateProductMutation} from "@/lib/api/productsApi";
+import {useGetProductsQuery} from "@/lib/api/productsApi";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import {notFound} from "next/navigation";
 import {useAuth} from "@/lib/hooks";
@@ -16,7 +16,6 @@ export default function Page({params}: ProductPageProps) {
     const {id} = use(params);
 
     const {data: products, error: productsError, isLoading: isProductsLoading} = useGetProductsQuery();
-    const [updateProductImage] = useUpdateProductMutation();
     const {isAuthenticated} = useAuth();
 
     if (productsError) throw productsError;
@@ -26,10 +25,6 @@ export default function Page({params}: ProductPageProps) {
     if (!isProductsLoading) {
         if (!product) notFound();
         if (product && !product.visible && !isAuthenticated) notFound();
-    }
-
-    const onSave = (imgFile: File) => {
-        updateProductImage({id: id, imgFile: imgFile});
     }
 
     return (
@@ -42,7 +37,6 @@ export default function Page({params}: ProductPageProps) {
                     product &&
                     <ProductDetails
                         product={product}
-                        onSave={onSave}
                         isAuthenticated={isAuthenticated}
                     />
             }
