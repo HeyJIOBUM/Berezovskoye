@@ -36,7 +36,6 @@ public class NewsController {
             //@RequestParam("news") String newsDataJson,
             @RequestPart("news") @Valid NewsProcessDto newsDto,
             @RequestPart(value = "imgFile", required = false) @Valid MultipartFile imgFile) throws IOException {
-        //System.out.println(newsDataJson);
         return newsService.addNews(NewsProcessDto.fromNewsDto(newsDto), imgFile);
     }
 
