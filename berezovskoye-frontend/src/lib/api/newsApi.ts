@@ -21,7 +21,7 @@ export const newsApi = applicationApi.injectEndpoints({
             query: ({news, imgFile}) => {
                 const formData = new FormData();
 
-                const newsBlob = new Blob([JSON.stringify(news)], { type: 'application/json' });
+                const newsBlob = new Blob([JSON.stringify(news)], {type: 'application/json'});
                 formData.append('news', newsBlob, 'news.json');
 
                 if (imgFile)
@@ -42,9 +42,7 @@ export const newsApi = applicationApi.injectEndpoints({
             query: ({id, news, imgFile}) => {
                 const formData = new FormData();
 
-                //formData.append('news', JSON.stringify(news));
-
-                const newsBlob = new Blob([JSON.stringify(news)], { type: 'application/json' });
+                const newsBlob = new Blob([JSON.stringify(news)], {type: 'application/json'});
                 formData.append('news', newsBlob, 'news.json');
 
                 if (imgFile)
