@@ -22,6 +22,7 @@ ENV IMAGES_URL=http://localhost:8080/image/
 ENV XLS_URL=http://localhost:8080/xls/
 ENV ADMIN_NAME=admin
 ENV ADMIN_PASSWORD=adminpass
+ENV SECRET_KEY=secretKey
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/*.jar"]

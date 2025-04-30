@@ -19,24 +19,11 @@ import java.util.function.Function;
 @Slf4j
 @Service
 public class JwtService {
-    private String secretKey;
-
     @Value("${token.lifetime.hours}")
     private int tokenLifetimeHours;
 
-    @Value("${key.generator.algorithm}")
-    private String keyGenAlgorithm;
-
-    @PostConstruct
-    public void init() {
-        try {
-            KeyGenerator keyGen = KeyGenerator.getInstance(keyGenAlgorithm);
-            SecretKey sk = keyGen.generateKey();
-            secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    @Value("${secret.key}")
+    private String secretKey;
 
     public String generateToken(String username) {
         Calendar calendar = Calendar.getInstance();
