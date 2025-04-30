@@ -5,10 +5,15 @@ import {HeaderItem, HeaderItems} from '@/items/HeaderItems';
 import Link from 'next/link';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {redirect, RedirectType} from "next/navigation";
+import {useAuth} from "@/lib/hooks";
+import {deleteAuthCookie} from "@/lib/cookieUtils";
 
 export default function Header() {
     const headerItems = HeaderItems();
     const width = 150;
+
+    const {isAuthenticated} = useAuth();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
@@ -34,7 +39,15 @@ export default function Header() {
         e.preventDefault();
         if (e.ctrlKey) {
             closeMenu();
-            redirect('/admin', RedirectType.push);
+            if (!isAuthenticated)
+                redirect('/admin', RedirectType.push);
+            else {
+                deleteAuthCookie().then(
+                    redirect("/products")
+                );
+            }
+        } else {
+            redirect('/products', RedirectType.push);
         }
     }
 
@@ -59,7 +72,7 @@ export default function Header() {
             <header className="sticky top-0 z-50 flex h-[50px] items-center justify-between bg-back-bars px-4 sm:px-8">
                 <div
                     onClick={handleClickOnLogo}
-                    className="select-none"
+                    className="cursor-pointer select-none"
                 >
                     <Image
                         alt={"logo"}

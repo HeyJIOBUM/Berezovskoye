@@ -14,13 +14,13 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
     return (
         <html lang="en">
         <body className={`${montserrat.className} flex min-h-screen flex-col overflow-x-hidden`}>
-        <Header/>
         <StoreProvider>
+            <Header/>
             <div className="flex w-full grow justify-center">
                 {children}
             </div>
+            <Footer/>
         </StoreProvider>
-        <Footer/>
         </body>
         </html>
     );
