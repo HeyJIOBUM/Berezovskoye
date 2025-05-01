@@ -13,10 +13,10 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({product, isAuthenticated}: ProductDetailsProps) {
     const [imgFile, setImgFile] = useState<File | null>(null);
-    const [updateProductImage] = useUpdateProductMutation();
+    const [updateProduct] = useUpdateProductMutation();
 
     const onToggleVisible = () => {
-        updateProductImage({id: product.id, existingProduct: product});
+        updateProduct({id: product.id, existingProduct: product, visible: !product.visible});
     };
 
     const onDownloadPrice = () => {
@@ -38,7 +38,7 @@ export default function ProductDetails({product, isAuthenticated}: ProductDetail
         const file = e.target.files?.[0];
         if (file) {
             console.log(product);
-            updateProductImage({id: product.id, existingProduct: product, price: file});
+            updateProduct({id: product.id, existingProduct: product, price: file});
         }
     };
 
@@ -50,7 +50,7 @@ export default function ProductDetails({product, isAuthenticated}: ProductDetail
         const file = e.target.files?.[0];
         if (file) {
             setImgFile(file);
-            updateProductImage({id: product.id, imgFile: file});
+            updateProduct({id: product.id, existingProduct: product, imgFile: file});
         }
     };
 

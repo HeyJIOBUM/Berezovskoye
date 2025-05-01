@@ -1,7 +1,16 @@
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
+WORKDIR /build
+COPY pom.xml .
+
+RUN mvn dependency:go-offline
+
+COPY src ./src
+RUN mvn package -DskipTests
+
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-COPY target/berezovskoye-0.0.1-SNAPSHOT.jar app.jar
+COPY target/*.jar app.jar
 
 ENV DB_HOST=localhost
 ENV DB_PORT=5432
@@ -13,6 +22,7 @@ ENV IMAGES_URL=http://localhost:8080/image/
 ENV XLS_URL=http://localhost:8080/xls/
 ENV ADMIN_NAME=admin
 ENV ADMIN_PASSWORD=adminpass
+ENV SECRET_KEY=secretKey
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/*.jar"]

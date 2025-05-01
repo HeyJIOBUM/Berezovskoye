@@ -24,7 +24,7 @@ export default function Page() {
             dispatch(logIn());
             redirect('/news', RedirectType.push);
         } else {
-            setError(result.error || "Произошла ошибка при авторизации");
+            setError("Произошла ошибка при авторизации");
             setTimeout(() => {
                 setError(null);
             }, 5000);

@@ -12,30 +12,24 @@ export const productsApi = applicationApi.injectEndpoints({
         }),
         updateProduct: build.mutation<Product, {
             id: string,
-            existingProduct?: Product,
+            existingProduct: Product,
             imgFile?: File,
-            price?: File
+            price?: File,
+            visible?: boolean,
         }>({
-            query: ({id, existingProduct, imgFile, price}) => {
+            query: ({id, existingProduct, imgFile, price, visible}) => {
                 const formData = new FormData();
 
-                const product = existingProduct ? {
-                    visible: !existingProduct.visible,
-                    name: existingProduct.name,
+                const product = {
                     imgUrl: existingProduct.imgUrl,
                     priceUrl: existingProduct.priceUrl,
-                } : {
-                    visible: false,
-                    name: null,
-                    imgUrl: null,
-                    priceUrl: null,
-                };
+                    visible: visible || false,
+                }
 
                 if (imgFile) formData.append('imgFile', imgFile);
                 if (price) formData.append('price', price);
 
-                formData.append('product', new Blob([JSON.stringify(product)], { type: 'application/json' }));
-                //if (visible) formData.append('visible', String(visible));
+                formData.append('product', new Blob([JSON.stringify(product)], {type: 'application/json'}));
 
                 return {
                     url: `/products/${id}`,

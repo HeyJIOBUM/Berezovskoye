@@ -38,9 +38,6 @@ public class ProductController {
     @PatchMapping("/{id}")
     public ResponseEntity<ProductProcessDto> updateProduct(
             @PathVariable String id,
-//            @RequestParam("imgFile") MultipartFile image,
-//            @RequestParam("price") MultipartFile priceXls,
-//            @RequestParam String newProductDataJson,
             @RequestPart(value = "imgFile", required = false) @Valid MultipartFile image,
             @RequestPart(value = "price", required = false) @Valid MultipartFile priceXls,
             @RequestPart("product") @Valid String newProductDataJson) throws IOException {

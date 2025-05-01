@@ -13,10 +13,10 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({product, isAuthenticated}: ProductCardProps) {
-    const [updateProductImage] = useUpdateProductMutation();
+    const [updateProduct] = useUpdateProductMutation();
 
     const onToggleVisible = () => {
-        updateProductImage({id: product.id, existingProduct: product});
+        updateProduct({id: product.id, existingProduct: product, visible: !product.visible});
     };
 
     return (
