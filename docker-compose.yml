@@ -48,11 +48,12 @@ services:
     build: 
       context: ./postgres
       dockerfile: Dockerfile
+    env_file: ".env"
     ports:
       - "5432:5432"
     volumes:
-      - ./db-data:/var/lib/postgresql/data
-      - ./db-data-backups:/wal-g-backups
+      - ./db-data:${PGDATA}
+      - .${COMPOSE_VOLUME_WALG_FILE_PREFIX}:${WALG_FILE_PREFIX} # if WALG_FILE_PREFIX is set, otherwise comment this line
 
   adminer:
     build:

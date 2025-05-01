@@ -5,11 +5,6 @@ RUN wget https://github.com/wal-g/wal-g/releases/download/v3.0.5/wal-g-pg-ubuntu
 
 FROM postgres:17.3
 
-ENV POSTGRES_DB=berezovskoye_database
-ENV POSTGRES_USER=user
-ENV POSTGRES_PASSWORD=password
-ENV PGDATA=/var/lib/postgresql/data
-
 # Doesn't work, but good ref for changes in postgresql.conf
 # RUN echo "wal_level=replica" >> /var/lib/postgresql/data/postgresql.conf \
 #     && echo "archive_mode=on" >> /var/lib/postgresql/data/postgresql.conf \
@@ -18,12 +13,6 @@ ENV PGDATA=/var/lib/postgresql/data
 #     && echo "restore_command='/usr/local/bin/wal-g wal-fetch \"%f\" \"%p\" >> /var/log/postgresql/restore_command.log 2>&1' " >> /var/lib/postgresql/data/postgresql.conf
 # Instead:
 COPY ./postgresql.conf /etc/postgresql/postgresql.conf
-
-ENV PGHOST=/var/run/postgresql
-#ENV PGPORT=5432
-ENV PGUSER=user
-ENV PGPASSWORD=password
-ENV PGDATABASE=berezovskoye_database
 
 # supervisor for cron and postgresql launch
 RUN apt-get update && \
@@ -35,16 +24,6 @@ COPY postgres_cron.ini /etc/supervisor.d/postgres_cron.ini
 
 COPY ./cron_backup.conf /etc/cron.d/postgres_backup
 RUN chmod 0644 /etc/cron.d/postgres_backup
-
-
-ENV WALG_FILE_PREFIX=/wal-g-backups
-#ENV WALG_SSH_PREFIX=
-#ENV SSH_PORT=
-#ENV SSH_USERNAME=
-#ENV SSH_PASSWORD=
-#ENV SSH_PRIVATE_KEY_PATH=
-
-ENV WALG_COMPRESSION_METHOD=brotli
 
 #COPY ./wal-g-pg-ubuntu-22.04-amd64.tar.gz /wal-g-pg-ubuntu-22.04-amd64.tar.gz
 COPY --from=downloader /downloads/wal-g-pg-ubuntu-22.04-amd64.tar.gz /wal-g-pg-ubuntu-22.04-amd64.tar.gz
