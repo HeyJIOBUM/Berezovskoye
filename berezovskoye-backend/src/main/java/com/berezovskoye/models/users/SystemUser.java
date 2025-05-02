@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "\"superusers\"")
 public class SystemUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

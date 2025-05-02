@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
+    container_name: elastic_spring
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -11,23 +12,21 @@ services:
       - "9200:9200"
     volumes:
       - elastic_data:/usr/share/elasticsearch/data
-    networks:
-      - elastic
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.17.2
+    image: docker.elastic.co/kibana/kibana:8.3.3
+    container_name: kibana_spring
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
     ports:
       - "5601:5601"
-    networks:
-      - elastic
     depends_on:
       - elasticsearch
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:8.17.2
+    image: docker.elastic.co/logstash/logstash:8.3.3
+    container_name: logstash_spring
     environment:
       LS_JAVA_OPTS: "-Xms256m -Xmx256m"
     ports:
@@ -38,8 +37,6 @@ services:
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
-    networks:
-      - elastic
     depends_on:
       - elasticsearch
 
@@ -54,6 +51,11 @@ services:
     volumes:
       - ./db-data:${PGDATA}
       - .${COMPOSE_VOLUME_WALG_FILE_PREFIX}:${WALG_FILE_PREFIX} # if WALG_FILE_PREFIX is set, otherwise comment this line
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   adminer:
     build:
@@ -71,8 +73,11 @@ services:
     # ports:
     #   - "8080:8080"
     depends_on:
-      - logstash
-      - postgres
+      logstash:
+        condition: service_started 
+      postgres:
+        condition: service_healthy
+    env_file: .env
 
   nextjs:
     build:
@@ -92,12 +97,6 @@ services:
       - nextjs
       - spring
       - adminer
-
-networks:
-  elastic:
-    driver: bridge
-  monitoring:
-
 
 volumes:
   elastic_data:

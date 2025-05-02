@@ -31,9 +31,9 @@ public class SystemUserService {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
-    @Value("${user.name}")
+    @Value("${system.user.name}")
     private String adminName;
-    @Value("${user.password}")
+    @Value("${system.user.password}")
     private String adminPassword;
 
     @Autowired
