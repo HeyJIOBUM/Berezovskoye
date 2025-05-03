@@ -1,5 +1,5 @@
 export interface News {
-    id: number;
+    readonly id: number;
     title: string;
     text: string;
     imgUrl: string;
@@ -7,7 +7,8 @@ export interface News {
 }
 
 export interface Product {
-    id: string;
+    readonly id: string;
+    readonly version: number;
     visible: boolean;
     name: string;
     description: string;

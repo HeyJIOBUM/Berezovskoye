@@ -20,16 +20,18 @@ export const productsApi = applicationApi.injectEndpoints({
             query: ({id, existingProduct, imgFile, price, visible}) => {
                 const formData = new FormData();
 
+                if (imgFile) formData.append('imgFile', imgFile);
+                if (price) formData.append('price', price);
+
                 const product = {
+                    version: existingProduct.version,
                     imgUrl: existingProduct.imgUrl,
                     priceUrl: existingProduct.priceUrl,
                     visible: visible || false,
                 }
 
-                if (imgFile) formData.append('imgFile', imgFile);
-                if (price) formData.append('price', price);
-
-                formData.append('product', new Blob([JSON.stringify(product)], {type: 'application/json'}));
+                const productBlobs = new Blob([JSON.stringify(product)], {type: 'application/json'});
+                formData.append('product', productBlobs, 'product.json');
 
                 return {
                     url: `/products/${id}`,
