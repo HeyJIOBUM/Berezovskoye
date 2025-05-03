@@ -8,7 +8,7 @@ export async function setAuthCookie(jwt: string) {
     cookieStore.set({
         name: 'jwt',
         value: jwt,
-        maxAge: 60,
+        maxAge: 600,
         httpOnly: true,
         path: '/',
     })
@@ -30,7 +30,7 @@ export async function checkAuthCookie(): Promise<boolean> {
     const jwt = jwtCookie.value;
 
     try {
-        const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
+        const secret = Buffer.from(process.env.SECRET_KEY!, 'base64');
         const {payload} = await jwtVerify(jwt, secret);
 
         if (payload.exp) {
