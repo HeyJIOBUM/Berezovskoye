@@ -1,11 +1,13 @@
 package com.berezovskoye.models.product;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,9 +24,10 @@ public class Product {
 
     private boolean isVisible;
 
+    @Column(columnDefinition = "TEXT")
     private String name;
 
-    @Column(length = 2000)
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     private String imgUrl;
@@ -49,7 +52,7 @@ public class Product {
                 Objects.equals(priceUrl, product.priceUrl);
     }
 
-    public Product update(Product newProductData){
+    public Product update(Product newProductData) {
         Optional.of(newProductData.isVisible()).ifPresent(this::setVisible);
         Optional.ofNullable(newProductData.getName()).ifPresent(this::setName);
         Optional.ofNullable(newProductData.getDescription()).ifPresent(this::setDescription);

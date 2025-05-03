@@ -19,8 +19,10 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(columnDefinition = "TEXT")
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String text;
 
     private String imgUrl;
@@ -35,7 +37,7 @@ public class News {
         return Objects.equals(title, news.title) && Objects.equals(text, news.text) && Objects.equals(imgUrl, news.imgUrl) && Objects.equals(postingDate, news.postingDate);
     }
 
-    public News update(News newNewsData){
+    public News update(News newNewsData) {
         Optional.ofNullable(newNewsData.getTitle()).ifPresent(this::setTitle);
         Optional.ofNullable(newNewsData.getText()).ifPresent(this::setText);
         Optional.ofNullable(newNewsData.getImgUrl()).ifPresent(this::setImgUrl);
