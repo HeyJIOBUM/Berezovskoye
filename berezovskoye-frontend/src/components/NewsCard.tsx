@@ -27,6 +27,7 @@ export default function NewsCard({news, isAuthenticated}: NewsCardProps) {
                     fill={true}
                     style={{objectFit: "cover"}}
                     alt="News Image"
+                    unoptimized
                 />
                 <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1">
                     <div className="text-base font-bold text-white">

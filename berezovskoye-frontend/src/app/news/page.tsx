@@ -35,6 +35,7 @@ export default function Page() {
                                     height={190}
                                     src={"/add.svg"}
                                     alt={"Добавить"}
+                                    unoptimized
                                 />
                             </Link>
                         }

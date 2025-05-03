@@ -35,7 +35,7 @@ export default function NewsDetails({news, onSave, onCancel, isEditing: initialE
         title: news?.title || "Пример заголовка",
         text: news?.text || "Пример текста",
         postingDate: news?.postingDate || convertFromDateInputToDisplayFormat(todayInDateInputFormat),
-        imgUrl: news?.imgUrl || "/placeholder.svg",
+        imgUrl: news?.imgUrl || "",
         imgFile: null,
     };
 
@@ -133,6 +133,7 @@ export default function NewsDetails({news, onSave, onCancel, isEditing: initialE
                             style={{objectFit: "cover"}}
                             alt="News Image"
                             className="select-none"
+                            unoptimized
                         />
                         :
                         <Image

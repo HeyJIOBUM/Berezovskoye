@@ -29,6 +29,7 @@ export default function ProductCard({product, isAuthenticated}: ProductCardProps
                     fill={true}
                     style={{objectFit: "contain"}}
                     alt="Product Image"
+                    unoptimized
                 />
             </div>
             <div className="flex size-full flex-col justify-between gap-1 break-words">

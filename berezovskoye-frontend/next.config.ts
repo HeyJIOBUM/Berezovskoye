@@ -1,15 +1,16 @@
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  images: {
-    domains: ['localhost'],
-  },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '10mb',
+    output: "standalone",
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                pathname: '**',
+            }
+        ],
     },
-  },
 };
 
 export default nextConfig;

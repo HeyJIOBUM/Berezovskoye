@@ -70,6 +70,7 @@ export default function ProductDetails({product, isAuthenticated}: ProductDetail
                                         style={{objectFit: "cover"}}
                                         alt="Product Image"
                                         className="select-none"
+                                        unoptimized
                                     />
                                     :
                                     <Image
