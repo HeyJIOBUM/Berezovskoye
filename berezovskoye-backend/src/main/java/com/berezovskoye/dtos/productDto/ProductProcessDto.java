@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class ProductProcessDto {
+    private Integer version = 0;
     private String name;
     private boolean isVisible;
     private String description;
@@ -21,6 +22,7 @@ public class ProductProcessDto {
 
         ProductProcessDto dto = new ProductProcessDto();
 
+        dto.setVersion(product.getVersion());
         dto.setVisible(product.isVisible());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
@@ -36,6 +38,7 @@ public class ProductProcessDto {
 
         Product product = new Product();
 
+        product.setVersion(productDto.getVersion());
         product.setVisible(productDto.isVisible());
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
