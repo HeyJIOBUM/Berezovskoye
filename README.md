@@ -18,13 +18,13 @@ It is built for easy deployment using Docker Compose.
 
 ```
 .
-├── docker-compose.yml              # Orchestration file
-├── .env                            # Environment variables
-├── adminerneo/                     # Adminer GUI (custom)
-├── berezovskoye-backend/          # Spring Boot backend (Java + Maven)
-├── nextjs/                         # Frontend (React + Next.js)
+├── docker-compose.yml                 # Orchestration file
+├── .env                               # Environment variables
+├── adminerneo/                        # Adminer GUI (custom)
+├── berezovskoye-backend/              # Spring Boot backend (Java + Maven)
+├── berezovskoye-frontend              # Frontend (React + Next.js)
 ├── logstash/, elasticsearch/, kibana/ # ELK stack
-├── nginx/                          # NGINX configuration
+├── nginx/                             # NGINX configuration
 ```
 
 ---
