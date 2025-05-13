@@ -17,3 +17,11 @@ export interface Product {
     packagingType: string;
     price: string;
 }
+
+export interface FeedbackForm {
+    fullName: string;
+    email: string;
+    phone: string;
+    address: string;
+    message: string;
+}

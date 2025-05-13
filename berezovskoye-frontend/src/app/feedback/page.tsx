@@ -3,13 +3,26 @@
 import TextWithLines from "@/components/TextWithLines";
 import TextareaAutosize from 'react-textarea-autosize';
 import React from "react";
+import {sendFeedback} from "@/lib/email";
 
 export default function Page() {
-    const onRequestSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        console.log("Request Submitted");
-    }
+    const onRequestSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+
+        const formValues = {
+            fullName: formData.get('fullName') as string,
+            email: formData.get('email') as string,
+            phone: formData.get('phone') as string,
+            address: formData.get('address') as string,
+            message: formData.get('message') as string
+        };
+
+        sendFeedback(formValues);
+        form.reset();
+    }
     return (
         <div className="small-container">
             <TextWithLines text="Обратная связь"/>

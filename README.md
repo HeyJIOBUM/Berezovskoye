@@ -47,7 +47,14 @@ ADMIN_NAME=
 ADMIN_PASSWORD=
 
 SECRET_KEY=
+
+EMAIL_FROM=
+EMAIL_SERVICE=
+EMAIL_USER=
+EMAIL_PASSWORD=
 ```
+
+To get EMAIL_PASSWORD for gmail you should generate app passwords.
 
 ---
 
