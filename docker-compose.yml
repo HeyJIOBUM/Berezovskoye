@@ -3,6 +3,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
     container_name: elastic_spring
+    restart: unless-stopped
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -16,6 +17,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:8.3.3
     container_name: kibana_spring
+    restart: unless-stopped
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
@@ -27,6 +29,7 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:8.3.3
     container_name: logstash_spring
+    restart: unless-stopped
     environment:
       LS_JAVA_OPTS: "-Xms256m -Xmx256m"
     ports:
@@ -41,7 +44,7 @@ services:
       - elasticsearch
 
   postgres:
-    #entrypoint: ["sleep", "infinity"]
+    restart: unless-stopped
     build:
       context: ./postgres
       dockerfile: Dockerfile
@@ -58,20 +61,18 @@ services:
       retries: 10
 
   adminer:
+    restart: unless-stopped
     build:
       context: ./adminerneo
       dockerfile: Dockerfile
       args:
         PASSWORD: ${ADMINER_PASSWORD}
-    #ports:
-    #  - 8081:8081
 
   spring:
+    restart: unless-stopped
     build:
       context: ./berezovskoye-backend/
       dockerfile: Dockerfile
-    # ports:
-    #   - "8080:8080"
     depends_on:
       logstash:
         condition: service_started
@@ -80,14 +81,14 @@ services:
     env_file: .env
 
   nextjs:
+    restart: unless-stopped
     build:
       context: ./berezovskoye-frontend/
       dockerfile: Dockerfile
-    # ports:
-    #   - 3000:3000
     env_file: .env
 
   nginx-reverse-proxy:
+    restart: unless-stopped
     build:
       context: ./nginx-reverse-proxy/
       dockerfile: Dockerfile
